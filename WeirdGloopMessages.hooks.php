@@ -190,7 +190,8 @@ class WeirdGloopMessagesHooks {
 		if ( $wglProtectSiteInterface === true
 			&& $title->inNamespace( NS_MEDIAWIKI )
 			&& startsWith( lcfirst( $title->getDBKey() ), 'weirdgloop-' )
-			&& !$user->isAllowed( 'editinterfacesite' ) ) {
+			&& !$user->isAllowed( 'editinterfacesite' )
+			&& $action !== 'view' ) {
 				$result = 'weirdgloop-siteinterface'
 				return false;
 		}
