@@ -28,6 +28,8 @@ class WeirdGloopMessagesHooks {
 
 		if ( in_array( $lcKey, $keys, true ) ) {
 			$transformedKey = "weirdgloop-$lcKey";
+		} else {
+			return true;
 		}
 
 		// MessageCache uses ucfirst if ord( key ) is < 128, which is true of all
