@@ -32,9 +32,6 @@
 		"SkinCopyrightFooter": [
 			"WeirdGloopMessagesHooks::onSkinCopyrightFooter"
 		],
-		"EditPageCopyrightWarning": [
-			"WeirdGloopMessagesHooks::onEditPageCopyrightWarning"
-		],
 		"SkinTemplateOutputPageBeforeExec": [
 			"WeirdGloopMessagesHooks::onSkinTemplateOutputPageBeforeExec"
 		],

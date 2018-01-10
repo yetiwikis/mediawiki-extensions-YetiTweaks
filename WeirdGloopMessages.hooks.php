@@ -57,8 +57,7 @@ class WeirdGloopMessagesHooks {
 	}
 
 	/**
-	 * Override with Weird Gloop's site-specific copyright message defaults with the CC/GFDL
-	 * semi-dual license fun!
+	 * Override with Weird Gloop's site-specific copyright message.
 	 *
 	 * @param Title $title
 	 * @param string $type
@@ -68,31 +67,8 @@ class WeirdGloopMessagesHooks {
 	 * @return bool
 	 */
 	public static function onSkinCopyrightFooter( $title, $type, &$msg, &$link ) {
-		global $wgRightsUrl;
-
-		if ( strpos( $wgRightsUrl, 'creativecommons.org/licenses/by-sa/3.0' ) !== false ) {
-			if ( $type !== 'history' ) {
-				global $wgDBname;
-				$msg = 'weirdgloop-copyright'; // the default;
-			}
-		}
-
-		return true;
-	}
-
-	/**
-	 * Override with Weird Gloop's site-specific copyright message.
-	 *
-	 * @param Title $title
-	 * @param string &$msg
-	 *
-	 * @return bool
-	 */
-	public static function onEditPageCopyrightWarning( $title, &$msg ) {
-		global $wgRightsUrl;
-
-		if ( strpos( $wgRightsUrl, 'creativecommons.org/licenses/by-sa/4.0' ) !== false ) {
-			$msg = [ 'weirdgloop-copyrightwarning' ];
+		if ( $type !== 'history' ) {
+			$msg = 'weirdgloop-copyright';
 		}
 
 		return true;
