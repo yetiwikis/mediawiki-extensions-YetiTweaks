@@ -191,7 +191,7 @@ class WeirdGloopMessagesHooks {
 			&& $title->inNamespace( NS_MEDIAWIKI )
 			&& strpos( lcfirst( $title->getDBKey() ), 'weirdgloop-' ) === 0
 			&& !$user->isAllowed( 'editinterfacesite' )
-			&& $action !== 'view' ) {
+			&& $action !== 'read' ) {
 				$result = 'weirdgloop-siteinterface';
 				return false;
 		}
