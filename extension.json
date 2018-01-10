@@ -1,113 +1,62 @@
 {
-	"name": "WikimediaMessages",
+	"name": "WeirdGloopMessages",
 	"author": [
+		"Jayden Bailey",
 		"Tim Starling",
 		"Siebrand Mazeland",
 		"James D. Forrester",
 		"Multichill"
 	],
-	"url": "https://www.mediawiki.org/wiki/Extension:WikimediaMessages",
-	"descriptionmsg": "wikimediamessages-desc",
+	"url": "https://weirdgloop.org",
+	"descriptionmsg": "weirdgloopmessages-desc",
 	"license-name": "GPL-2.0+",
 	"type": "other",
 	"MessagesDirs": {
-		"WikimediaContactPageMessages": [
-			"i18n/contactpage"
+		"WeirdGloopMessages": [
+			"i18n/weirdgloop"
 		],
-		"WikimediaMessages": [
-			"i18n/wikimedia"
+		"WeirdGloopOverrides": [
+			"i18n/weirdgloopoverrides"
 		],
-		"WikimediaInterwikiSearchResultsMessages": [
-			"i18n/wikimediainterwikisearchresults"
-		],
-		"WikimediaTemporaryMessages": [
+		"WeirdGloopTemporaryMessages": [
 			"i18n/temporary"
-		],
-		"WikimediaOverrideMessages": [
-			"i18n/wikimediaoverrides"
-		],
-		"WikimediaOverrideMessagesNoTranslate": [
-			"i18n/wikimediaoverridesnotranslate"
-		],
-		"WikimediaLocalizedProjectNames": [
-			"i18n/wikimediaprojectnames"
-		],
-		"WikimediaLicenseTexts": [
-			"i18n/licensetexts"
-		],
-		"WikimediaCCLicenseTexts": [
-			"i18n/cclicensetexts"
-		],
-		"WikimediaCodeOfConduct": [
-			"i18n/codeofconduct"
-		],
-		"WikitechMessages": [
-			"i18n/wikitech"
 		]
 	},
 	"AutoloadClasses": {
-		"WikimediaMessagesHooks": "WikimediaMessages.hooks.php"
+		"WeirdGloopMessagesHooks": "WeirdGloopMessages.hooks.php"
 	},
 	"ResourceModules": {
-		"ext.wikimediamessages.contactpage.affcomusergroup": {
-			"position": "top",
-			"styles": "ext.wikimediamessages.contactpage.affcomusergroup.css"
-		}
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "modules",
-		"remoteExtPath": "WikimediaMessages/modules"
+		"remoteExtPath": "WeirdGloopMessages/modules"
 	},
-	"callback": "WikimediaMessagesHooks::onRegistration",
+	"callback": "WeirdGloopMessagesHooks::onRegistration",
 	"Hooks": {
 		"MessageCache::get": [
-			"WikimediaMessagesHooks::onMessageCacheGet"
+			"WeirdGloopMessagesHooks::onMessageCacheGet"
 		],
 		"SkinCopyrightFooter": [
-			"WikimediaMessagesHooks::onSkinCopyrightFooter"
+			"WeirdGloopMessagesHooks::onSkinCopyrightFooter"
 		],
 		"EditPageCopyrightWarning": [
-			"WikimediaMessagesHooks::onEditPageCopyrightWarning"
-		],
-		"MobileLicenseLink": [
-			"WikimediaMessagesHooks::onMobileLicenseLink"
+			"WeirdGloopMessagesHooks::onEditPageCopyrightWarning"
 		],
 		"SkinTemplateOutputPageBeforeExec": [
-			"WikimediaMessagesHooks::onSkinTemplateOutputPageBeforeExec"
+			"WeirdGloopMessagesHooks::onSkinTemplateOutputPageBeforeExec"
 		],
 		"TorBlockBlockedMsg": [
-			"WikimediaMessagesHooks::onTorBlockBlockedMsg"
+			"WeirdGloopMessagesHooks::onTorBlockBlockedMsg"
 		],
 		"GlobalBlockingBlockedIpMsg": [
-			"WikimediaMessagesHooks::onGlobalBlockingBlockedIpMsg"
+			"WeirdGloopMessagesHooks::onGlobalBlockingBlockedIpMsg"
 		],
 		"GlobalBlockingBlockedIpXffMsg": [
-			"WikimediaMessagesHooks::onGlobalBlockingBlockedIpXffMsg"
-		],
-		"MinervaPreRender": [
-			"WikimediaMessagesHooks::onMinervaPreRender"
+			"WeirdGloopMessagesHooks::onGlobalBlockingBlockedIpXffMsg"
 		],
 		"UploadForm:initial": [
-			"WikimediaMessagesHooks::onUploadFormInitial"
-		],
-		"GetBetaFeaturePreferences": [
-			"WikimediaMessagesHooks::getBetaFeaturePreferences"
-		],
-		"ChangesListSpecialPageStructuredFilters": [
-			"WikimediaMessagesHooks::onChangesListSpecialPageStructuredFilters"
-		],
-		"ResourceLoaderRegisterModules": [
-			"WikimediaMessagesHooks::onResourceLoaderRegisterModules"
-		],
-		"GetPreferences": [
-			"WikimediaMessagesHooks::onGetPreferences"
+			"WeirdGloopMessagesHooks::onUploadFormInitial"
 		]
-	},
-	"config": {
-		"EnableRcFiltersBetaFeature": false
-	},
-	"DefaultUserOptions": {
-		"rcenhancedfilters-seen-highlight-button-counter": 0
 	},
 	"manifest_version": 1
 }
