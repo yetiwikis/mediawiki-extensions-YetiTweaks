@@ -81,8 +81,7 @@ class WeirdGloopMessagesHooks {
 	}
 
 	/**
-	 * Override with Weird Gloop's site-specific copyright message defaults with the CC/GFDL
-	 * semi-dual license fun!
+	 * Override with Weird Gloop's site-specific copyright message.
 	 *
 	 * @param Title $title
 	 * @param string &$msg
@@ -92,7 +91,7 @@ class WeirdGloopMessagesHooks {
 	public static function onEditPageCopyrightWarning( $title, &$msg ) {
 		global $wgRightsUrl;
 
-		if ( strpos( $wgRightsUrl, 'creativecommons.org/licenses/by-sa/3.0' ) !== false ) {
+		if ( strpos( $wgRightsUrl, 'creativecommons.org/licenses/by-sa/4.0' ) !== false ) {
 			$msg = [ 'weirdgloop-copyrightwarning' ];
 		}
 
@@ -175,4 +174,28 @@ class WeirdGloopMessagesHooks {
 		}
 		return true;
 	}
+
+	/**
+	 * Protect Weird Gloop system messages from being edited by those that do not have
+	 * the "editinterfacesite" right. This is because system messages that are prefixed
+	 * with "weirdgloop" are probably there for a legal reason or to ensure consistency
+	 * across the site.
+	 * 
+	 * @return str
+	 * @return bool
+	 */
+	public static function ongetUserPermissionsErrors( $title, $user, $action, &$result ) {
+		global $wglProtectSiteInterface;
+
+		if ( $wglProtectSiteInterface === true
+			&& $title->inNamespace( NS_MEDIAWIKI )
+			&& startsWith( lcfirst( $title->getDBKey() ), 'weirdgloop-' )
+			&& !$user->isAllowed( 'editinterfacesite' ) ) {
+				$result = 'weirdgloop-siteinterface'
+				return false;
+		}
+
+		return true;
+	}
+
 }

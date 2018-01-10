@@ -8,5 +8,6 @@
     "weirdgloop-torblock-blocked": "Your IP address, <strong>$1</strong>, has been identified as a Tor exit node.\nEditing through Tor is blocked to prevent abuse.\nIf you believe this is incorrect, you can contact an admin using [[Special:Contact]].",
     "weirdgloop-tou": "Terms of Use",
     "weirdgloop-tou-url": "https://weirdgloop.org/terms",
-	"weirdgloop-copyrightwarning": "By saving changes, you agree to the [https://weirdgloop.org/terms Terms of Use], and you irrevocably agree to release your contribution under the $2 (see $1).\nFor testing, please use the [[Project:Sandbox]]."
+    "weirdgloop-copyrightwarning": "By saving changes, you agree to the [https://weirdgloop.org/terms Terms of Use], and you irrevocably agree to release your contribution under the $2 (see $1).\nFor testing, please use the [[Project:Sandbox]].",
+    "weirdgloop-siteinterface": "You cannot perform this action to a global interface page. For help, [[Special:Contact|contact a system administrator]]."
 }

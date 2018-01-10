@@ -49,6 +49,9 @@
 		],
 		"UploadForm:initial": [
 			"WeirdGloopMessagesHooks::onUploadFormInitial"
+		],
+		"getUserPermissionsErrors": [
+			"WeirdGloopMessagesHooks::ongetUserPermissionsErrors"
 		]
 	},
 	"manifest_version": 1
