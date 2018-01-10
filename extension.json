@@ -25,13 +25,6 @@
 	"AutoloadClasses": {
 		"WeirdGloopMessagesHooks": "WeirdGloopMessages.hooks.php"
 	},
-	"ResourceModules": {
-	},
-	"ResourceFileModulePaths": {
-		"localBasePath": "modules",
-		"remoteExtPath": "WeirdGloopMessages/modules"
-	},
-	"callback": "WeirdGloopMessagesHooks::onRegistration",
 	"Hooks": {
 		"MessageCache::get": [
 			"WeirdGloopMessagesHooks::onMessageCacheGet"
