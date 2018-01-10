@@ -9,5 +9,17 @@
     "weirdgloop-tou": "Terms of Use",
     "weirdgloop-tou-url": "https://weirdgloop.org/terms",
     "weirdgloop-copyrightwarning": "By saving changes, you agree to the [https://weirdgloop.org/terms Terms of Use], and you irrevocably agree to release your contribution under the $2 (see $1).\nFor testing, please use the [[Project:Sandbox]].",
-    "weirdgloop-siteinterface": "You cannot perform this action to a global interface page. For help, [[Special:Contact|contact a system administrator]]."
+    "weirdgloop-siteinterface": "You cannot perform this action to a global interface page. If this page needs to be edited or for help, [[Special:Contact|contact a system administrator]].",
+    "right-sysadmin": "Access to administrative tools across the network",
+    "right-editinterfacesite": "Edit the global site interface",
+    "collapsible-collapse": "hide",
+    "collapsible-expand": "show",
+    "specialloguserlabel": "User:",
+    "talkpageheader": "",
+    "translateinterface": "",
+    "unprotectedarticle": "unprotected \"[[$1]]\"",
+    "wikieditor-wikitext-tab": "Text",
+    "addsection": "New section",
+    "mainpage-nstab": "Main Page",
+    "talk": "Talk"
 }
