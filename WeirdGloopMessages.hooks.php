@@ -192,7 +192,7 @@ class WeirdGloopMessagesHooks {
 			&& startsWith( lcfirst( $title->getDBKey() ), 'weirdgloop-' )
 			&& !$user->isAllowed( 'editinterfacesite' )
 			&& $action !== 'view' ) {
-				$result = 'weirdgloop-siteinterface'
+				$result = 'weirdgloop-siteinterface';
 				return false;
 		}
 
