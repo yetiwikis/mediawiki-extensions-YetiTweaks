@@ -11,5 +11,7 @@
     "weirdgloop-siteinterface": "You cannot perform this action to a global interface page. If this page needs to be edited or for help, [[Special:Contact|contact a system administrator]].",
     "right-sysadmin": "Access to administrative tools across the network",
     "right-editinterfacesite": "Edit the global site interface",
-    "group-sysadmin": "System Admins"
+    "group-sysadmin": "Sysadmin",
+    "group-jagex": "Jagex",
+    "right-jagex": "Verified employee of Jagex Ltd"
 }
