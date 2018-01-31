@@ -23,7 +23,8 @@ class WeirdGloopMessagesHooks {
 		global $wgLanguageCode;
 
 		static $keys = [
-			'privacypage'
+			'privacypage',
+			'changecontentmodel-text'
 		];
 
 		if ( in_array( $lcKey, $keys, true ) ) {
