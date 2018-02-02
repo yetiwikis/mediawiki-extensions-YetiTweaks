@@ -20,6 +20,9 @@
 		],
 		"WeirdGloopTemporaryMessages": [
 			"i18n/temporary"
+		],
+		"WeirdGloopProjectNames": [
+			"i18n/projectnames"
 		]
 	},
 	"AutoloadClasses": {
