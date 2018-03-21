@@ -23,6 +23,9 @@
 		],
 		"WeirdGloopProjectNames": [
 			"i18n/projectnames"
+		],
+		"WeirdGloopContactMessages": [
+			"i18n/contact"
 		]
 	},
 	"AutoloadClasses": {

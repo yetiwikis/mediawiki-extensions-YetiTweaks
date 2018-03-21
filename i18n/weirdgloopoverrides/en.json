@@ -1,5 +1,6 @@
 {
     "@metadata": [],
     "weirdgloop-privacypage": "wg:privacy",
-    "weirdgloop-changecontentmodel-text": "This page allows you to change the content model of a page on this wiki. Please be aware that except under rare circumstances, this is almost never needed. Changing a page's content model may break its functionality. Please [[Special:Contact|contact]] a system administrator if you are unsure what you are doing."
+    "weirdgloop-changecontentmodel-text": "This page allows you to change the content model of a page on this wiki. Please be aware that except under rare circumstances, this is almost never needed. Changing a page's content model may break its functionality. Please [[Special:Contact|contact]] a system administrator if you are unsure what you are doing.",
+    "weirdgloop-emailmessage": "Message:"
 }
