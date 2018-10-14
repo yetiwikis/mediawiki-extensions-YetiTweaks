@@ -177,4 +177,14 @@ class WeirdGloopMessagesHooks {
 		return true;
 	}
 
+	/**
+	 * Implement a dark mode
+	 */
+	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
+		if ( isset( $_COOKIE['darkmode'] ) ) {
+			if ( $_COOKIE['darkmode'] == 'true' ) {
+				$out->addModuleStyles( [ 'wg.darkmode' ] );
+			}
+		}
+	}
 }

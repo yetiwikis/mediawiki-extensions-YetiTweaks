@@ -1,11 +1,7 @@
 {
 	"name": "WeirdGloopMessages",
 	"author": [
-		"Jayden Bailey",
-		"Tim Starling",
-		"Siebrand Mazeland",
-		"James D. Forrester",
-		"Multichill"
+		"Jayden Bailey"
 	],
 	"url": "https://weirdgloop.org",
 	"descriptionmsg": "weirdgloopmessages-desc",
@@ -30,6 +26,14 @@
 	},
 	"AutoloadClasses": {
 		"WeirdGloopMessagesHooks": "WeirdGloopMessages.hooks.php"
+	},
+	"AutoloadNamespaces": {
+		"WeirdGloopMessages\\ResourceLoaderModules\\": "includes/modules/"
+	},
+	"ResourceModules": {
+		"wg.darkmode": {
+			"class": "WeirdGloopMessages\\ResourceLoaderModules\\DarkmodeStyleModule"
+		}
 	},
 	"Hooks": {
 		"MessageCache::get": [
