@@ -18,7 +18,7 @@ class DarkmodeStyleModule extends ResourceLoaderWikiModule {
 		$pages = [];
 		if ( $this->getConfig()->get( 'UseSiteCss' ) ) {
 			$pages += [
-				'MediaWiki:Darkmode.css' => [ 'type' => 'style' ],
+				'MediaWiki:Vector-darkmode.css' => [ 'type' => 'style' ],
 			];
 		}
 		return $pages;
