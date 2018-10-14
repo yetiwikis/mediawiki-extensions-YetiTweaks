@@ -59,6 +59,9 @@
 		],
 		"getUserPermissionsErrors": [
 			"WeirdGloopMessagesHooks::ongetUserPermissionsErrors"
+		],
+		"BeforePageDisplay": [
+			"WeirdGloopMessagesHooks::onBeforePageDisplay"
 		]
 	},
 	"manifest_version": 1
