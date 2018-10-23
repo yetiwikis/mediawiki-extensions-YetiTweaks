@@ -158,7 +158,7 @@ class WeirdGloopMessagesHooks {
 	 * the "editinterfacesite" right. This is because system messages that are prefixed
 	 * with "weirdgloop" are probably there for a legal reason or to ensure consistency
 	 * across the site.
-	 * 
+	 *
 	 * @return str
 	 * @return bool
 	 */
@@ -178,13 +178,33 @@ class WeirdGloopMessagesHooks {
 	}
 
 	/**
-	 * Implement a dark mode
+	 * Implement a dark mode and add structured data for the Google Sitelinks search box.
 	 */
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
+		global $wgArticlePath, $wgCanonicalServer;
+
+		/* Dark mode */
 		if ( isset( $_COOKIE['darkmode'] ) ) {
 			if ( $_COOKIE['darkmode'] == 'true' ) {
 				$out->addModuleStyles( [ 'wg.darkmode' ] );
 			}
+		}
+
+		/* Structured data for the Google Sitelinks search box. */
+		if ( $out->getTitle()->isMainPage() ) {
+			$targetUrl = $wgCanonicalServer . str_replace( '$1', 'Special:Search', $wgArticlePath );
+			$targetUrl = wfAppendQuery( $targetUrl, 'search={search_term_string}' );
+			$structuredData = [
+				'@context'        => 'http://schema.org',
+				'@type'           => 'WebSite',
+				'url'             => $wgCanonicalServer,
+				'potentialAction' => [
+					'@type'       => 'SearchAction',
+					'target'      => $targetUrl,
+					'query-input' => 'required name=search_term_string',
+				],
+			];
+			$out->addHeadItem( 'StructuredData', '<script type="application/ld+json">' . json_encode( $structuredData ) . '</script>' );
 		}
 	}
 }
