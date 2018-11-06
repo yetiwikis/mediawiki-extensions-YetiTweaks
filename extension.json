@@ -62,6 +62,9 @@
 		],
 		"BeforePageDisplay": [
 			"WeirdGloopMessagesHooks::onBeforePageDisplay"
+		],
+		"OutputPageBodyAttributes": [
+			"WeirdGloopMessagesHooks::onOutputPageBodyAttributes"
 		]
 	},
 	"manifest_version": 1

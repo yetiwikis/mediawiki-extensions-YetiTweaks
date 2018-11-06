@@ -187,4 +187,15 @@ class WeirdGloopMessagesHooks {
 			}
 		}
 	}
+
+	public static function onOutputPageBodyAttributes( OutputPage $out, Skin $sk, &$bodyAttrs ) {
+		if ( isset( $_COOKIE['darkmode'] ) ) {
+			if ( $_COOKIE['darkmode'] == 'true' ) {
+				// Add a class to the body so that gadgets can identify that we're using darkmode
+				$bodyAttrs['class'] .= ' wgl-darkmode';
+			}
+		}
+
+		return true;
+	}
 }
