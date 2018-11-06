@@ -2,10 +2,10 @@
 
 namespace WeirdGloopMessages\ResourceLoaderModules;
 
-use ResourceLoaderWikiModule;
+use ResourceLoaderUserModule;
 use ResourceLoaderContext;
 
-class DarkmodeStyleModule extends ResourceLoaderWikiModule {
+class DarkmodeStyleModule extends ResourceLoaderUserModule {
 	protected $targets = [ 'desktop' ];
 
 	/**
