@@ -219,4 +219,19 @@ class WeirdGloopMessagesHooks {
 
 		return true;
 	}
+
+	/**
+	 * Implement diagnostic information into Special:Contact.
+	 * Hook provided by ContactPage extension.
+	 */
+	public static function onContactPage( &$to, &$replyTo, &$subject, &$text ) {
+		global $wgDBname, $wgRequest, $wgServer;
+
+		$text = $wgRequest->getText( 'wpText' ) . "\n\n---\n\n"; // original message
+		$text .= $wgServer . ' (' . $wgDBname . ")\n"; // server & database name
+		$text .= $wgRequest->getIP() . ' - ' . $_SERVER['HTTP_USER_AGENT'] ?? null . "\n"; // IP & user agent
+		$text .= 'Referrer: ' . $_SERVER['HTTP_REFERER'] ?? null . "\n"; // referrer if any
+
+		return true;
+	}
 }

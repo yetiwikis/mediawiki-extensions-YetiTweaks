@@ -65,6 +65,9 @@
 		],
 		"OutputPageBodyAttributes": [
 			"WeirdGloopMessagesHooks::onOutputPageBodyAttributes"
+		],
+		"ContactPage": [
+			"WeirdGloopMessagesHooks::onContactPage"
 		]
 	},
 	"manifest_version": 1
