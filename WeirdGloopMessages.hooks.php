@@ -225,12 +225,16 @@ class WeirdGloopMessagesHooks {
 	 * Hook provided by ContactPage extension.
 	 */
 	public static function onContactPage( &$to, &$replyTo, &$subject, &$text ) {
-		global $wgDBname, $wgRequest, $wgServer;
+		global $wgDBname, $wgRequest, $wgOut, $wgServer;
+
+		$user = $wgOut->getUser();
 
 		$text = $wgRequest->getText( 'wpText' ) . "\n\n---\n\n"; // original message
-		$text .= $wgServer . ' (' . $wgDBname . ")\n"; // server & database name
-		$text .= $wgRequest->getIP() . ' - ' . $_SERVER['HTTP_USER_AGENT'] ?? null . "\n"; // IP & user agent
-		$text .= 'Referrer: ' . $_SERVER['HTTP_REFERER'] ?? null . "\n"; // referrer if any
+		$text .= $wgServer . ' (' . $wgDBname . ") [" . gethostname() . "]\n"; // server & database name
+		$text .= $wgRequest->getIP() . ' - ' . ( $_SERVER['HTTP_USER_AGENT'] ?? null ) . "\n"; // IP & user agent
+		$text .= 'Referrer: ' . ( $_SERVER['HTTP_REFERER'] ?? null ) . "\n"; // referrer if any
+		$text .= 'Skin: ' . $wgOut->getSkin()->getSkinName() . "\n"; // skin
+		$text .= 'User: ' . $user->getName() . ' (' . $user->getId(); // user
 
 		return true;
 	}
