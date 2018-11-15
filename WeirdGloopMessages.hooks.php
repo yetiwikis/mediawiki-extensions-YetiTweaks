@@ -234,7 +234,7 @@ class WeirdGloopMessagesHooks {
 		$text .= $wgRequest->getIP() . ' - ' . ( $_SERVER['HTTP_USER_AGENT'] ?? null ) . "\n"; // IP & user agent
 		$text .= 'Referrer: ' . ( $_SERVER['HTTP_REFERER'] ?? null ) . "\n"; // referrer if any
 		$text .= 'Skin: ' . $wgOut->getSkin()->getSkinName() . "\n"; // skin
-		$text .= 'User: ' . $user->getName() . ' (' . $user->getId(); // user
+		$text .= 'User: ' . $user->getName() . ' (' . $user->getId() . ')'; // user
 
 		return true;
 	}
