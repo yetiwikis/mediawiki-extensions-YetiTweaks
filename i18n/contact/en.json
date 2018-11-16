@@ -1,14 +1,16 @@
 {
 	"@metadata": [],
     "weirdgloop-contactpage-disclaimer": "Any information you send here will not be sent to the administrators of this wiki, and will instead be sent to [https://weirdgloop.org Weird Gloop], the company that maintains this website. For most issues, you should instead contact the local wiki admins.",
-    "weirdgloop-contactpage-copyright-content": "Link to infringing content:",
-    "weirdgloop-contactpage-copyright-org": "Your organisation:",
-    "weirdgloop-contactpage-copyright-address": "Your office/mailing address:",
-    "weirdgloop-contactpage-copyright-phone": "Your contact number:",
-    "weirdgloop-contactpage-copyright-emailmessage": "Please give details about the infringement and who you are:",
-    "weirdgloop-contactpage-copyright-identity": "What is your identity:",
-    "weirdgloop-contactpage-copyright-identity-me": "I own the copyrighted work",
-    "weirdgloop-contactpage-copyright-identity-client": "I am acting on behalf of a company or a client",
-    "weirdgloop-contactpage-copyright-agreement": "I am making this claim under good faith and believe that the use of the works in the manner I've described is not authorised. I am the owner or authorised to act on behalf of the owner of the work, and the information given is accurate.",
-    "weirdgloop-contactpage-copyright-disclaimer": "Your copyright notification will be sent to [https://weirdgloop.org Weird Gloop], the company that maintains this website, for review. You should receive a response within 10 business days."
+    "weirdgloop-contactpage-dmca-affiliation": "I am...",
+    "weirdgloop-contactpage-dmca-affiliation-me": "I am the copyright holder",
+    "weirdgloop-contactpage-dmca-affiliation-rep": "I am a representative of the copyright holder",
+    "weirdgloop-contactpage-dmca-address": "Your full mailing address",
+    "weirdgloop-contactpage-dmca-phone": "Your telephone number",
+    "weirdgloop-contactpage-dmca-src": "Links to the source material you allege has been **infringed** (one per line)",
+    "weirdgloop-contactpage-dmca-material": "Links to the material you allege is **infringing** (one per line)",
+    "weirdgloop-emailmessage-dmca": "Additional comments",
+    "weirdgloop-contactpage-dmca-faith": "I have a good faith belief that the copyright holder, its agent, or the law do not authorise this content's use.",
+    "weirdgloop-contactpage-dmca-accuracy": "I declare that the information in this notification is accurate and that I am the copyright holder or authorised representative of the copyright holder.",
+    "weirdgloop-contactpage-dmca-release": "I agree that Weird Gloop may share part of, or all, of this takedown notice with appropriate redactions to the public and administrators of relevant wiki communities.",
+    "weirdgloop-contactpage-dmca-signature": "Electronic signature"
 }
