@@ -26,7 +26,8 @@ class WeirdGloopMessagesHooks {
 			'privacypage',
 			'changecontentmodel-text',
 			'emailmessage',
-			'mobile-frontend-copyright'
+			'mobile-frontend-copyright',
+			'contactpage-pagetext'
 		];
 
 		if ( in_array( $lcKey, $keys, true ) ) {
