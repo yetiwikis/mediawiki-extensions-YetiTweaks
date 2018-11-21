@@ -86,5 +86,8 @@
 		"EnableMessageOverrides": true,
 		"AddFooterLinks": true
 	},
+	"AvailableRights": [
+		"editinterfacesite"
+	],
 	"manifest_version": 1
 }
