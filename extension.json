@@ -76,5 +76,15 @@
 			"WeirdGloopMessagesHooks::onContactPage"
 		]
 	},
+	"config": {
+		"_prefix": "wgl",
+		"SendDetailsWithContactPage": true,
+		"EnableLoadingDarkmode": true,
+		"EnableSearchboxMetadata": true,
+		"ProtectSiteInterface": true,
+		"RequireLicensesToUpload": true,
+		"EnableMessageOverrides": true,
+		"AddFooterLinks": true
+	},
 	"manifest_version": 1
 }
