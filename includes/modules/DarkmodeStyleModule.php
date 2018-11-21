@@ -1,6 +1,6 @@
 <?php
 
-namespace WeirdGloopMessages\ResourceLoaderModules;
+namespace GloopTweaks\ResourceLoaderModules;
 
 use ResourceLoaderUserModule;
 use ResourceLoaderContext;

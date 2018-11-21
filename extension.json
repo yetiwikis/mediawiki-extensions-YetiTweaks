@@ -1,5 +1,5 @@
 {
-	"name": "WeirdGloopMessages",
+	"name": "GloopTweaks",
 	"version": "1.0.1",
 	"author": [
 		"[https://twitter.com/jaydenkieran Jayden Bailey]",
@@ -7,7 +7,7 @@
 		"..."
 	],
 	"url": "https://weirdgloop.org",
-	"descriptionmsg": "weirdgloopmessages-desc",
+	"descriptionmsg": "glooptweaks-desc",
 	"license-name": "GPL-2.0+",
 	"type": "other",
 	"MessagesDirs": {
@@ -31,49 +31,49 @@
 		"MediaWiki": ">= 1.30.0"
 	},
 	"AutoloadClasses": {
-		"WeirdGloopMessagesHooks": "WeirdGloopMessages.hooks.php"
+		"GloopTweaksHooks": "GloopTweaks.hooks.php"
 	},
 	"AutoloadNamespaces": {
-		"WeirdGloopMessages\\ResourceLoaderModules\\": "includes/modules/"
+		"GloopTweaks\\ResourceLoaderModules\\": "includes/modules/"
 	},
 	"ResourceModules": {
 		"wg.darkmode": {
-			"class": "WeirdGloopMessages\\ResourceLoaderModules\\DarkmodeStyleModule"
+			"class": "GloopTweaks\\ResourceLoaderModules\\DarkmodeStyleModule"
 		}
 	},
 	"Hooks": {
 		"MessageCache::get": [
-			"WeirdGloopMessagesHooks::onMessageCacheGet"
+			"GloopTweaksHooks::onMessageCacheGet"
 		],
 		"SkinCopyrightFooter": [
-			"WeirdGloopMessagesHooks::onSkinCopyrightFooter"
+			"GloopTweaksHooks::onSkinCopyrightFooter"
 		],
 		"SkinTemplateOutputPageBeforeExec": [
-			"WeirdGloopMessagesHooks::onSkinTemplateOutputPageBeforeExec"
+			"GloopTweaksHooks::onSkinTemplateOutputPageBeforeExec"
 		],
 		"TorBlockBlockedMsg": [
-			"WeirdGloopMessagesHooks::onTorBlockBlockedMsg"
+			"GloopTweaksHooks::onTorBlockBlockedMsg"
 		],
 		"GlobalBlockingBlockedIpMsg": [
-			"WeirdGloopMessagesHooks::onGlobalBlockingBlockedIpMsg"
+			"GloopTweaksHooks::onGlobalBlockingBlockedIpMsg"
 		],
 		"GlobalBlockingBlockedIpXffMsg": [
-			"WeirdGloopMessagesHooks::onGlobalBlockingBlockedIpXffMsg"
+			"GloopTweaksHooks::onGlobalBlockingBlockedIpXffMsg"
 		],
 		"UploadForm:initial": [
-			"WeirdGloopMessagesHooks::onUploadFormInitial"
+			"GloopTweaksHooks::onUploadFormInitial"
 		],
 		"getUserPermissionsErrors": [
-			"WeirdGloopMessagesHooks::ongetUserPermissionsErrors"
+			"GloopTweaksHooks::ongetUserPermissionsErrors"
 		],
 		"BeforePageDisplay": [
-			"WeirdGloopMessagesHooks::onBeforePageDisplay"
+			"GloopTweaksHooks::onBeforePageDisplay"
 		],
 		"OutputPageBodyAttributes": [
-			"WeirdGloopMessagesHooks::onOutputPageBodyAttributes"
+			"GloopTweaksHooks::onOutputPageBodyAttributes"
 		],
 		"ContactForm": [
-			"WeirdGloopMessagesHooks::onContactPage"
+			"GloopTweaksHooks::onContactPage"
 		]
 	},
 	"config": {

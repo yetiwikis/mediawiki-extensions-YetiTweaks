@@ -1,11 +1,11 @@
 <?php
 /**
- * Hooks for WeirdGloopMessages extension
+ * Hooks for GloopTweaks extension
  *
  * @file
  * @ingroup Extensions
  */
-class WeirdGloopMessagesHooks {
+class GloopTweaksHooks {
 	/**
 	 * When core requests certain messages, change the key to a Weird Gloop version.
 	 *
