@@ -24,6 +24,9 @@
 			"i18n/contact"
 		]
 	},
+	"requires": {
+		"MediaWiki": ">= 1.30.0"
+	},
 	"AutoloadClasses": {
 		"WeirdGloopMessagesHooks": "WeirdGloopMessages.hooks.php"
 	},
