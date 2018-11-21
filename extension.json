@@ -1,7 +1,10 @@
 {
 	"name": "WeirdGloopMessages",
+	"version": "1.0.1",
 	"author": [
-		"Jayden Bailey"
+		"[https://twitter.com/jaydenkieran Jayden Bailey]",
+		"TehKittyCat",
+		"..."
 	],
 	"url": "https://weirdgloop.org",
 	"descriptionmsg": "weirdgloopmessages-desc",
