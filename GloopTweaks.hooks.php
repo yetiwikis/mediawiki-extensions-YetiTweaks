@@ -28,7 +28,8 @@ class GloopTweaksHooks {
 				'changecontentmodel-text',
 				'emailmessage',
 				'mobile-frontend-copyright',
-				'contactpage-pagetext'
+				'contactpage-pagetext',
+				'newusermessage-editor'
 			];
 	
 			if ( in_array( $lcKey, $keys, true ) ) {
