@@ -34,7 +34,7 @@
 		"MediaWiki": ">= 1.30.0"
 	},
 	"AutoloadClasses": {
-		"GloopTweaksHooks": "GloopTweaks.hooks.php",
+		"GloopTweaksHooks": "GloopTweaks.hooks.php"
 	},
 	"AutoloadNamespaces": {
 		"GloopTweaks\\ResourceLoaderModules\\": "includes/modules/"
@@ -96,12 +96,10 @@
 		"ProtectSiteInterface": true,
 		"RequireLicensesToUpload": true,
 		"EnableMessageOverrides": true,
-		"AddFooterLinks": true,
-		"EnableAnalyticsSpecial": true
+		"AddFooterLinks": true
 	},
 	"AvailableRights": [
-		"editinterfacesite",
-		"googleanalytics"
+		"editinterfacesite"
 	],
 	"manifest_version": 1
 }
