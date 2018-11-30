@@ -215,13 +215,22 @@ class GloopTweaksHooks {
 	 * Implement a dark mode and add structured data for the Google Sitelinks search box.
 	 */
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
-		global $wglEnableLoadingDarkmode, $wglEnableSearchboxMetadata, $wgArticlePath, $wgCanonicalServer;
+		global $wglEnableLoadingDarkmode, $wglEnableLoadingReadermode, $wglEnableSearchboxMetadata, $wgArticlePath, $wgCanonicalServer;
 
 		if ($wglEnableLoadingDarkmode) {
 			/* Dark mode */
 			if ( isset( $_COOKIE['darkmode'] ) ) {
 				if ( $_COOKIE['darkmode'] == 'true' ) {
 					$out->addModuleStyles( [ 'wg.darkmode' ] );
+				}
+			}
+		}
+
+		if ($wglEnableLoadingReadermode) {
+			/* Reader mode */
+			if ( isset( $_COOKIE['readermode'] ) ) {
+				if ( $_COOKIE['readermode'] == 'true' ) {
+					$out->addModuleStyles( [ 'wg.readermode' ] );
 				}
 			}
 		}
@@ -249,7 +258,7 @@ class GloopTweaksHooks {
 	}
 
 	public static function onOutputPageBodyAttributes( OutputPage $out, Skin $sk, &$bodyAttrs ) {
-		global $wglEnableLoadingDarkmode;
+		global $wglEnableLoadingDarkmode, $wglEnableLoadingReadermode;
 
 		if ($wglEnableLoadingDarkmode) {
 			if ( isset( $_COOKIE['darkmode'] ) ) {
@@ -260,10 +269,12 @@ class GloopTweaksHooks {
 			}
 		}
 
-		if ( isset( $_COOKIE['readermode'] ) ) {
-			if ( $_COOKIE['readermode'] == 'true' ) {
-				// Add a class to the body so that gadgets can identify that we're using reader mode
-				$bodyAttrs['class'] .= ' wgl-readermode';
+		if ($wglEnableLoadingReadermode) {
+			if ( isset( $_COOKIE['readermode'] ) ) {
+				if ( $_COOKIE['readermode'] == 'true' ) {
+					// Add a class to the body so that gadgets can identify that we're using reader mode
+					$bodyAttrs['class'] .= ' wgl-readermode';
+				}
 			}
 		}
 

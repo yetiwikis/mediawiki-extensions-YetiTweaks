@@ -11,4 +11,5 @@ This extension handles site-wide interface messages, tweaks, and improvements on
 * `$wglEnableMessageOverrides` - Enable overriding certain MediaWiki messages with our own
 * `$wglRequireLicensesToUpload` - Enforces requiring MediaWiki:Licenses to not be blank for uploads to be enabled
 * `$wglEnableSearchboxMetadata` - Add structured data to the main page to add a Google Sitelinks search box
-* `$wglEnableLoadingDarkmode` - Enable loading the wgl.darkmode ResourceLoader module when the darkmode cookie is true
+* `$wglEnableLoadingDarkmode` - Enable loading the wg.darkmode ResourceLoader module when the darkmode cookie is true
+* `$wglEnableLoadingReadermode` - Enable loading the wg.readermode ResourceLoader module when the readermode cookie is true

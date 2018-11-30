@@ -25,13 +25,16 @@
 		],
 		"WeirdGloopContactMessages": [
 			"i18n/contact"
+		],
+		"Analytics": [
+			"i18n/analytics"
 		]
 	},
 	"requires": {
 		"MediaWiki": ">= 1.30.0"
 	},
 	"AutoloadClasses": {
-		"GloopTweaksHooks": "GloopTweaks.hooks.php"
+		"GloopTweaksHooks": "GloopTweaks.hooks.php",
 	},
 	"AutoloadNamespaces": {
 		"GloopTweaks\\ResourceLoaderModules\\": "includes/modules/"
@@ -39,7 +42,16 @@
 	"ResourceModules": {
 		"wg.darkmode": {
 			"class": "GloopTweaks\\ResourceLoaderModules\\DarkmodeStyleModule"
+		},
+		"wg.readermode": {
+			"styles": [
+				"includes/css/vector-readermode.css"
+			]
 		}
+	},
+	"ResourceFileModulePaths": {
+    "localBasePath": "",
+    "remoteExtPath": "WeirdGloopMessages"
 	},
 	"Hooks": {
 		"MessageCache::get": [
@@ -84,10 +96,12 @@
 		"ProtectSiteInterface": true,
 		"RequireLicensesToUpload": true,
 		"EnableMessageOverrides": true,
-		"AddFooterLinks": true
+		"AddFooterLinks": true,
+		"EnableAnalyticsSpecial": true
 	},
 	"AvailableRights": [
-		"editinterfacesite"
+		"editinterfacesite",
+		"googleanalytics"
 	],
 	"manifest_version": 1
 }
