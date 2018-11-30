@@ -298,7 +298,7 @@ class GloopTweaksHooks {
 		if ($wglSendDetailsWithContactPage) {
 			$user = $wgOut->getUser();
 
-			$text = $wgRequest->getText( 'wpText' ) . "\n\n---\n\n"; // original message
+			$text .= "\n\n---\n\n"; // original message
 			$text .= $wgServer . ' (' . $wgDBname . ") [" . gethostname() . "]\n"; // server & database name
 			$text .= $wgRequest->getIP() . ' - ' . ( $_SERVER['HTTP_USER_AGENT'] ?? null ) . "\n"; // IP & user agent
 			$text .= 'Referrer: ' . ( $_SERVER['HTTP_REFERER'] ?? null ) . "\n"; // referrer if any
