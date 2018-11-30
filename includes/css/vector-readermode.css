@@ -24,19 +24,6 @@ div#mw-head {
 div#simpleSearch {
   min-width: 13em;
 }
-#p-cactions-label span,
-.p-personal a,
-div.vectorTabs li a {
-  color: #5d6773 !important;
-}
-#p-cactions-label span:active,
-.p-personal a:active,
-div.vectorTabs li a:active,
-#p-cactions-label span:visited,
-.p-personal a:visited,
-div.vectorTabs li a:visited {
-  color: #5d6773 !important;
-}
 body {
   background-size: contain;
   background-position-y: -5rem;
