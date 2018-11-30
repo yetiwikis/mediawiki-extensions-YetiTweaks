@@ -96,7 +96,8 @@
 		"ProtectSiteInterface": true,
 		"RequireLicensesToUpload": true,
 		"EnableMessageOverrides": true,
-		"AddFooterLinks": true
+		"AddFooterLinks": true,
+		"EnableLoadingReadermode": true
 	},
 	"AvailableRights": [
 		"editinterfacesite"
