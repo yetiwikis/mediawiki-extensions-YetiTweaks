@@ -260,6 +260,20 @@ class GloopTweaksHooks {
 			}
 		}
 
+		if ( isset( $_COOKIE['readermode'] ) ) {
+			if ( $_COOKIE['readermode'] == 'true' ) {
+				// Add a class to the body so that gadgets can identify that we're using reader mode
+				$bodyAttrs['class'] .= ' wgl-readermode';
+			}
+		}
+
+		if ( isset( $_COOKIE['stickyheader'] ) ) {
+			if ( $_COOKIE['stickyheader'] == 'true' ) {
+				// Add a class to the body so that gadgets can identify that we're using sticky headers
+				$bodyAttrs['class'] .= ' wgl-stickyheader';
+			}
+		}
+
 		return true;
 	}
 
