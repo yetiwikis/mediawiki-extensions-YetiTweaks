@@ -81,6 +81,9 @@
 		"BeforePageDisplay": [
 			"GloopTweaksHooks::onBeforePageDisplay"
 		],
+		"OpenSearchUrls": [
+			"GloopTweaksHooks::onOpenSearchUrls"
+		],
 		"OutputPageBodyAttributes": [
 			"GloopTweaksHooks::onOutputPageBodyAttributes"
 		],

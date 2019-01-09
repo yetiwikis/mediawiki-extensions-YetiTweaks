@@ -31,17 +31,17 @@ class GloopTweaksHooks {
 				'contactpage-pagetext',
 				'newusermessage-editor'
 			];
-	
+
 			if ( in_array( $lcKey, $keys, true ) ) {
 				$transformedKey = "weirdgloop-$lcKey";
 			} else {
 				return true;
 			}
-	
+
 			// MessageCache uses ucfirst if ord( key ) is < 128, which is true of all
 			// of the above.  Revisit if non-ASCII keys are used.
 			$ucKey = ucfirst( $lcKey );
-	
+
 			$cache = MessageCache::singleton();
 			if (
 				/*
@@ -175,7 +175,7 @@ class GloopTweaksHooks {
 	 */
 	public static function onUploadFormInitial( $tpl ) {
 		global $wglRequireLicensesToUpload, $wgForceUIMsgAsContentMsg;
-		
+
 		if ($wglRequireLicensesToUpload) {
 			if ( !in_array( 'licenses', $wgForceUIMsgAsContentMsg )
 				&& wfMessage( 'licenses' )->inContentLanguage()->isDisabled()
@@ -251,6 +251,17 @@ class GloopTweaksHooks {
 					],
 				];
 				$out->addHeadItem( 'StructuredData', '<script type="application/ld+json">' . json_encode( $structuredData ) . '</script>' );
+			}
+		}
+
+		return true;
+	}
+
+	// Cache OpenSearch for 600 seconds. (10 minutes)
+	public static function onOpenSearchUrls( &$urls ) {
+		foreach ( $urls as $k => $v ) {
+			if ( in_array( $url['type'], [ 'application/x-suggestions+json', 'application/x-suggestions+xml' ] ) ) {
+				$urls[$k]['template'] = wfAppendQuery( $urls[$k]['template'], [ 'maxage' => 600, 'smaxage' => 600, 'uselang' => 'content' ] );
 			}
 		}
 
