@@ -259,9 +259,9 @@ class GloopTweaksHooks {
 
 	// Cache OpenSearch for 600 seconds. (10 minutes)
 	public static function onOpenSearchUrls( &$urls ) {
-		foreach ( $urls as $k => $v ) {
+		foreach ( $urls as &$url ) {
 			if ( in_array( $url['type'], [ 'application/x-suggestions+json', 'application/x-suggestions+xml' ] ) ) {
-				$urls[$k]['template'] = wfAppendQuery( $urls[$k]['template'], [ 'maxage' => 600, 'smaxage' => 600, 'uselang' => 'content' ] );
+				$url['template'] = wfAppendQuery( $url['template'], [ 'maxage' => 600, 'smaxage' => 600, 'uselang' => 'content' ] );
 			}
 		}
 
