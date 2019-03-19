@@ -34,7 +34,8 @@
 		"MediaWiki": ">= 1.30.0"
 	},
 	"AutoloadClasses": {
-		"GloopTweaksHooks": "GloopTweaks.hooks.php"
+		"GloopTweaksHooks": "GloopTweaks.hooks.php",
+		"GloopTweaksUtils": "GloopTweaksUtils.php"
 	},
 	"AutoloadNamespaces": {
 		"GloopTweaks\\ResourceLoaderModules\\": "includes/modules/"

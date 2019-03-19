@@ -98,15 +98,8 @@ class GloopTweaksHooks {
 		global $wglAddFooterLinks;
 
 		if ($wglAddFooterLinks) {
-			$touDest = Skin::makeInternalOrExternalUrl(
-				$skin->msg( 'weirdgloop-tou-url' )->inContentLanguage()->text() );
-			$touLink = Html::element(
-				'a',
-				[ 'href' => $touDest ],
-				$skin->msg( 'weirdgloop-tou' )->text()
-			);
-			$template->set( 'tou', $touLink );
-			$template->data['footerlinks']['places'][] = 'tou';
+			GloopTweaksUtils::addFooterLink('tou', 'weirdgloop-tou-url', 'weirdgloop-tou', $skin, $template);
+			GloopTweaksUtils::addFooterLink('contact', 'weirdgloop-contact-url', 'weirdgloop-contact', $skin, $template);
 		}
 
 		return true;
