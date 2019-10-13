@@ -51,8 +51,8 @@
 		}
 	},
 	"ResourceFileModulePaths": {
-    "localBasePath": "",
-    "remoteExtPath": "WeirdGloopMessages"
+	"localBasePath": "",
+	"remoteExtPath": "WeirdGloopMessages"
 	},
 	"Hooks": {
 		"MessageCache::get": [
