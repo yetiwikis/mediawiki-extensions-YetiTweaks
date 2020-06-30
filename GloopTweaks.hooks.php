@@ -319,7 +319,7 @@ class GloopTweaksHooks {
 		global $wglSendDetailsWithContactPage, $wgDBname, $wgRequest, $wgOut, $wgServer;
 
 		// Spam filter for Special:Contact, checks against [[MediaWiki:weirdgloop-contact-filter]] on metawiki. Regex per line and use '#' for comments.
-		if ( !GloopTweaksUtils::checkContactFilter( $text ) ) {
+		if ( !GloopTweaksUtils::checkContactFilter( $subject . "\n" . $text ) ) {
 			return false;
 		}
 
