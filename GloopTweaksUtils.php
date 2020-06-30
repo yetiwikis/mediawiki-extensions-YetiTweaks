@@ -31,15 +31,16 @@ class GloopTweaksUtils {
     global $wglCentralDB, $wgDBname;
     // Until MCS migration is complete, only the central wiki can use DB-based access.
     if ( $wgDBname === $wglCentralDB ) {
-      $page = WikiPage::factory( Title::newFromText( 'MediaWiki:weirdgloop-contact-filter' ) );
+      $page = WikiPage::factory( Title::newFromText( 'MediaWiki:Weirdgloop-contact-filter' ) );
       if ( $page->exists() ) {
         return ContentHandler::getContentText( $page->getContent() );
       }
     } else {
       // Fallback to HTTP action=raw for other wikis.
-      $url = wfAppendQuery( WikiMap::getForeignURL( $wglCentralDB, 'MediaWiki:weirdgloop-contact-filter' ), [ 'action' => 'raw' ]);
+      $url = wfAppendQuery( WikiMap::getForeignURL( $wglCentralDB, 'MediaWiki:Weirdgloop-contact-filter' ), [ 'action' => 'raw' ]);
       return Http::get( $url );
     }
+    return '';
   }
 
   // Prepare the Special:Contact filter regexes.
@@ -63,7 +64,7 @@ class GloopTweaksUtils {
   }
 
   /**
-   * Implements spam filter for Special:Contact, checks against [[MediaWiki:weirdgloop-contact-filter]] on metawiki. Regex per line and use '#' for comments.
+   * Implements spam filter for Special:Contact, checks against [[MediaWiki:Weirdgloop-contact-filter]] on metawiki. Regex per line and use '#' for comments.
    *
    * @param string $text - The message text to check for spam.
    * @return bool
