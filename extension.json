@@ -58,6 +58,9 @@
 		"MessageCache::get": [
 			"GloopTweaksHooks::onMessageCacheGet"
 		],
+		"PageContentSaveComplete": [
+			"GloopTweaksHooks::onPageContentSaveComplete"
+		],
 		"SkinCopyrightFooter": [
 			"GloopTweaksHooks::onSkinCopyrightFooter"
 		],
@@ -94,6 +97,7 @@
 	},
 	"config": {
 		"_prefix": "wgl",
+		"CentralDB": "metawiki",
 		"SendDetailsWithContactPage": true,
 		"EnableLoadingDarkmode": true,
 		"EnableSearchboxMetadata": true,

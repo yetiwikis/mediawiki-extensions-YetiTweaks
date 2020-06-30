@@ -1,4 +1,7 @@
 <?php
+
+use MediaWiki\MediaWikiServices;
+
 /**
  * Hooks for GloopTweaks extension
  *
@@ -59,6 +62,22 @@ class GloopTweaksHooks {
 			) {
 				$lcKey = $transformedKey;
 			}
+		}
+
+		return true;
+	}
+
+	// When [[MediaWiki:weirdgloop-contact-filter]] is edited, clear the contact-filter-regexes global cache key.
+	public static function onPageContentSaveComplete( &$wikiPage, &$user, $content, $summary, $isMinor, $isWatch, $section, &$flags, $revision, &$status, $baseRevId, $undidRevId ) {
+		if ( $wikiPage->getTitle()->getPrefixedDBkey() === 'MediaWiki:weirdgloop-contact-filter' ) {
+			$cache = MediaWikiServices::getInstance()->getMainWANObjectCache();
+
+			$cache->delete(
+				$cache->makeGlobalKey(
+					'GloopTweaks',
+					'contact-filter-regexes'
+				)
+			);
 		}
 
 		return true;
@@ -298,6 +317,11 @@ class GloopTweaksHooks {
 	 */
 	public static function onContactPage( &$to, &$replyTo, &$subject, &$text ) {
 		global $wglSendDetailsWithContactPage, $wgDBname, $wgRequest, $wgOut, $wgServer;
+
+		// Spam filter for Special:Contact, checks against [[MediaWiki:weirdgloop-contact-filter]] on metawiki. Regex per line and use '#' for comments.
+		if ( !GloopTweaksUtils::checkContactFilter( $text ) ) {
+			return false;
+		}
 
 		if ($wglSendDetailsWithContactPage) {
 			$user = $wgOut->getUser();
