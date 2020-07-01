@@ -37,7 +37,7 @@ class GloopTweaksUtils {
       }
     } else {
       // Fallback to HTTP action=raw for other wikis.
-      $url = wfAppendQuery( WikiMap::getForeignURL( $wglCentralDB, 'MediaWiki:Weirdgloop-contact-filter' ), [ 'action' => 'raw' ]);
+      $url = wfAppendQuery( WikiMap::getWiki( $wglCentralDB )->getCanonicalUrl( 'MediaWiki:Weirdgloop-contact-filter' ), [ 'action' => 'raw' ]);
       return Http::get( $url );
     }
     return '';
