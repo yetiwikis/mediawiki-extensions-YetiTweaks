@@ -1,6 +1,6 @@
 {
 	"name": "GloopTweaks",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"author": [
 		"[https://twitter.com/jaydenkieran Jayden Bailey]",
 		"TehKittyCat",
@@ -11,32 +11,32 @@
 	"license-name": "GPL-2.0+",
 	"type": "other",
 	"MessagesDirs": {
+		"Analytics": [
+			"i18n/analytics"
+		],
+		"WeirdGloopContactMessages": [
+			"i18n/contact"
+		],
 		"WeirdGloopMessages": [
 			"i18n/weirdgloop"
 		],
 		"WeirdGloopOverrides": [
 			"i18n/weirdgloopoverrides"
 		],
-		"WeirdGloopTemporaryMessages": [
-			"i18n/temporary"
-		],
 		"WeirdGloopProjectNames": [
 			"i18n/projectnames"
 		],
-		"WeirdGloopContactMessages": [
-			"i18n/contact"
-		],
-		"Analytics": [
-			"i18n/analytics"
+		"WeirdGloopTemporaryMessages": [
+			"i18n/temporary"
 		]
 	},
 	"requires": {
 		"MediaWiki": ">= 1.35.0"
 	},
 	"AutoloadClasses": {
-		"GloopTweaksHooks": "GloopTweaks.hooks.php",
-		"GloopTweaksUtils": "GloopTweaksUtils.php",
-		"GenerateGitInfoCache": "maintenance/generateGitInfoCache.php"
+		"GenerateGitInfoCache": "maintenance/generateGitInfoCache.php",
+		"GloopTweaksHooks": "GloopTweaksHooks.php",
+		"GloopTweaksUtils": "GloopTweaksUtils.php"
 	},
 	"AutoloadNamespaces": {
 		"GloopTweaks\\ResourceLoaderModules\\": "includes/modules/"
@@ -56,67 +56,35 @@
     "remoteExtPath": "WeirdGloopMessages"
 	},
 	"Hooks": {
-		"MessageCache::get": [
-			"GloopTweaksHooks::onMessageCacheGet"
-		],
-		"PageSaveComplete": [
-			"GloopTweaksHooks::onPageSaveComplete"
-		],
-		"SkinCopyrightFooter": [
-			"GloopTweaksHooks::onSkinCopyrightFooter"
-		],
-		"SkinAddFooterLinks": [
-			"GloopTweaksHooks::onSkinAddFooterLinks"
-		],
-		"TorBlockBlockedMsg": [
-			"GloopTweaksHooks::onTorBlockBlockedMsg"
-		],
-		"GlobalBlockingBlockedIpMsg": [
-			"GloopTweaksHooks::onGlobalBlockingBlockedIpMsg"
-		],
-		"GlobalBlockingBlockedIpXffMsg": [
-			"GloopTweaksHooks::onGlobalBlockingBlockedIpXffMsg"
-		],
-		"UploadForm:initial": [
-			"GloopTweaksHooks::onUploadFormInitial"
-		],
-		"getUserPermissionsErrors": [
-			"GloopTweaksHooks::ongetUserPermissionsErrors"
-		],
-		"BeforePageDisplay": [
-			"GloopTweaksHooks::onBeforePageDisplay"
-		],
-		"OpenSearchUrls": [
-			"GloopTweaksHooks::onOpenSearchUrls"
-		],
-		"OutputPageBodyAttributes": [
-			"GloopTweaksHooks::onOutputPageBodyAttributes"
-		],
-		"ContactForm": [
-			"GloopTweaksHooks::onContactPage"
-		],
-		"GetLocalURL::Article": [
-			"GloopTweaksHooks::onGetLocalURLArticle"
-		],
-		"GetLocalURL::Internal": [
-			"GloopTweaksHooks::onGetLocalURLInternal"
-		],
-		"TitleSquidURLs": [
-			"GloopTweaksHooks::onTitleSquidURLs"
-		]
+		"BeforePageDisplay": "GloopTweaksHooks::onBeforePageDisplay",
+		"ContactForm": "GloopTweaksHooks::onContactPage",
+		"GetLocalURL::Article": "GloopTweaksHooks::onGetLocalURLArticle",
+		"GetLocalURL::Internal": "GloopTweaksHooks::onGetLocalURLInternal",
+		"GlobalBlockingBlockedIpMsg": "GloopTweaksHooks::onGlobalBlockingBlockedIpMsg",
+		"GlobalBlockingBlockedIpXffMsg": "GloopTweaksHooks::onGlobalBlockingBlockedIpXffMsg",
+		"MessageCache::get": "GloopTweaksHooks::onMessageCacheGet",
+		"OpenSearchUrls": "GloopTweaksHooks::onOpenSearchUrls",
+		"OutputPageBodyAttributes": "GloopTweaksHooks::onOutputPageBodyAttributes",
+		"PageSaveComplete": "GloopTweaksHooks::onPageSaveComplete",
+		"SkinAddFooterLinks": "GloopTweaksHooks::onSkinAddFooterLinks",
+		"SkinCopyrightFooter": "GloopTweaksHooks::onSkinCopyrightFooter",
+		"TitleSquidURLs": "GloopTweaksHooks::onTitleSquidURLs",
+		"TorBlockBlockedMsg": "GloopTweaksHooks::onTorBlockBlockedMsg",
+		"UploadForm:initial": "GloopTweaksHooks::onUploadFormInitial",
+		"getUserPermissionsErrors": "GloopTweaksHooks::ongetUserPermissionsErrors"
 	},
 	"config": {
 		"_prefix": "wgl",
+		"AddFooterLinks": true,
 		"CentralDB": "metawiki",
-		"SendDetailsWithContactPage": true,
 		"EnableLoadingDarkmode": true,
+		"EnableLoadingReadermode": true,
+		"EnableMessageOverrides": true,
+		"EnableMobileVariant": true,
 		"EnableSearchboxMetadata": true,
 		"ProtectSiteInterface": true,
 		"RequireLicensesToUpload": true,
-		"EnableMessageOverrides": true,
-		"AddFooterLinks": true,
-		"EnableLoadingReadermode": true,
-		"EnableMobileVariant": true
+		"SendDetailsWithContactPage": true
 	},
 	"AvailableRights": [
 		"editinterfacesite"
