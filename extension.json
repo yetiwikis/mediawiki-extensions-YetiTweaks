@@ -35,7 +35,8 @@
 	},
 	"AutoloadClasses": {
 		"GloopTweaksHooks": "GloopTweaks.hooks.php",
-		"GloopTweaksUtils": "GloopTweaksUtils.php"
+		"GloopTweaksUtils": "GloopTweaksUtils.php",
+		"GenerateGitInfoCache": "maintenance/generateGitInfoCache.php"
 	},
 	"AutoloadNamespaces": {
 		"GloopTweaks\\ResourceLoaderModules\\": "includes/modules/"
