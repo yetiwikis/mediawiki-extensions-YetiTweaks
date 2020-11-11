@@ -100,6 +100,9 @@
 		],
 		"GetLocalURL::Internal": [
 			"GloopTweaksHooks::onGetLocalURLInternal"
+		],
+		"TitleSquidURLs": [
+			"GloopTweaksHooks::onTitleSquidURLs"
 		]
 	},
 	"config": {
@@ -112,7 +115,8 @@
 		"RequireLicensesToUpload": true,
 		"EnableMessageOverrides": true,
 		"AddFooterLinks": true,
-		"EnableLoadingReadermode": true
+		"EnableLoadingReadermode": true,
+		"EnableMobileVariant": true
 	},
 	"AvailableRights": [
 		"editinterfacesite"

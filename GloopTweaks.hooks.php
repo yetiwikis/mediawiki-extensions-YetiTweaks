@@ -324,4 +324,17 @@ class GloopTweaksHooks {
 			$url = wfAppendQuery(str_replace( '$1', $dbkey, $wgArticlePath ), $query );
 		}
 	}
+
+	/**
+	 * Add internal mobile URL variant for purging.
+	 */
+	public static function onTitleSquidURLs( Title $title, array &$urls ) {
+		global $wglEnableMobileVariant;
+
+		if ( $wglEnableMobileVariant ) {
+			foreach( $urls as $url ) {
+				$urls[] = wfAppendQuery( $url, 'wglMobile=1' );
+			}
+		}
+	}
 }
