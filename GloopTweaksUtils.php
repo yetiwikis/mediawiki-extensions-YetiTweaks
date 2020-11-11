@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Storage\SlotRecord;
 
 class GloopTweaksUtils {
 	/**
@@ -25,22 +26,22 @@ class GloopTweaksUtils {
     $template->data['footerlinks']['places'][] = $name;
   }
 
-  // Retrieve Special:Contact filter text from local DB or via HTTP action=raw.
+  // Retrieve Special:Contact filter text from central DB.
   private static function getContactFilterText() {
-    // TODO: With MW 1.35 and the MCS migration, RevisionStoreFactory can be used for DB-based cross-wiki retrieval instead.
-    global $wglCentralDB, $wgDBname;
-    // Until MCS migration is complete, only the central wiki can use DB-based access.
-    if ( $wgDBname === $wglCentralDB ) {
-      $page = WikiPage::factory( Title::newFromText( 'MediaWiki:Weirdgloop-contact-filter' ) );
-      if ( $page->exists() ) {
-        return ContentHandler::getContentText( $page->getContent() );
-      }
-    } else {
-      // Fallback to HTTP action=raw for other wikis.
-      $url = wfAppendQuery( WikiMap::getWiki( $wglCentralDB )->getCanonicalUrl( 'MediaWiki:Weirdgloop-contact-filter' ), [ 'action' => 'raw' ]);
-      return Http::get( $url );
+    global $wglCentralDB;
+    $services = MediaWikiServices::getInstance();
+
+    $title = $services->getTitleParser()->parseTitle( 'MediaWiki:Weirdgloop-contact-filter' );
+    $store = $services->getRevisionStoreFactory()->getRevisionStore( $wglCentralDB );
+    $rev = $store->getRevisionByTitle( $title );
+
+    $content = $rev ? $rev->getContent( SlotRecord::MAIN ) : null;
+
+    if ( !( $content instanceof TextContent ) ) {
+      return '';
     }
-    return '';
+
+    return $content->getText();
   }
 
   // Prepare the Special:Contact filter regexes.
