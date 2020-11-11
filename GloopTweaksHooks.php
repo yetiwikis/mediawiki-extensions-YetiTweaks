@@ -317,7 +317,7 @@ class GloopTweaksHooks {
 	 */
 	public static function onGetLocalURLInternal( $title, &$url, $query ) {
 		global $wgArticlePath, $wgScript;
-		$dbkey = wfUrlencode( $this->getPrefixedDBkey() );
+		$dbkey = wfUrlencode( $title->getPrefixedDBkey() );
 		if ( $title->isMainPage() ) {
 			$url = wfAppendQuery( '/', $query );
 		} elseif ( $url == "{$wgScript}?title={$dbkey}&{$query}" ) {
