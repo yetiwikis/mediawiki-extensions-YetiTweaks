@@ -65,8 +65,8 @@
 		"SkinCopyrightFooter": [
 			"GloopTweaksHooks::onSkinCopyrightFooter"
 		],
-		"SkinTemplateOutputPageBeforeExec": [
-			"GloopTweaksHooks::onSkinTemplateOutputPageBeforeExec"
+		"SkinAddFooterLinks": [
+			"GloopTweaksHooks::onSkinAddFooterLinks"
 		],
 		"TorBlockBlockedMsg": [
 			"GloopTweaksHooks::onTorBlockBlockedMsg"

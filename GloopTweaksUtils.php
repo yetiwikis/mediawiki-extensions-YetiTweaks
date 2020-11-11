@@ -6,24 +6,24 @@ use MediaWiki\Storage\SlotRecord;
 class GloopTweaksUtils {
 	/**
 	 * Adds an extra link to the footer, should only be called when
-   * hooking onto SkinTemplateOutputPageBeforeExec
+   * hooking onto SkinAddFooterLinks
    * 
    * @param String $name - The name of the footer link
    * @param String $url - Interface message for the URL to use. Passed to Skin::makeInternalOrExternalUrl
    * @param String $msg - Interface message for the text to show
-	 * @param SkinTemplate &$skin
-	 * @param QuickTemplate &$template
+	 * @param SkinTemplate $skin
+	 * @param array &$footerLinks
 	 */
-	public static function addFooterLink ( $name, $url, $msg, &$skin, &$template ) {
+	public static function addFooterLink( $name, $url, $msg, $skin, &$footerLinks ) {
     $dest = Skin::makeInternalOrExternalUrl(
-      $skin->msg( $url )->inContentLanguage()->text() );
+      $skin->msg( $url )->inContentLanguage()->text()
+    );
     $link = Html::element(
       'a',
       [ 'href' => $dest ],
       $skin->msg( $msg )->text()
     );
-    $template->set( $name, $link );
-    $template->data['footerlinks']['places'][] = $name;
+    $footerLinks[$name] = $link;
   }
 
   // Retrieve Special:Contact filter text from central DB.

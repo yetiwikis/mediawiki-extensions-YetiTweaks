@@ -15,15 +15,8 @@ class GloopTweaksHooks {
 	/**
 	 * When core requests certain messages, change the key to a Weird Gloop version.
 	 *
-	 * @note Don't make this a closure, it causes the Database Dumps to fail.
-	 *   See https://bugs.php.net/bug.php?id=52144
-	 *
-	 *   mwscript getSlaveServer.php --wiki='dewiki' --group=dump --globals
-	 *   print_r( $GLOBALS['wgHooks']['MessageCache::get'] );
-	 *
-	 * @param String &$lcKey message key to check and possibly convert
-	 *
-	 * @return bool
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/MessageCache::get
+	 * @param string &$lcKey message key to check and possibly convert
 	 */
 	public static function onMessageCacheGet( &$lcKey ) {
 		global $wglEnableMessageOverrides, $wgLanguageCode;
@@ -41,14 +34,14 @@ class GloopTweaksHooks {
 			if ( in_array( $lcKey, $keys, true ) ) {
 				$transformedKey = "weirdgloop-$lcKey";
 			} else {
-				return true;
+				return;
 			}
 
 			// MessageCache uses ucfirst if ord( key ) is < 128, which is true of all
 			// of the above.  Revisit if non-ASCII keys are used.
 			$ucKey = ucfirst( $lcKey );
 
-			$cache = MessageCache::singleton();
+			$cache = MediaWikiServices::getInstance()->getMessageCache();
 			if (
 				/*
 					* Override order:
@@ -66,8 +59,6 @@ class GloopTweaksHooks {
 				$lcKey = $transformedKey;
 			}
 		}
-
-		return true;
 	}
 
 	// When [[MediaWiki:weirdgloop-contact-filter]] is edited, clear the contact-filter-regexes global cache key.
@@ -82,8 +73,6 @@ class GloopTweaksHooks {
 				)
 			);
 		}
-
-		return true;
 	}
 
 	/**
@@ -93,8 +82,6 @@ class GloopTweaksHooks {
 	 * @param string $type
 	 * @param string &$msg
 	 * @param string &$link
-	 *
-	 * @return bool
 	 */
 	public static function onSkinCopyrightFooter( $title, $type, &$msg, &$link ) {
 		global $wglEnableMessageOverrides;
@@ -104,35 +91,28 @@ class GloopTweaksHooks {
 				$msg = 'weirdgloop-copyright';
 			}
 		}
-
-		return true;
 	}
 
 	/**
 	 * Add some links at the bottom of pages
 	 *
-	 * @param SkinTemplate &$skin
-	 * @param QuickTemplate &$template
-	 *
-	 * @return bool
+	 * @param Skin $skin
+	 * @param string $key
+	 * @param array &$footerLinks
 	 */
-	public static function onSkinTemplateOutputPageBeforeExec( &$skin, &$template ) {
+	public static function onSkinAddFooterLinks( Skin $skin, string $key, array &$footerlinks ) {
 		global $wglAddFooterLinks;
 
-		if ($wglAddFooterLinks) {
-			GloopTweaksUtils::addFooterLink('tou', 'weirdgloop-tou-url', 'weirdgloop-tou', $skin, $template);
-			GloopTweaksUtils::addFooterLink('contact', 'weirdgloop-contact-url', 'weirdgloop-contact', $skin, $template);
+		if ($wglAddFooterLinks && $key === 'places') {
+			GloopTweaksUtils::addFooterLink('tou', 'weirdgloop-tou-url', 'weirdgloop-tou', $skin, $footerLinks);
+			GloopTweaksUtils::addFooterLink('contact', 'weirdgloop-contact-url', 'weirdgloop-contact', $skin, $footerLinks);
 		}
-
-		return true;
 	}
 
 	/**
 	 * Set the message on TorBlock being triggered
 	 *
 	 * @param string &$msg The message to over-ride
-	 *
-	 * @return bool
 	 */
 	public static function onTorBlockBlockedMsg( &$msg ) {
 		global $wglEnableMessageOverrides;
@@ -140,16 +120,12 @@ class GloopTweaksHooks {
 		if ($wglEnableMessageOverrides) {
 			$msg = 'weirdgloop-torblock-blocked';
 		}
-
-		return true;
 	}
 
 	/**
 	 * Set the message on GlobalBlocking IP block being triggered
 	 *
 	 * @param string &$msg The message to over-ride
-	 *
-	 * @return bool
 	 */
 	public static function onGlobalBlockingBlockedIpMsg( &$msg ) {
 		global $wglEnableMessageOverrides;
@@ -157,16 +133,12 @@ class GloopTweaksHooks {
 		if ($wglEnableMessageOverrides) {
 			$msg = 'weirdgloop-globalblocking-ipblocked';
 		}
-
-		return true;
 	}
 
 	/**
 	 * Set the message on GlobalBlocking XFF block being triggered
 	 *
 	 * @param string &$msg The message to over-ride
-	 *
-	 * @return bool
 	 */
 	public static function onGlobalBlockingBlockedIpXffMsg( &$msg ) {
 		global $wglEnableMessageOverrides;
@@ -174,8 +146,6 @@ class GloopTweaksHooks {
 		if ($wglEnableMessageOverrides) {
 			$msg = 'weirdgloop-globalblocking-ipblocked-xff';
 		}
-
-		return true;
 	}
 
 	/**
@@ -185,7 +155,6 @@ class GloopTweaksHooks {
 	 * to prevent checking each subpage of MediaWiki:Licenses.
 	 *
 	 * @param BaseTemplate $tpl
-	 * @return bool
 	 * @throws ErrorPageError
 	 */
 	public static function onUploadFormInitial( $tpl ) {
@@ -198,8 +167,6 @@ class GloopTweaksHooks {
 				throw new ErrorPageError( 'uploaddisabled', 'weirdgloop-upload-nolicenses' );
 			}
 		}
-
-		return true;
 	}
 
 	/**
@@ -208,7 +175,6 @@ class GloopTweaksHooks {
 	 * with "weirdgloop" are probably there for a legal reason or to ensure consistency
 	 * across the site.
 	 *
-	 * @return str
 	 * @return bool
 	 */
 	public static function ongetUserPermissionsErrors( $title, $user, $action, &$result ) {
@@ -268,8 +234,6 @@ class GloopTweaksHooks {
 				$out->addHeadItem( 'StructuredData', '<script type="application/ld+json">' . json_encode( $structuredData ) . '</script>' );
 			}
 		}
-
-		return true;
 	}
 
 	// Cache OpenSearch for 600 seconds. (10 minutes)
@@ -279,8 +243,6 @@ class GloopTweaksHooks {
 				$url['template'] = wfAppendQuery( $url['template'], [ 'maxage' => 600, 'smaxage' => 600, 'uselang' => 'content' ] );
 			}
 		}
-
-		return true;
 	}
 
 	public static function onOutputPageBodyAttributes( OutputPage $out, Skin $sk, &$bodyAttrs ) {
@@ -310,8 +272,6 @@ class GloopTweaksHooks {
 				$bodyAttrs['class'] .= ' wgl-stickyheader';
 			}
 		}
-
-		return true;
 	}
 
 	/**
