@@ -34,6 +34,7 @@
 		"MediaWiki": ">= 1.30.0"
 	},
 	"AutoloadClasses": {
+		"GenerateGitInfoCache": "maintenance/generateGitInfoCache.php",
 		"GloopTweaksHooks": "GloopTweaks.hooks.php",
 		"GloopTweaksUtils": "GloopTweaksUtils.php",
 		"GloopStopForumSpam": "includes/sfs/GloopStopForumSpam.php",
