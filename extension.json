@@ -93,6 +93,12 @@
 		],
 		"ContactForm": [
 			"GloopTweaksHooks::onContactPage"
+		],
+		"GetLocalURL::Article": [
+			"GloopTweaksHooks::onGetLocalURLArticle"
+		],
+		"GetLocalURL::Internal": [
+			"GloopTweaksHooks::onGetLocalURLInternal"
 		]
 	},
 	"config": {
