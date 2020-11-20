@@ -10,6 +10,19 @@ use MediaWiki\MediaWikiServices;
  */
 class GloopTweaksHooks {
 	/**
+	 * Called after this is loaded
+	 */
+	public static function onRegistration() {
+		global $wgAuthManagerAutoConfig;
+
+		// Load our pre-authentication provider to handle our custom anti-spam checks.
+		$wgAuthManagerAutoConfig['preauth'][GloopPreAuthenticationProvider::class] = [
+			'class' => GloopPreAuthenticationProvider::class,
+			'sort' => 5
+		];
+	}
+
+	/**
 	 * When core requests certain messages, change the key to a Weird Gloop version.
 	 *
 	 * @note Don't make this a closure, it causes the Database Dumps to fail.

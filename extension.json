@@ -35,8 +35,11 @@
 	},
 	"AutoloadClasses": {
 		"GloopTweaksHooks": "GloopTweaks.hooks.php",
-		"GloopTweaksUtils": "GloopTweaksUtils.php"
+		"GloopTweaksUtils": "GloopTweaksUtils.php",
+		"GloopStopForumSpam": "includes/sfs/GloopStopForumSpam.php",
+		"GloopPreAuthenticationProvider": "includes/sfs/GloopPreAuthenticationProvider.php"
 	},
+	"callback": "GloopTweaksHooks::onRegistration",
 	"AutoloadNamespaces": {
 		"GloopTweaks\\ResourceLoaderModules\\": "includes/modules/"
 	},
