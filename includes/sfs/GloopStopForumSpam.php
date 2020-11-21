@@ -9,11 +9,6 @@ class GloopStopForumSpam {
 	 * @return bool
 	 */
 	public static function isBlacklisted( $ip, $email = null, $username = null ) {
-		global $wgMemc;
-		if ( !IP::isValid( $ip ) || IP::isIPv6( $ip ) ) {
-			return false;
-        }
-
         $query = array(
             "ip" => $ip,
             "json" => true
