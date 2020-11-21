@@ -69,6 +69,8 @@ class GloopStopForumSpam {
         $result = curl_exec($curl);
         curl_close($curl);
 
+        wfDebugLog( 'GloopTweaks', "SFS lookup for {$url}. Result: {$result}" );
+
         return $result;
     }
 }
