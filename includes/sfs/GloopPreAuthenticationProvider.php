@@ -37,11 +37,6 @@ class GloopPreAuthenticationProvider extends AbstractPreAuthenticationProvider {
 	 */
 	protected function testUser( $user, $creator, $autocreate ) {   
         global $wgRequest;
-
-		$startTime = microtime( true );
-		if ( $user->getName() === wfMessage( 'abusefilter-blocker' )->inContentLanguage()->text() ) {
-			return StatusValue::newFatal( 'abusefilter-accountreserved' );
-		}
 		
 		$userEmail = $user->getEmail();
 		$userName = $user->getName();
