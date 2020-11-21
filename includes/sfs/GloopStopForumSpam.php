@@ -52,7 +52,7 @@ class GloopStopForumSpam {
 
     private static function doRemoteCall( $query ) {
         $curl = curl_init();
-        $url = sprintf("%s?%s", 'http://api.stopforumspam.org/api', http_build_query($query));
+        $url = sprintf("%s?%s", 'https://api.stopforumspam.org/api', http_build_query($query));
 
         wfDebugLog('GloopTweaks', "Making request to SFS API with URL: {$url}");
 
