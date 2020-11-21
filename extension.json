@@ -35,9 +35,12 @@
 	},
 	"AutoloadClasses": {
 		"GenerateGitInfoCache": "maintenance/generateGitInfoCache.php",
+		"GloopPreAuthenticationProvider": "includes/sfs/GloopPreAuthenticationProvider.php",
+		"GloopStopForumSpam": "includes/sfs/GloopStopForumSpam.php",
 		"GloopTweaksHooks": "GloopTweaksHooks.php",
 		"GloopTweaksUtils": "GloopTweaksUtils.php"
 	},
+	"callback": "GloopTweaksHooks::onRegistration",
 	"AutoloadNamespaces": {
 		"GloopTweaks\\ResourceLoaderModules\\": "includes/modules/"
 	},

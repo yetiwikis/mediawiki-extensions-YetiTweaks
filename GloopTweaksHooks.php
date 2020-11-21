@@ -13,6 +13,19 @@ use MediaWiki\User\UserIdentity;
  */
 class GloopTweaksHooks {
 	/**
+	 * Called after this is loaded
+	 */
+	public static function onRegistration() {
+		global $wgAuthManagerAutoConfig;
+
+		// Load our pre-authentication provider to handle our custom anti-spam checks.
+		$wgAuthManagerAutoConfig['preauth'][GloopPreAuthenticationProvider::class] = [
+			'class' => GloopPreAuthenticationProvider::class,
+			'sort' => 5
+		];
+	}
+
+	/**
 	 * When core requests certain messages, change the key to a Weird Gloop version.
 	 *
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/MessageCache::get
@@ -281,17 +294,24 @@ class GloopTweaksHooks {
 	public static function onContactPage( &$to, &$replyTo, &$subject, &$text ) {
 		global $wglSendDetailsWithContactPage, $wgDBname, $wgRequest, $wgOut, $wgServer;
 
+		$user = $wgOut->getUser();
+		$userIP = $wgRequest->getIP();
+
 		// Spam filter for Special:Contact, checks against [[MediaWiki:weirdgloop-contact-filter]] on metawiki. Regex per line and use '#' for comments.
 		if ( !GloopTweaksUtils::checkContactFilter( $subject . "\n" . $text ) ) {
 			return false;
 		}
 
-		if ($wglSendDetailsWithContactPage) {
-			$user = $wgOut->getUser();
+		// StopForumSpam check: only check users who are not registered already
+		if ( $user->isAnon() && GloopStopForumSpam::isBlacklisted( $userIP ) ) {
+			wfDebugLog( 'GloopTweaks', "Blocked contact form from {$userIP} as they are in StopForumSpam's database" );
+			return false;
+		}
 
+		if ($wglSendDetailsWithContactPage) {
 			$text .= "\n\n---\n\n"; // original message
 			$text .= $wgServer . ' (' . $wgDBname . ") [" . gethostname() . "]\n"; // server & database name
-			$text .= $wgRequest->getIP() . ' - ' . ( $_SERVER['HTTP_USER_AGENT'] ?? null ) . "\n"; // IP & user agent
+			$text .= $userIP . ' - ' . ( $_SERVER['HTTP_USER_AGENT'] ?? null ) . "\n"; // IP & user agent
 			$text .= 'Referrer: ' . ( $_SERVER['HTTP_REFERER'] ?? null ) . "\n"; // referrer if any
 			$text .= 'Skin: ' . $wgOut->getSkin()->getSkinName() . "\n"; // skin
 			$text .= 'User: ' . $user->getName() . ' (' . $user->getId() . ')'; // user
