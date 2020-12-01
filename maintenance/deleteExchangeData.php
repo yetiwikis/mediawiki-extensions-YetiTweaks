@@ -22,15 +22,20 @@ class DeleteExchangeData extends Maintenance {
             '/^Updat(e|ing) price( data)?$/'
         ],
         'en_rswiki' => [
-            '/.*(GE UPDATE|[Uu]pdat(ed?|ing) price).*/', // Only non-strict entry.
+            '/.*GE UPDATE.*/', // Only non-strict entry.
             '/^GEBot.* automated update of item ".+"$/',
-            '/^GEMW Bot TESTING$/',
-            '/^Price update by Immibot$/',
-            '/^Testing - Report issues here: \[\[User talk:Thebrains222\]\]$/',
-            '/^Thurdsday full update\.$/', // Typo is intentional.
-            '/^Updated$/',
-            '/^Updated data$/',
-            '/^Updated volume$/',
+            //'/^Updated data$/',
+            '/^[Uu]pdat(ed?|ing) price( data)?$/',
+            '/^Update price full update all items$/',
+            '/^Update price( |-| - )\(?[Ww]eekly full upday?te[\)\.]?$/',
+            '/^Update price Thursday full update\.$/',
+            '/^Update price - all items$/',
+            '/^Update price and\/or remove comments$/',
+            '/^Update prices and\/or insert commas$/',
+            '/^Update prices? - full update$/',
+            '/^Update price \(full weekly upday?te\)$/',
+            '/^Update price - \(?[Ff]ull? weekly update\)?\.?$/',
+            '/^Update price,$/',
             '/^Updating \[\[Exchange:.+$/',
             '/^Weekly full  update$/' // Extra space is intentional.
         ],
@@ -50,7 +55,6 @@ class DeleteExchangeData extends Maintenance {
         ],
         'en_rswiki' => [
             103988,  // Rich Farmbrough (Early SmackBot edits)
-            833999,  // Immibot
             1053666, // SmackBot
             1252854, // GEBot
             1444022, // AzBot
@@ -136,7 +140,7 @@ class DeleteExchangeData extends Maintenance {
         // Pre-bulk module data.
         $this->processPages( 828 /* NS_MODULE */, $this->getExchangeName() . '/%', $this->getExchangeName() . '/%/Data' );
 
-        $this->output( "Processed a total of {$this->pageCount} pages and {$this->revCount} revisions.\n" );
+        $this->output( "Processed a total of {$this->pageCount} pages and {$this->totalRevCount} revisions ($this->revCount deletable).\n" );
     }
 
     private function getBotUsers() {
@@ -217,6 +221,7 @@ class DeleteExchangeData extends Maintenance {
 
             $this->pageCount += $pageCount;
             $this->revCount += $revCount;
+            $this->totalRevCount += $totalRevCount;
             $this->output( "Processed $pageCount pages and $totalRevCount revisions ($revCount deletable) in the '$table' table.\n" );
         }
     }
