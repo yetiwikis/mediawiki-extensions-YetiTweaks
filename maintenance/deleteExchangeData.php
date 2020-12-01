@@ -104,6 +104,7 @@ class DeleteExchangeData extends Maintenance {
         $this->addDescription( 'Deletes old exchange bot data.' );
         $this->addOption( 'check', 'Print details of how many revisions are deletable, according to page name, user name, and edit summary.' );
         $this->addOption( 'delete', 'Actually perform the deletion.' );
+        $this->addOption( 'quick', "Skip 5 second countdown before starting if '--delete' option is passed." );
         $this->addOption( 'verbose', 'Print verbose debugging information.' );
         // How many revision deletions to perform at a time, doesn't affect querying for the pages.
         $this->setBatchSize( 50 );
@@ -122,19 +123,30 @@ class DeleteExchangeData extends Maintenance {
                 return;
         }
 
+        // Avoid accidental deletions by waiting 5 seconds unless the --quick option is passed.
+        if ( $this->hasOption( 'delete') ) {
+            if ( $this->hasOption( 'quick' ) ) {
+                $this->output( "The '--delete' option has been passed with the '--quick' option, revisions will immediately be deleted.\n" );
+            } else {
+                $this->output( "The '--delete' option has been passed, revisions will be deleted, if not aborted with "
+                    . "control-c in the next five seconds. (skip this countdown with --quick)\n" );
+                $this->countDown( 5 );
+            }
+        }
+
         // Setup DB access.
         $this->dbr = $this->getDB( DB_REPLICA );
         $this->dbw = $this->getDB( DB_MASTER );
         $this->lbFactory = MediaWikiServices::getInstance()->getDBLoadBalancerFactory();
 
-        // Delete revisions for Exchange namespace data pages.
+        // Process Exchange namespace data subpages.
         if ( $this->hasExchangeSubpageData() ) {
             // Pre-module history data.
             $this->processPages( $this->getExchangeId(), '%/Data' );
             // Pre-module data.
             $this->processPages( $this->getExchangeId(), '%', '%/Data' );
         }
-        // Delete revisions for Exchange module subpages.
+        // Process Exchange module subpages.
         // Pre-bulk module history data.
         $this->processPages( 828 /* NS_MODULE */, $this->getExchangeName() . '/%/Data' );
         // Pre-bulk module data.
