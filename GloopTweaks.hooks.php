@@ -336,12 +336,21 @@ class GloopTweaksHooks {
 
 		// Spam filter for Special:Contact, checks against [[MediaWiki:weirdgloop-contact-filter]] on metawiki. Regex per line and use '#' for comments.
 		if ( !GloopTweaksUtils::checkContactFilter( $subject . "\n" . $text ) ) {
+			wfDebugLog( 'GloopTweaks', "Blocked contact form from {$userIP} as their message matches regex in our contact filter" );
 			return false;
 		}
 
 		// StopForumSpam check: only check users who are not registered already
 		if ( $user->isAnon() && GloopStopForumSpam::isBlacklisted( $userIP ) ) {
 			wfDebugLog( 'GloopTweaks', "Blocked contact form from {$userIP} as they are in StopForumSpam's database" );
+			return false;
+		}
+
+		// Block contact page submissions that have an invalid "Reply to"
+		// Bots appear to rewrite <input> tags with type='email' to type='text'
+		// And then the form lets them submit without any additional verification.
+		if ( !filter_var( $replyTo, FILTER_VALIDATE_EMAIL ) ) {
+			wfDebugLog( 'GloopTweaks', "Blocked contact form from {$userIP} as the Reply-To address is not an email address" );
 			return false;
 		}
 
