@@ -89,6 +89,14 @@ class DeleteExchangeData extends Maintenance {
         'pt_rswiki'   => 112
     ];
 
+    private $metaTables = [
+        'change_tag' => 'ct_rev_id',
+        'cu_changes' => 'cuc_this_oldid',
+        'ip_changes' => 'ipc_rev_id',
+        'recentchanges' => 'rc_this_oldid',
+        'tag_summary' => 'ts_rev_id'
+    ];
+
     private $pageTables = [
         'archive' => 'ar',
         'page' => 'page'
@@ -280,6 +288,8 @@ class DeleteExchangeData extends Maintenance {
         $isNewerRevisionBotRevision = false;
         $userFromNewerBotRevision = 0;
         do {
+            $deletableRevs = [];
+            $deletableText = [];
             $conds = $pageConds;
             $conds[] = "$revIdField < $currentRevId";
             $res = $this->dbr->select(
@@ -289,7 +299,8 @@ class DeleteExchangeData extends Maintenance {
                     'revId'       => $revIdField,
                     'revParentId' => "{$prefix}_parent_id",
                     'revUser'     => "{$prefix}_user",
-                    'revUserText' => "{$prefix}_user_text"
+                    'revUserText' => "{$prefix}_user_text",
+                    'textId'      => "{$prefix}_text_id"
                 ],
                 $conds,
                 __METHOD__,
@@ -305,6 +316,7 @@ class DeleteExchangeData extends Maintenance {
                 $revParentId = $row->revParentId;
                 $revUser = (int)$row->revUser;
                 $revUserText = $row->revUserText;
+                $textId = (int)$row->textId;
 
                 if ( $this->hasOption( 'verbose' ) ) {
                     $this->output( "\tWorking on revision in the '$table' table with ID '$revId'.\n" );
@@ -318,8 +330,7 @@ class DeleteExchangeData extends Maintenance {
 
                 // Only delete the revision if we know it and the newer revision are bot revisions made by the same bot and is not the oldest or newest revision.
                 if ( $isBotPriceRevision && !$keepRevision && $isNewerRevisionBotRevision && $revUser === $userFromNewerBotRevision ) {
-                    // Means this revision can be deleted.
-                    // TODO: Actually perform deletion if 'delete' option is set.
+                    $revCount++;
                     if ( $checking ) {
                         if ( !isset( $checkData[$revUserText] ) ) {
                             $checkData[$revUserText] = [];
@@ -329,7 +340,10 @@ class DeleteExchangeData extends Maintenance {
                         }
                         $checkData[$revUserText][$revComment]++;
                     }
-                    $revCount++;
+                    if ( $this->hasOption( 'delete' ) ) {
+                        $deletableRevs[] = $revId;
+                        $deletableText[] = $textId;
+                    }
                 }
 
                 if ( $isBotPriceRevision ) {
@@ -347,6 +361,11 @@ class DeleteExchangeData extends Maintenance {
                 }
             }
             $currentRevId = $revId;
+
+            // Delete this batch of revisions, text, and their associated metadata.
+            if ( $this->hasOption( 'delete' ) && !empty( $deletableRevs ) ) {
+                $this->deleteRevisions( $table, $deletableRevs, $deletableText );
+            }
         } while ( $res->numRows() );
 
         if ( $checking ) {
@@ -358,6 +377,21 @@ class DeleteExchangeData extends Maintenance {
         }
 
         return [ $revCount, $totalRevCount ];
+    }
+
+    private function deleteRevisions( $revTable, $deletableRevs, $deletableText ) {
+        $revIdField = ( $revTable === 'archive' ) ? 'ar_rev_id' : 'rev_id';
+
+        //$this->lbFactory->beginMasterChanges(__METHOD__);
+        //$ticket = $this->lbFactory->getEmptyTransactionTicket( __METHOD__ );
+        foreach ( $this->metaTables as $table => $field ) {
+            $this->dbw->delete( $table, [ $field => $deletableRevs ], __METHOD__ );
+        }
+        $this->dbw->delete( $revTable, [ $revIdField => $deletableRevs ], __METHOD__ );
+        $this->dbw->delete( 'text', [ 'old_id' => $deletableText ], __METHOD__ );
+        //$this->lbFactory->commitAndWaitForReplication( __METHOD__, $ticket );
+        //$this->lbFactory->commitMasterChanges(__METHOD__);
+        $this->lbFactory->waitForReplication();
     }
 
     private function checkForBotPriceRevision( $userId, $summary ) {
