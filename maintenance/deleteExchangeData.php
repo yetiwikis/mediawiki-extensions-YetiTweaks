@@ -45,6 +45,7 @@ class DeleteExchangeData extends Maintenance {
         ],
         'pt_rswiki' => [
             '/^Atualiza(ndo [Pp]|ção do (volume do)?p)reço$/',
+            '/^Atualização do volume do preço$/',
             '/^Atualizando item data$/'
         ]
     ];
