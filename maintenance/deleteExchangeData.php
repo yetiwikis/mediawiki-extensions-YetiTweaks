@@ -17,6 +17,10 @@ class DeleteExchangeData extends Maintenance {
     private $revCount = 0;
     private $totalRevCount = 0;
 
+    private $deletableArchivedRevs = [];
+    private $deletableRevs = [];
+    private $deletableText = [];
+
     private $botSummaryRegexes = [
         'en_osrswiki' => [
             '/^Updat(e|ing) price( data)?$/'
@@ -147,20 +151,24 @@ class DeleteExchangeData extends Maintenance {
         $this->dbw = $this->getDB( DB_MASTER );
         $this->lbFactory = MediaWikiServices::getInstance()->getDBLoadBalancerFactory();
 
-        // Process Exchange namespace data subpages.
+        // Process Exchange namespace and data subpages.
         if ( $this->hasExchangeSubpageData() ) {
-            // Pre-module history data.
-            $this->processPages( $this->getExchangeId(), '%/Data' );
             // Pre-module data.
-            $this->processPages( $this->getExchangeId(), '%', '%/Data' );
+            $this->processPages( $this->getExchangeId(), '%' );
         }
         // Process Exchange module subpages.
-        // Pre-bulk module history data.
-        $this->processPages( 828 /* NS_MODULE */, $this->getExchangeName() . '/%/Data' );
-        // Pre-bulk module data.
-        $this->processPages( 828 /* NS_MODULE */, $this->getExchangeName() . '/%', $this->getExchangeName() . '/%/Data' );
+        // Pre-bulk module data and subpages.
+        $this->processPages( 828 /* NS_MODULE */, $this->getExchangeName() . '/%' );
 
-        $this->output( "Processed a total of {$this->pageCount} pages and {$this->totalRevCount} revisions ($this->revCount deletable).\n" );
+        // Start deletion.
+        // Delete this batch of revisions, text, and their associated metadata.
+        if ( $this->hasOption( 'delete' ) && !empty( $this->deletableText ) ) {
+            $this->output( "Processed a total of {$this->pageCount} pages and {$this->totalRevCount} revisions ($this->revCount will be deleted).\n" );
+            $this->deleteRevisions();
+            $this->output( "Processed a total of {$this->pageCount} pages and {$this->totalRevCount} revisions ($this->revCount deleted).\n" );
+        } else {
+            $this->output( "Processed a total of {$this->pageCount} pages and {$this->totalRevCount} revisions ($this->revCount deletable).\n" );
+        }
     }
 
     private function getBotUsers() {
@@ -288,8 +296,6 @@ class DeleteExchangeData extends Maintenance {
         $isNewerRevisionBotRevision = false;
         $userFromNewerBotRevision = 0;
         do {
-            $deletableRevs = [];
-            $deletableText = [];
             $conds = $pageConds;
             $conds[] = "$revIdField < $currentRevId";
             $res = $this->dbr->select(
@@ -341,8 +347,12 @@ class DeleteExchangeData extends Maintenance {
                         $checkData[$revUserText][$revComment]++;
                     }
                     if ( $this->hasOption( 'delete' ) ) {
-                        $deletableRevs[] = $revId;
-                        $deletableText[] = $textId;
+                        if ( $table === 'archive' ) {
+                            $this->deletableArchivedRevs[] = $revId;
+                        } else {
+                            $this->deletableRevs[] = $revId;
+                        }
+                        $this->deletableText[] = $textId;
                     }
                 }
 
@@ -361,11 +371,6 @@ class DeleteExchangeData extends Maintenance {
                 }
             }
             $currentRevId = $revId;
-
-            // Delete this batch of revisions, text, and their associated metadata.
-            if ( $this->hasOption( 'delete' ) && !empty( $deletableRevs ) ) {
-                $this->deleteRevisions( $table, $deletableRevs, $deletableText );
-            }
         } while ( $res->numRows() );
 
         if ( $checking ) {
@@ -379,19 +384,44 @@ class DeleteExchangeData extends Maintenance {
         return [ $revCount, $totalRevCount ];
     }
 
-    private function deleteRevisions( $revTable, $deletableRevs, $deletableText ) {
-        $revIdField = ( $revTable === 'archive' ) ? 'ar_rev_id' : 'rev_id';
+    private function deleteRevisions() {
+        foreach ( [ 'archive' => 'ar_rev_id', 'revision' => 'rev_id' ] as $revTable => $revIdField ) {
+            $this->output( "Deleting '$revTable' entries...\n" );
+            $batches = [];
+            $count = 0;
+            if ( $revTable === 'archive' ) {
+                $batches = array_chunk( $this->deletableArchivedRevs, $this->getBatchSize() );
+            } else {
+                $batches = array_chunk( $this->deletableRevs, $this->getBatchSize() );
+            }
 
-        //$this->lbFactory->beginMasterChanges(__METHOD__);
-        //$ticket = $this->lbFactory->getEmptyTransactionTicket( __METHOD__ );
-        foreach ( $this->metaTables as $table => $field ) {
-            $this->dbw->delete( $table, [ $field => $deletableRevs ], __METHOD__ );
+            foreach ( $batches as $batch ) {
+                $count += count( $batch );
+                foreach ( $this->metaTables as $table => $field ) {
+                    $this->dbw->delete( $table, [ $field => $batch ], __METHOD__ );
+                    $this->lbFactory->waitForReplication();
+                }
+                $this->dbw->delete( $revTable, [ $revIdField => $batch ], __METHOD__ );
+                $this->lbFactory->waitForReplication();
+                if ( $count % 5000 === 0 ) {
+                    $this->output( "Deleted $count '$revTable' entries so far...\n" );
+                }
+            }
+            $this->output( "Deleted a total of $count '$revTable' entries.\n" );
         }
-        $this->dbw->delete( $revTable, [ $revIdField => $deletableRevs ], __METHOD__ );
-        $this->dbw->delete( 'text', [ 'old_id' => $deletableText ], __METHOD__ );
-        //$this->lbFactory->commitAndWaitForReplication( __METHOD__, $ticket );
-        //$this->lbFactory->commitMasterChanges(__METHOD__);
-        $this->lbFactory->waitForReplication();
+
+        $this->output( "Deleting 'text' entries...\n" );
+        $batches = array_chunk( $this->deletableText, $this->getBatchSize() );
+        $count = 0;
+        foreach ( $batches as $batch ) {
+            $count += count( $batch );
+            $this->dbw->delete( 'text', [ 'old_id' => $batch ], __METHOD__ );
+            $this->lbFactory->waitForReplication();
+            if ( $count % 5000 === 0 ) {
+                $this->output( "Deleted $count 'text' entries so far...\n" );
+            }
+        }
+        $this->output( "Deleted a total of $count 'text' entries.\n" );
     }
 
     private function checkForBotPriceRevision( $userId, $summary ) {
