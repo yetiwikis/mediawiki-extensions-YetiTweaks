@@ -30,17 +30,17 @@ class GloopStopForumSpam {
             return false;
         }
 
-        if ($resultJson['ip']['appears'] > 0) {
+        if ($resultJson['ip']['appears'] > 0 && $resultJson['ip']['confidence'] > 10.0) {
             // IP appears in the SFS database.
             wfDebugLog( 'GloopTweaks', "{$ip} appears in StopForumSpam database" );
             return true;
         }
-        if ($email && $resultJson['email']['appears'] > 0) {
+        if ($email && $resultJson['email']['appears'] > 0 && $resultJson['email']['confidence'] > 10.0) {
             // Email appears in the SFS database.
             wfDebugLog( 'GloopTweaks', "{$email} appears in StopForumSpam database" );
             return true;
         }
-        if ($username && $resultJson['username']['appears'] > 0) {
+        if ($username && $resultJson['username']['appears'] > 0 && $resultJson['username']['confidence'] > 10.0) {
             // Username appears in the SFS database.
             wfDebugLog( 'GloopTweaks', "{$username} appears in StopForumSpam database" );
             return true;
