@@ -183,6 +183,27 @@ class GloopTweaksHooks {
 	}
 
 	/**
+	 * Restrict sensitive user rights to only 2FAed sessions.
+	 *
+	 * @param User $user Current user
+	 * @param array &$rights Current user rights.
+	 */
+	public static function onUserGetRightsRemove( $user, &$rights ) {
+		global $wglSensitiveRights;
+
+		$session = $user->getRequest()->getSession();
+		// Hardcoded to avoid dependency on OATHAuth::AUTHENTICATED_OVER_2FA.
+		$has2FASession = (bool)$this->session->get( 'OATHAuthAuthenticatedOver2FA', false );
+		// Sensitive rights are removed only if this isn't a 2FAed session.
+		if ( $has2FASession ) {
+			return;
+		}
+
+		// Otherwise, filter out the sensitive user rights.
+		$rights = array_diff( $rights, $wglSensitiveRights );
+	}
+
+	/**
 	 * Protect Weird Gloop system messages from being edited by those that do not have
 	 * the "editinterfacesite" right. This is because system messages that are prefixed
 	 * with "weirdgloop" are probably there for a legal reason or to ensure consistency
