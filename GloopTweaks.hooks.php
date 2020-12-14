@@ -349,10 +349,10 @@ class GloopTweaksHooks {
 		// Block contact page submissions that have an invalid "Reply to"
 		// Bots appear to rewrite <input> tags with type='email' to type='text'
 		// And then the form lets them submit without any additional verification.
-		if ( !filter_var( $replyTo, FILTER_VALIDATE_EMAIL ) ) {
-			wfDebugLog( 'GloopTweaks', "Blocked contact form from {$userIP} as the Reply-To address is not an email address" );
-			return false;
-		}
+		// if ( !filter_var( $replyTo, FILTER_VALIDATE_EMAIL ) ) {
+		// 	wfDebugLog( 'GloopTweaks', "Blocked contact form from {$userIP} as the Reply-To address is not an email address" );
+		// 	return false;
+		// }
 
 		if ($wglSendDetailsWithContactPage) {
 			$text .= "\n\n---\n\n"; // original message
