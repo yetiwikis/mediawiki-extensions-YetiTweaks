@@ -49,8 +49,11 @@ class GloopPreAuthenticationProvider extends AbstractPreAuthenticationProvider {
         $sfsBlacklisted = GloopStopForumSpam::isBlacklisted( $userIP, $userEmail, null ); // for now, don't use usernamE
 
         if ($sfsBlacklisted === true) {
-			wfDebugLog( 'GloopTweaks', "Blocked account creation from {$userIP} with email {$userEmail} and name {$userName}, as they are in StopForumSpam's database" );
-            return StatusValue::newFatal( 'weirdgloop-spam-block' );
+			if ($creator && !$creator->isAllowed('bypassgloopspam')) {
+				// creator does not have rights to bypass this spam filter
+				wfDebugLog( 'GloopTweaks', "Blocked account creation from {$userIP} with email {$userEmail} and name {$userName}, as they are in StopForumSpam's database" );
+				return StatusValue::newFatal( 'weirdgloop-spam-block' );	
+			}
 		}
 
 		return StatusValue::newGood();

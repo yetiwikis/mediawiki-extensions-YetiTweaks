@@ -111,7 +111,8 @@
 		"EnableLoadingReadermode": true
 	},
 	"AvailableRights": [
-		"editinterfacesite"
+		"editinterfacesite",
+		"bypassgloopspam"
 	],
 	"manifest_version": 1
 }
