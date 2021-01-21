@@ -14,6 +14,7 @@
     "weirdgloop-spam-block": "You have been blocked from performing this action as you tripped our special anti-spam measures. If you believe this was in error, please [https://discord.gg/runescapewiki contact us on Discord].",
     "right-sysadmin": "Access to administrative tools across the network",
     "right-editinterfacesite": "Edit the global site interface",
+    "right-bypassgloopspam": "Bypass site-wide spam protection measures implemented by Weird Gloop",
     "group-sysadmin": "Sysadmin",
     "group-jagex": "Jagex",
     "right-jagex": "Verified employee of Jagex Ltd"
