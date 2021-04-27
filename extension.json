@@ -71,6 +71,7 @@
 		"PageSaveComplete": "GloopTweaksHooks::onPageSaveComplete",
 		"SkinAddFooterLinks": "GloopTweaksHooks::onSkinAddFooterLinks",
 		"SkinCopyrightFooter": "GloopTweaksHooks::onSkinCopyrightFooter",
+		"TestCanonicalRedirect": "GloopTweaksHooks::onTestCanonicalRedirect",
 		"TitleSquidURLs": "GloopTweaksHooks::onTitleSquidURLs",
 		"TorBlockBlockedMsg": "GloopTweaksHooks::onTorBlockBlockedMsg",
 		"UploadForm:initial": "GloopTweaksHooks::onUploadFormInitial",

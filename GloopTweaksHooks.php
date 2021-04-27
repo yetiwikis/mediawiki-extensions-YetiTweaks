@@ -351,6 +351,15 @@ class GloopTweaksHooks {
 	}
 
 	/**
+	 * Prevent infinite looping of main page requests with cache parameters.
+	 */
+	public static function onTestCanonicalRedirect( $request, $title, $output ) {
+		if ( $title->isMainPage() && strpos( $request->getRequestURL(), '/?') === 0 ) {
+			return false;
+		}
+	}
+
+	/**
 	 * Our main pages are at domain root, implemented as a hook,
 	 * because $wgMainPageIsDomainRoot doesn't work for queries.
 	 */
