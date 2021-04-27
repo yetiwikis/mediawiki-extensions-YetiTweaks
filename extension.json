@@ -70,8 +70,17 @@
 		"SkinTemplateOutputPageBeforeExec": [
 			"GloopTweaksHooks::onSkinTemplateOutputPageBeforeExec"
 		],
+		"TestCanonicalRedirect": [
+			"GloopTweaksHooks::onTestCanonicalRedirect"
+		],
 		"TorBlockBlockedMsg": [
 			"GloopTweaksHooks::onTorBlockBlockedMsg"
+		],
+		"GetLocalURL::Article": [
+			"GloopTweaksHooks::onGetLocalURLArticle"
+		],
+		"GetLocalURL::Internal": [
+			"GloopTweaksHooks::onGetLocalURLInternal"
 		],
 		"GlobalBlockingBlockedIpMsg": [
 			"GloopTweaksHooks::onGlobalBlockingBlockedIpMsg"
