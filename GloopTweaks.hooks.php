@@ -45,7 +45,8 @@ class GloopTweaksHooks {
 				'emailmessage',
 				'mobile-frontend-copyright',
 				'contactpage-pagetext',
-				'newusermessage-editor'
+				'newusermessage-editor',
+				'revisionslider-help-dialog-slide1'
 			];
 
 			if ( in_array( $lcKey, $keys, true ) ) {
