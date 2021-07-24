@@ -229,7 +229,8 @@ class GloopTweaksHooks {
 			&& $title->inNamespace( NS_MEDIAWIKI )
 			&& strpos( lcfirst( $title->getDBKey() ), 'weirdgloop-' ) === 0
 			&& !$user->isAllowed( 'editinterfacesite' )
-			&& $action !== 'read' ) {
+			&& $action !== 'read'
+		) {
 				$result = 'weirdgloop-siteinterface';
 				return false;
 		}
@@ -243,7 +244,7 @@ class GloopTweaksHooks {
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
 		global $wglEnableLoadingDarkmode, $wglEnableLoadingReadermode, $wglEnableSearchboxMetadata, $wgArticlePath, $wgCanonicalServer;
 
-		if ($wglEnableLoadingDarkmode) {
+		if ( $wglEnableLoadingDarkmode ) {
 			/* Dark mode */
 			if ( isset( $_COOKIE['darkmode'] ) ) {
 				if ( $_COOKIE['darkmode'] == 'true' ) {
@@ -252,7 +253,7 @@ class GloopTweaksHooks {
 			}
 		}
 
-		if ($wglEnableLoadingReadermode) {
+		if ( $wglEnableLoadingReadermode ) {
 			/* Reader mode */
 			if ( isset( $_COOKIE['readermode'] ) ) {
 				if ( $_COOKIE['readermode'] == 'true' ) {
@@ -261,7 +262,7 @@ class GloopTweaksHooks {
 			}
 		}
 
-		if ($wglEnableSearchboxMetadata) {
+		if ( $wglEnableSearchboxMetadata ) {
 			/* Structured data for the Google Sitelinks search box. */
 			if ( $out->getTitle()->isMainPage() ) {
 				$targetUrl = $wgCanonicalServer . str_replace( '$1', 'Special:Search', $wgArticlePath );
@@ -297,29 +298,26 @@ class GloopTweaksHooks {
 	public static function onOutputPageBodyAttributes( OutputPage $out, Skin $sk, &$bodyAttrs ) {
 		global $wglEnableLoadingDarkmode, $wglEnableLoadingReadermode;
 
-		if ($wglEnableLoadingDarkmode) {
-			if ( isset( $_COOKIE['darkmode'] ) ) {
-				if ( $_COOKIE['darkmode'] == 'true' ) {
-					// Add a class to the body so that gadgets can identify that we're using darkmode
-					$bodyAttrs['class'] .= ' wgl-darkmode';
-				}
+		if ( $wglEnableLoadingDarkmode ) {
+			// add a class to the body to identify if we're in darkmode or not
+			// so gadgets can hook off it
+			if ( isset( $_COOKIE['darkmode'] ) && $_COOKIE['darkmode'] == 'true' ) {
+				$bodyAttrs['class'] .= ' wgl-darkmode';
+			} else {
+				$bodyAttrs['class'] .= ' wgl-lightmode';
 			}
 		}
 
-		if ($wglEnableLoadingReadermode) {
-			if ( isset( $_COOKIE['readermode'] ) ) {
-				if ( $_COOKIE['readermode'] == 'true' ) {
-					// Add a class to the body so that gadgets can identify that we're using reader mode
-					$bodyAttrs['class'] .= ' wgl-readermode';
-				}
+		if ( $wglEnableLoadingReadermode ) {
+			if ( isset( $_COOKIE['readermode'] ) && $_COOKIE['readermode'] == 'true' ) {
+				// Add a class to the body so that gadgets can identify that we're using reader mode
+				$bodyAttrs['class'] .= ' wgl-readermode';
 			}
 		}
 
-		if ( isset( $_COOKIE['stickyheader'] ) ) {
-			if ( $_COOKIE['stickyheader'] == 'true' ) {
-				// Add a class to the body so that gadgets can identify that we're using sticky headers
-				$bodyAttrs['class'] .= ' wgl-stickyheader';
-			}
+		if ( isset( $_COOKIE['stickyheader'] ) && $_COOKIE['stickyheader'] == 'true' ) {
+			// Add a class to the body so that gadgets can identify that we're using sticky headers
+			$bodyAttrs['class'] .= ' wgl-stickyheader';
 		}
 
 		return true;

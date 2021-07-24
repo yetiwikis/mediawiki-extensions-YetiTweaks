@@ -6,7 +6,7 @@ use ResourceLoaderUserModule;
 use ResourceLoaderContext;
 
 class DarkmodeStyleModule extends ResourceLoaderUserModule {
-    protected $origin = self::ORIGIN_USER_SITEWIDE;
+	protected $origin = self::ORIGIN_USER_SITEWIDE;
 	protected $targets = [ 'desktop' ];
 
 	/**
