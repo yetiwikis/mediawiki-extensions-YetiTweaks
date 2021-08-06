@@ -55,8 +55,8 @@
 		}
 	},
 	"ResourceFileModulePaths": {
-    "localBasePath": "",
-    "remoteExtPath": "WeirdGloopMessages"
+		"localBasePath": "",
+		"remoteExtPath": "WeirdGloopMessages"
 	},
 	"Hooks": {
 		"BeforePageDisplay": "GloopTweaksHooks::onBeforePageDisplay",
