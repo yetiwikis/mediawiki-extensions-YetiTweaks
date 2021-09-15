@@ -38,7 +38,8 @@
 		"GloopPreAuthenticationProvider": "includes/sfs/GloopPreAuthenticationProvider.php",
 		"GloopStopForumSpam": "includes/sfs/GloopStopForumSpam.php",
 		"GloopTweaksHooks": "GloopTweaksHooks.php",
-		"GloopTweaksUtils": "GloopTweaksUtils.php"
+		"GloopTweaksUtils": "GloopTweaksUtils.php",
+		"Scribunto_LuaGloopTweaksLibrary": "includes/Scribunto_LuaGloopTweaksLibrary.php"
 	},
 	"callback": "GloopTweaksHooks::onRegistration",
 	"AutoloadNamespaces": {
@@ -69,6 +70,7 @@
 		"OpenSearchUrls": "GloopTweaksHooks::onOpenSearchUrls",
 		"OutputPageBodyAttributes": "GloopTweaksHooks::onOutputPageBodyAttributes",
 		"PageSaveComplete": "GloopTweaksHooks::onPageSaveComplete",
+		"ScribuntoExternalLibraries": "GloopTweaksHooks::onScribuntoExternalLibraries",
 		"SkinAddFooterLinks": "GloopTweaksHooks::onSkinAddFooterLinks",
 		"SkinCopyrightFooter": "GloopTweaksHooks::onSkinCopyrightFooter",
 		"TestCanonicalRedirect": "GloopTweaksHooks::onTestCanonicalRedirect",

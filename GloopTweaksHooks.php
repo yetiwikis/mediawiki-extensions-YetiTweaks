@@ -395,4 +395,16 @@ class GloopTweaksHooks {
 			}
 		}
 	}
+
+	/**
+	 * External Lua library for Scribunto
+	 *
+	 * @param string $engine
+	 * @param array &$extraLibraries
+	 */
+	public static function onScribuntoExternalLibraries( $engine, array &$extraLibraries ) {
+		if ( $engine == 'lua' ) {
+			$extraLibraries['mw.ext.GloopTweaks'] = 'Scribunto_LuaGloopTweaksLibrary';
+		}
+	}
 }
