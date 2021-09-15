@@ -38,7 +38,8 @@
 		"GloopTweaksHooks": "GloopTweaks.hooks.php",
 		"GloopTweaksUtils": "GloopTweaksUtils.php",
 		"GloopStopForumSpam": "includes/sfs/GloopStopForumSpam.php",
-		"GloopPreAuthenticationProvider": "includes/sfs/GloopPreAuthenticationProvider.php"
+		"GloopPreAuthenticationProvider": "includes/sfs/GloopPreAuthenticationProvider.php",
+		"Scribunto_LuaGloopTweaksLibrary": "includes/Scribunto_LuaGloopTweaksLibrary.php"
 	},
 	"callback": "GloopTweaksHooks::onRegistration",
 	"AutoloadNamespaces": {
@@ -106,6 +107,9 @@
 		],
 		"ContactForm": [
 			"GloopTweaksHooks::onContactPage"
+		],
+		"ScribuntoExternalLibraries": [
+			"GloopTweaksHooks::onScribuntoExternalLibraries"
 		]
 	},
 	"config": {
