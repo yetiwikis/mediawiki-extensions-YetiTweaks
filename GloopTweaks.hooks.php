@@ -400,35 +400,6 @@ class GloopTweaksHooks {
 	}
 
 	/**
-	 * Add internal mobile URL variant for purging.
-	 */
-	public static function onTitleSquidURLs( Title $title, array &$urls ) {
-		global $wglCloudflareCacheBreaker, $wglCloudflareCacheEnabled, $wglCloudflareNoncachedNamespaces, $wglEnableMobileVariant;
-
-		// Hack to remove namespaces we don't want to cache due to low traffic, but high purge rate.
-		// TODO: Re-evaluate with MW 1.35 improvements.
-		if ( !$wglCloudflareCacheEnabled || in_array( $this->getNamespace(), $wglCloudflareNoncachedNamespaces ) ) {
-			$urls = [];
-			return;
-		}
-
-		// Add cache breaker to desktop page views.
-		// TODO: Decide if with MW 1.35, we should stop patching out 'action=history' and add it here as well.
-		$internalViewURL = $title->getInternalURL();
-		foreach ( $urls as $key => $url ) {
-			if ( $url === $internalViewURL ) {
-				$urls[$key] = $title->getInternalURL( 'wglCacheVer=' . $wglCloudflareCacheBreaker );
-				break;
-			}
-		}
-
-		// Cache mobile page views.
-		if ( $wglEnableMobileVariant ) {
-			$urls[] = $title->getInternalURL( 'wglCacheVer=' . $wglCloudflareCacheBreaker . '&wglMobile=1' );
-		}
-	}
-
-	/**
 	 * External Lua library for Scribunto
 	 *
 	 * @param string $engine

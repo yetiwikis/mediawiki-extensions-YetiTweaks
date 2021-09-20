@@ -119,9 +119,6 @@
 	"config": {
 		"_prefix": "wgl",
 		"CentralDB": "metawiki",
-		"CloudflareCacheBreaker": "0",
-		"CloudflareCacheEnabled": true,
-		"CloudflareNoncachedNamespaces": [],
 		"CloudflareToken": "",
 		"CloudflareZone": "",
 		"SendDetailsWithContactPage": true,
