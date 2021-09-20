@@ -18,7 +18,8 @@ class GloopEventRelayer extends EventRelayer {
 		// Extract the URLs to purge from the 'cdn-url-purges' events.
 		$urls = [];
 		foreach ( $events as $event ) {
-			$urls[] = $event['url'];
+			// File purges include only hostname, so the URL must be expanded.
+			$urls[] = wfExpandUrl( $url, $event['url'] );
 		}
 
 		// Purge the URLs from Cloudflare.
