@@ -76,6 +76,9 @@
 		"TestCanonicalRedirect": [
 			"GloopTweaksHooks::onTestCanonicalRedirect"
 		],
+		"TitleSquidURLs": [
+			"GloopTweaksHooks::onTitleSquidURLs"
+		],
 		"TorBlockBlockedMsg": [
 			"GloopTweaksHooks::onTorBlockBlockedMsg"
 		],
@@ -116,6 +119,9 @@
 	"config": {
 		"_prefix": "wgl",
 		"CentralDB": "metawiki",
+		"CloudflareCacheBreaker": "0",
+		"CloudflareCacheEnabled": true,
+		"CloudflareNoncachedNamespaces": [],
 		"CloudflareToken": "",
 		"CloudflareZone": "",
 		"SendDetailsWithContactPage": true,
