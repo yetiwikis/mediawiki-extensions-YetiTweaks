@@ -23,9 +23,6 @@ class GloopEventRelayer extends EventRelayer {
 
 		// Purge the URLs from Cloudflare.
 		if ( count( $urls ) > 0 ) {
-			// MediaWiki doesn't guarantee the event URLs are unique, so avoid pointless purges since we're ignoring timestamp.
-			$urls = array_unique( $urls );
-
 			self::CloudflarePurge( $urls );
 		}
 
@@ -46,13 +43,13 @@ class GloopEventRelayer extends EventRelayer {
 		// Prepare cURL
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, [
-			"Authorization: Bearer $wglCloudflareToken",
-			'Content-Type: application/json'
+			'Authorization: Bearer ' . $wglCloudflareToken,
+			'Content-Type: application/json',
 		] );
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 		curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 10 );
 		curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
-		curl_setopt( $ch, CURLOPT_URL, "https://api.cloudflare.com/client/v4/zones/$wglCloudflareZone/purge_cache" );
+		curl_setopt( $ch, CURLOPT_URL, 'https://api.cloudflare.com/client/v4/zones/' . $wglCloudflareZone . '/purge_cache' );
 
 		// Perform the purge requests a chunk at a time.
 		foreach ( $chunks as $chunk ) {
