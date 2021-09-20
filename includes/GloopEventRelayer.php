@@ -19,7 +19,7 @@ class GloopEventRelayer extends EventRelayer {
 		$urls = [];
 		foreach ( $events as $event ) {
 			// File purges include only hostname, so the URL must be expanded.
-			$urls[] = wfExpandUrl( $url, $event['url'] );
+			$urls[] = wfExpandUrl( $event['url'], PROTO_INTERNAL );
 		}
 
 		// Purge the URLs from Cloudflare.
