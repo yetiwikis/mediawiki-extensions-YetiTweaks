@@ -35,6 +35,7 @@
 	},
 	"AutoloadClasses": {
 		"GenerateGitInfoCache": "maintenance/generateGitInfoCache.php",
+		"GloopEventRelayer": "includes/GloopEventRelayer.php",
 		"GloopPreAuthenticationProvider": "includes/sfs/GloopPreAuthenticationProvider.php",
 		"GloopStopForumSpam": "includes/sfs/GloopStopForumSpam.php",
 		"GloopTweaksHooks": "GloopTweaksHooks.php",
@@ -84,6 +85,8 @@
 		"_prefix": "wgl",
 		"AddFooterLinks": true,
 		"CentralDB": "metawiki",
+		"CloudflareToken": "",
+		"CloudflareZone": "",
 		"EnableLoadingDarkmode": true,
 		"EnableLoadingReadermode": true,
 		"EnableMessageOverrides": true,
