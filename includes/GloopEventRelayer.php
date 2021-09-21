@@ -24,6 +24,7 @@ class GloopEventRelayer extends EventRelayer {
 
 		// Purge the URLs from Cloudflare.
 		if ( count( $urls ) > 0 ) {
+			wfDebugLog( 'purges_cf', __METHOD__ . ': ' . implode( ' ', $urls ) );
 			self::CloudflarePurge( $urls );
 		}
 
