@@ -242,7 +242,7 @@ class GloopTweaksHooks {
 	 * Implement a dark mode and add structured data for the Google Sitelinks search box.
 	 */
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
-		global $wglAnalyticsID, $wglEnableLoadingDarkmode, $wglEnableLoadingReadermode, $wglEnableSearchboxMetadata, $wgArticlePath, $wgCanonicalServer;
+		global $wgCloudflareDomain, $wglAnalyticsID, $wglEnableLoadingDarkmode, $wglEnableLoadingReadermode, $wglEnableSearchboxMetadata, $wgArticlePath, $wgCanonicalServer;
 
 		if ( $wglAnalyticsID ) {
 			$out->addScript(
@@ -257,20 +257,26 @@ class GloopTweaksHooks {
 			$out->addInlineScript("window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','$wglAnalyticsID')");
 		}
 
-		if ( $wglEnableLoadingDarkmode ) {
-			/* Dark mode */
-			if ( isset( $_COOKIE['darkmode'] ) ) {
-				if ( $_COOKIE['darkmode'] == 'true' ) {
-					$out->addModuleStyles( [ 'wg.darkmode' ] );
+		// Our Cloudflare worker handles darkmode and readermode for us.
+		$cfWorker = $out->getRequest()->getHeader( 'CF-Worker' );
+		$workerProcessed = $cfWorker !== false && $cfWorker === $wgCloudflareDomain;
+
+		if ( !$workerProcessed ) {
+			if ( $wglEnableLoadingDarkmode ) {
+				/* Dark mode */
+				if ( isset( $_COOKIE['darkmode'] ) ) {
+					if ( $_COOKIE['darkmode'] == 'true' ) {
+						$out->addModuleStyles( [ 'wg.darkmode' ] );
+					}
 				}
 			}
-		}
 
-		if ( $wglEnableLoadingReadermode ) {
-			/* Reader mode */
-			if ( isset( $_COOKIE['readermode'] ) ) {
-				if ( $_COOKIE['readermode'] == 'true' ) {
-					$out->addModuleStyles( [ 'wg.readermode' ] );
+			if ( $wglEnableLoadingReadermode ) {
+				/* Reader mode */
+				if ( isset( $_COOKIE['readermode'] ) ) {
+					if ( $_COOKIE['readermode'] == 'true' ) {
+						$out->addModuleStyles( [ 'wg.readermode' ] );
+					}
 				}
 			}
 		}
@@ -309,28 +315,34 @@ class GloopTweaksHooks {
 	}
 
 	public static function onOutputPageBodyAttributes( OutputPage $out, Skin $sk, &$bodyAttrs ) {
-		global $wglEnableLoadingDarkmode, $wglEnableLoadingReadermode;
+		global $wgCloudflareDomain, $wglEnableLoadingDarkmode, $wglEnableLoadingReadermode;
 
-		if ( $wglEnableLoadingDarkmode ) {
-			// add a class to the body to identify if we're in darkmode or not
-			// so gadgets can hook off it
-			if ( isset( $_COOKIE['darkmode'] ) && $_COOKIE['darkmode'] == 'true' ) {
-				$bodyAttrs['class'] .= ' wgl-darkmode';
-			} else {
-				$bodyAttrs['class'] .= ' wgl-lightmode';
+		// Our Cloudflare worker handles darkmode and readermode for us.
+		$cfWorker = $out->getRequest()->getHeader( 'CF-Worker' );
+		$workerProcessed = $cfWorker !== false && $cfWorker === $wgCloudflareDomain;
+
+		if ( !$workerProcessed ) {
+			if ( $wglEnableLoadingDarkmode ) {
+				// add a class to the body to identify if we're in darkmode or not
+				// so gadgets can hook off it
+				if ( isset( $_COOKIE['darkmode'] ) && $_COOKIE['darkmode'] == 'true' ) {
+					$bodyAttrs['class'] .= ' wgl-darkmode';
+				} else {
+					$bodyAttrs['class'] .= ' wgl-lightmode';
+				}
 			}
-		}
 
-		if ( $wglEnableLoadingReadermode ) {
-			if ( isset( $_COOKIE['readermode'] ) && $_COOKIE['readermode'] == 'true' ) {
-				// Add a class to the body so that gadgets can identify that we're using reader mode
-				$bodyAttrs['class'] .= ' wgl-readermode';
+			if ( $wglEnableLoadingReadermode ) {
+				if ( isset( $_COOKIE['readermode'] ) && $_COOKIE['readermode'] == 'true' ) {
+					// Add a class to the body so that gadgets can identify that we're using reader mode
+					$bodyAttrs['class'] .= ' wgl-readermode';
+				}
 			}
-		}
 
-		if ( isset( $_COOKIE['stickyheader'] ) && $_COOKIE['stickyheader'] == 'true' ) {
-			// Add a class to the body so that gadgets can identify that we're using sticky headers
-			$bodyAttrs['class'] .= ' wgl-stickyheader';
+			if ( isset( $_COOKIE['stickyheader'] ) && $_COOKIE['stickyheader'] == 'true' ) {
+				// Add a class to the body so that gadgets can identify that we're using sticky headers
+				$bodyAttrs['class'] .= ' wgl-stickyheader';
+			}
 		}
 
 		return true;
