@@ -24,7 +24,7 @@ class GenerateGitInfoCache extends Maintenance {
             foreach ($directories as $directory) {
                 if (is_dir($directory)) {
                     $this->output( "Generating GitInfo cache for '$directory'.\n" );
-                    (new GitInfo( $directory ))->precomputeValues();
+                    (new GitInfo( $directory, false ))->precomputeValues();
                 }
             }
         }
