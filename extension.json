@@ -115,6 +115,7 @@
 	},
 	"config": {
 		"_prefix": "wgl",
+		"AnalyticsID": "",
 		"CentralDB": "metawiki",
 		"CloudflareToken": "",
 		"CloudflareZone": "",
