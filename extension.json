@@ -83,6 +83,7 @@
 	"config": {
 		"_prefix": "wgl",
 		"AddFooterLinks": true,
+		"AnalyticsID": "",
 		"CentralDB": "metawiki",
 		"CloudflareToken": "",
 		"CloudflareZone": "",

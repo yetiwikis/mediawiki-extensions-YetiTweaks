@@ -232,7 +232,20 @@ class GloopTweaksHooks {
 	 * Implement a dark mode and add structured data for the Google Sitelinks search box.
 	 */
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
-		global $wglEnableLoadingDarkmode, $wglEnableLoadingReadermode, $wglEnableSearchboxMetadata, $wgArticlePath, $wgCanonicalServer;
+		global $wglAnalyticsID, $wglEnableLoadingDarkmode, $wglEnableLoadingReadermode, $wglEnableSearchboxMetadata, $wgArticlePath, $wgCanonicalServer;
+
+		if ( $wglAnalyticsID ) {
+			$out->addScript(
+				Html::element( 'script',
+					[
+						'async' => true,
+						'nonce' => $out->getCSP()->getNonce(),
+						'src' => "https://www.googletagmanager.com/gtag/js?id=$wglAnalyticsID",
+					]
+				)
+			);
+			$out->addInlineScript("window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','$wglAnalyticsID')");
+		}
 
 		if ( $wglEnableLoadingDarkmode ) {
 			/* Dark mode */
