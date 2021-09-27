@@ -248,6 +248,7 @@ class GloopTweaksHooks {
 		// For letting user JS import from additional sources, like the Wikimedia projects, they have a longer CSP than anons.
 		if ( $wglCSP !== '' ) {
 			$user = RequestContext::getMain()->getUser();
+			$response = $out->getRequest()->response();
 
 			if ( $wglCSPAnons === '' || ( $user && !$user->isAnon() ) ) {
 				$response->header( 'Content-Security-Policy: ' . $wglCSP );
