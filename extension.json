@@ -87,6 +87,8 @@
 		"CentralDB": "metawiki",
 		"CloudflareToken": "",
 		"CloudflareZone": "",
+		"CSP": "",
+		"CSPAnons": "",
 		"EnableLoadingDarkmode": true,
 		"EnableLoadingReadermode": true,
 		"EnableMessageOverrides": true,
