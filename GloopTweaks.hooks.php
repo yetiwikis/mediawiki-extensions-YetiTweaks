@@ -242,7 +242,19 @@ class GloopTweaksHooks {
 	 * Implement a dark mode and add structured data for the Google Sitelinks search box.
 	 */
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
-		global $wgCloudflareDomain, $wglAnalyticsID, $wglEnableLoadingDarkmode, $wglEnableLoadingReadermode, $wglEnableSearchboxMetadata, $wgArticlePath, $wgCanonicalServer;
+		global $wglAnalyticsID, $wgCloudflareDomain, $wglCSP, $wglCSPAnons;
+		global $wglEnableLoadingDarkmode, $wglEnableLoadingReadermode, $wglEnableSearchboxMetadata, $wgArticlePath, $wgCanonicalServer;
+
+		// For letting user JS import from additional sources, like the Wikimedia projects, they have a longer CSP than anons.
+		if ( $wglCSP !== '' ) {
+			$user = RequestContext::getMain()->getUser();
+
+			if ( $wglCSPAnons === '' || ( $user && !$user->isAnon() ) ) {
+				$response->header( 'Content-Security-Policy: ' . $wglCSP );
+			} else {
+				$response->header( 'Content-Security-Policy: ' . $wglCSPAnons );
+			}
+		}
 
 		if ( $wglAnalyticsID ) {
 			$out->addScript(

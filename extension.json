@@ -119,6 +119,8 @@
 		"CentralDB": "metawiki",
 		"CloudflareToken": "",
 		"CloudflareZone": "",
+		"CSP": "",
+		"CSPAnons": "",
 		"SendDetailsWithContactPage": true,
 		"EnableLoadingDarkmode": true,
 		"EnableSearchboxMetadata": true,
