@@ -61,6 +61,7 @@
 		"remoteExtPath": "WeirdGloopMessages"
 	},
 	"Hooks": {
+		"BeforeInitialize": "GloopTweaksHooks::onBeforeInitialize",
 		"BeforePageDisplay": "GloopTweaksHooks::onBeforePageDisplay",
 		"ContactForm": "GloopTweaksHooks::onContactPage",
 		"GetLocalURL::Article": "GloopTweaksHooks::onGetLocalURLArticle",
