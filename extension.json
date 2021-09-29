@@ -61,6 +61,9 @@
 	"remoteExtPath": "WeirdGloopMessages"
 	},
 	"Hooks": {
+		"BeforeInitialize": [
+			"GloopTweaksHooks::onBeforeInitialize"
+		],
 		"MessageCache::get": [
 			"GloopTweaksHooks::onMessageCacheGet"
 		],
