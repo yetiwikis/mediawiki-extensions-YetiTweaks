@@ -1,7 +1,5 @@
 <?php
 
-use IP;
-
 class GloopStopForumSpam {
 	/**
 	 * Checks if a given IP address is blacklisted via the remote API
