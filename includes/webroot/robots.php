@@ -4,7 +4,7 @@
 define( 'MW_NO_SESSION', 1 );
 define( 'MW_ENTRY_POINT', 'robots' );
 
-require __DIR__ . '/includes/WebStart.php';
+require dirname($_SERVER['SCRIPT_FILENAME']) . '/includes/WebStart.php';
 
 wfRobotsMain();
 
