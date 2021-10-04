@@ -79,6 +79,9 @@
 		"TestCanonicalRedirect": [
 			"GloopTweaksHooks::onTestCanonicalRedirect"
 		],
+		"TitleSquidURLs": [
+			"GloopTweaksHooks::onTitleSquidURLs"
+		],
 		"TorBlockBlockedMsg": [
 			"GloopTweaksHooks::onTorBlockBlockedMsg"
 		],

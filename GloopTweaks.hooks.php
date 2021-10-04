@@ -444,6 +444,20 @@ class GloopTweaksHooks {
 	}
 
 	/**
+	* Add purging for robots.txt.
+	*/
+	public static function onTitleSquidURLs( Title $title, array &$urls ) {
+		global $wglCentralDB, $wgDBname;
+		// MediaWiki:Robots.txt on metawiki is global.
+		if ( $wgDBname === $wglCentralDB && $title->getPrefixedDBKey() === 'MediaWiki:Robots.txt' ) {
+			// Purge each wiki's /robots.txt route.
+			foreach( WikiMap::getCanonicalServerInfoForAllWikis() as $serverInfo ) {
+				$urls[] = $serverInfo['url'] . '/robots.txt';
+			}
+		}
+	}
+
+	/**
 	 * External Lua library for Scribunto
 	 *
 	 * @param string $engine
