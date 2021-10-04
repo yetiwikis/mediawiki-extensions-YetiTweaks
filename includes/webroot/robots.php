@@ -29,7 +29,7 @@ function wfRobotsMain() {
         $request = MWHttpRequest::factory( $url, [], __METHOD__ );
         $status = $request->execute();
 
-        $lastModified = $request->getResponseHeaders()['Last-Modified'] ?? '';
+        $lastModified = $request->getResponseHeaders()['last-modified'][0] ?? '';
         if ( $status->isOK() ) {
             $text = $request->getContent();
         }
