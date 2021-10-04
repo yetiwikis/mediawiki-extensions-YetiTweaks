@@ -444,16 +444,21 @@ class GloopTweaksHooks {
 	}
 
 	/**
-	* Add purging for robots.txt.
+	* Add purging for well-known URLs.
 	*/
 	public static function onTitleSquidURLs( Title $title, array &$urls ) {
-		global $wglCentralDB, $wgDBname;
+		global $wgCanonicalServer, $wglCentralDB, $wgDBname;
+		$dbkey = $title->getPrefixedDBKey();
 		// MediaWiki:Robots.txt on metawiki is global.
-		if ( $wgDBname === $wglCentralDB && $title->getPrefixedDBKey() === 'MediaWiki:Robots.txt' ) {
+		if ( $wgDBname === $wglCentralDB && $dbkey === 'MediaWiki:Robots.txt' ) {
 			// Purge each wiki's /robots.txt route.
 			foreach( WikiMap::getCanonicalServerInfoForAllWikis() as $serverInfo ) {
 				$urls[] = $serverInfo['url'] . '/robots.txt';
 			}
+		} elseif ( $dbkey === 'File:Apple-touch-icon.png' ) {
+			$urls[] = $wgCanonicalServer . '/apple-touch-icon.png';
+		} elseif ( $dbkey === 'File:Favicon.ico' ) {
+			$urls[] = $wgCanonicalServer . '/favicon.ico';
 		}
 	}
 
