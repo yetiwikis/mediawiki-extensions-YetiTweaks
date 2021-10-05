@@ -79,6 +79,9 @@
 		"TestCanonicalRedirect": [
 			"GloopTweaksHooks::onTestCanonicalRedirect"
 		],
+		"LocalFilePurgeThumbnails": [
+			"GloopTweaksHooks::onLocalFilePurgeThumbnails"
+		],
 		"TitleSquidURLs": [
 			"GloopTweaksHooks::onTitleSquidURLs"
 		],
