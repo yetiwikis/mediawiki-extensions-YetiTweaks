@@ -428,6 +428,43 @@ class GloopTweaksHooks {
 	}
 
 	/**
+	 * Add purging for hashless thumbnails.
+	 */
+	public static function onLocalFilePurgeThumbnails( $file, $archiveName, $hashedUrls ) {
+		$hashlessUrls = [];
+		foreach ( $hashedUrls as $url ) {
+			$hashlessUrls[] = strtok( $url, '?' );
+		}
+
+		// Purge the CDN
+		DeferredUpdates::addUpdate( new CdnCacheUpdate( $hashlessUrls ), DeferredUpdates::PRESEND );
+	}
+
+	/**
+	* Add purging for global robots.txt, well-known URLs, and hashless images.
+	*/
+	public static function onTitleSquidURLs( Title $title, array &$urls ) {
+		global $wgCanonicalServer, $wglCentralDB, $wgDBname;
+		$dbkey = $title->getPrefixedDBKey();
+		// MediaWiki:Robots.txt on metawiki is global.
+		if ( $wgDBname === $wglCentralDB && $dbkey === 'MediaWiki:Robots.txt' ) {
+			// Purge each wiki's /robots.txt route.
+			foreach( WikiMap::getCanonicalServerInfoForAllWikis() as $serverInfo ) {
+				$urls[] = $serverInfo['url'] . '/robots.txt';
+			}
+		} elseif ( $dbkey === 'File:Apple-touch-icon.png' ) {
+			$urls[] = $wgCanonicalServer . '/apple-touch-icon.png';
+		} elseif ( $dbkey === 'File:Favicon.ico' ) {
+			$urls[] = $wgCanonicalServer . '/favicon.ico';
+		} elseif ( $title->getNamespace() == NS_FILE ) {
+			$file = RepoGroup::singleton()->getLocalRepo()->newFile( $title );
+			if ( $file ) {
+				$urls[] = strtok( $file->getUrl(), '?' );
+			}
+		}
+	}
+
+	/**
 	 * External Lua library for Scribunto
 	 *
 	 * @param string $engine
