@@ -20,7 +20,7 @@ class CleanupUpdatelog extends Maintenance {
             $ul_key = preg_replace( '/\/srv\/releases\/release_[0-9-]+\/mediawiki\//', '/srv/mediawiki/', $row->ul_key );
             $cleanedEntries[$ul_key] = $row->ul_value;
         }
-        $dbw->delete( 'updatelog', '' );
+        $dbw->truncate( 'updatelog' );
         foreach( $cleanedEntries as $ul_key => $ul_value ) {
             $dbw->insert( 'updatelog', [ 'ul_key' => $ul_key, 'ul_value' => $ul_value ] );
         }
