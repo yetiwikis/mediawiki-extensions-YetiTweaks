@@ -28,7 +28,7 @@ function wfStaticMain() {
     }
 
     // Strip leading slash.
-    $filePath = substr( $uriPath, 1 );
+    $filePath = substr( $urlPath, 1 );
 
     $ctype = StreamFile::contentTypeFromPath( $filePath, /* safe: not for upload */ false );
     if ( !$ctype || $ctype === 'unknown/unknown' ) {
