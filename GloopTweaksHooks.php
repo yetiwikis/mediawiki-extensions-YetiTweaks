@@ -194,7 +194,7 @@ class GloopTweaksHooks {
 
 		$session = $user->getRequest()->getSession();
 		// Hardcoded to avoid dependency on OATHAuth::AUTHENTICATED_OVER_2FA.
-		$has2FASession = (bool)$this->session->get( 'OATHAuthAuthenticatedOver2FA', false );
+		$has2FASession = (bool)$session->get( 'OATHAuthAuthenticatedOver2FA', false );
 		// Sensitive rights are removed only if this isn't a 2FAed session.
 		if ( $has2FASession ) {
 			return;
