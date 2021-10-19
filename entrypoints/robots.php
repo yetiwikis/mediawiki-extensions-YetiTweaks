@@ -12,7 +12,15 @@ require dirname($_SERVER['SCRIPT_FILENAME']) . '/includes/WebStart.php';
 wfRobotsMain();
 
 function wfRobotsMain() {
-    global $wglCentralDB, $wgCanonicalServer, $wgDBname;
+    global $wglCentralDB, $wgCanonicalServer, $wgDBname, $wglNoRobots;
+
+    if ( $wglNoRobots ) {
+        header( 'Cache-Control: max-age=300, must-revalidate, s-maxage=300, revalidate-while-stale=300' );
+        header( 'Content-Type: text/plain; charset=utf-8' );
+        echo "User-agent: *\nDisallow: /";
+        return;
+    }
+
     $services = MediaWikiServices::getInstance();
 
     $title = $services->getTitleParser()->parseTitle( 'MediaWiki:Robots.txt' );

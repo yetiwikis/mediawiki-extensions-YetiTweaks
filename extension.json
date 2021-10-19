@@ -97,6 +97,7 @@
 		"EnableMessageOverrides": true,
 		"EnableMobileVariant": true,
 		"EnableSearchboxMetadata": true,
+		"NoRobots": false,
 		"ProtectSiteInterface": true,
 		"RequireLicensesToUpload": true,
 		"SendDetailsWithContactPage": true,
