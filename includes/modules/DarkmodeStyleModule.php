@@ -2,33 +2,22 @@
 
 namespace GloopTweaks\ResourceLoaderModules;
 
-use ResourceLoaderUserModule;
+use ResourceLoaderSiteStylesModule;
 use ResourceLoaderContext;
 
-class DarkmodeStyleModule extends ResourceLoaderUserModule {
-	protected $origin = self::ORIGIN_USER_SITEWIDE;
-	protected $targets = [ 'desktop' ];
-
+class DarkmodeStyleModule extends ResourceLoaderSiteStylesModule {
 	/**
-	 * Get a list of pages used by this module.
+	 * Get list of pages used by this module
 	 *
 	 * @param ResourceLoaderContext $context
-	 * @return array
+	 * @return array[]
 	 */
 	protected function getPages( ResourceLoaderContext $context ) {
 		$pages = [];
 		if ( $this->getConfig()->get( 'UseSiteCss' ) ) {
-			$pages += [
-				'MediaWiki:Vector-darkmode.css' => [ 'type' => 'style' ],
-			];
+			$skin = $context->getSkin();
+			$pages['MediaWiki:' . ucfirst( $skin ) . '-darkmode.css'] = [ 'type' => 'style' ];
 		}
 		return $pages;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getType() {
-		return self::LOAD_STYLES;
 	}
 }
