@@ -37,7 +37,7 @@ function wfRobotsMain() {
         header( 'Last-Modified: ' . wfTimestamp( TS_RFC2822, $lastModified ) );
     }
 
-    $sitemap = "Sitemap: $wgCanonicalServer/sitemap/sitemap-index-$wgDBname.xml";
+    $sitemap = "Sitemap: $wgCanonicalServer/images/sitemaps/index.xml";
     if ( $text ) {
         echo $text . "\n\n" . $sitemap;
     } else {

@@ -1,5 +1,7 @@
 <?php
-// maintenance/generateSitemap.php from MediaWiki 1.37.
+// maintenance/generateSitemap.php from MediaWiki 1.37, modified to use filebackend to simplify GCS integration.
+// Some added logic based on maintenance/GenerateFancyCaptchas.php from MediaWiki 1.37 release of ConfirmEdit.
+// TODO: Implement deleting of non-referenced sitemaps (such as from deleted or later no-indexed namespaces).
 /**
  * Creates a sitemap for the site.
  *
@@ -31,7 +33,12 @@ use MediaWiki\MediaWikiServices;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\IResultWrapper;
 
-require_once __DIR__ . '/Maintenance.php';
+if ( getenv( 'MW_INSTALL_PATH' ) ) {
+	$IP = getenv( 'MW_INSTALL_PATH' );
+} else {
+	$IP = __DIR__ . '/../../..';
+}
+require_once "$IP/maintenance/Maintenance.php";
 
 /**
  * Maintenance script that generates a sitemap for the site.
@@ -138,39 +145,18 @@ class GenerateSitemap extends Maintenance {
 	 */
 	public $file;
 
-	/**
-	 * Identifier to use in filenames, default $wgDBname
-	 *
-	 * @var string
-	 */
-	private $identifier;
-
 	public function __construct() {
 		parent::__construct();
 		$this->addDescription( 'Creates a sitemap for the site' );
-		$this->addOption(
-			'fspath',
-			'The file system path to save to, e.g. /tmp/sitemap; defaults to current directory',
-			false,
-			true
-		);
-		$this->addOption(
-			'urlpath',
-			'The URL path corresponding to --fspath, prepended to filenames in the index; '
-				. 'defaults to an empty string',
-			false,
-			true
-		);
 		$this->addOption(
 			'compress',
 			'Compress the sitemap files, can take value yes|no, default yes',
 			false,
 			true
 		);
-		$this->addOption( 'skip-redirects', 'Do not include redirecting articles in the sitemap' );
 		$this->addOption(
-			'identifier',
-			'What site identifier to use for the wiki, defaults to $wgDBname',
+			'skip-redirects',
+			'Do not include redirecting articles in the sitemap, can take value yes|no, default yes',
 			false,
 			true
 		);
@@ -180,31 +166,31 @@ class GenerateSitemap extends Maintenance {
 	 * Execute
 	 */
 	public function execute() {
+		global $wgCanonicalServer;
 		$this->setNamespacePriorities();
 		$this->url_limit = 50000;
 		$this->size_limit = ( 2 ** 20 ) * 10;
 
-		# Create directory if needed
-		$fspath = $this->getOption( 'fspath', getcwd() );
-		if ( !wfMkdirParents( $fspath, null, __METHOD__ ) ) {
-			$this->fatalError( "Can not create directory $fspath." );
+		// Create temporary directory to use for generating the sitemaps before uploading.
+		$dbDomain = WikiMap::getCurrentWikiDbDomain()->getId();
+		$tmpDir = wfTempDir() . '/glooptweaks-' . $dbDomain;
+		if ( !wfMkdirParents( $tmpDir ) ) {
+			$this->fatalError( "Could not create temporary directory.\n", 1 );
 		}
 
-		$dbDomain = WikiMap::getCurrentWikiDbDomain()->getId();
-		$this->fspath = realpath( $fspath ) . DIRECTORY_SEPARATOR;
-		$this->urlpath = $this->getOption( 'urlpath', "" );
-		if ( $this->urlpath !== "" && substr( $this->urlpath, -1 ) !== '/' ) {
-			$this->urlpath .= '/';
-		}
-		$this->identifier = $this->getOption( 'identifier', $dbDomain );
+		$this->fspath = realpath( $tmpDir ) . DIRECTORY_SEPARATOR;
+		$this->urlpath = "$wgCanonicalServer/images/sitemaps/";
 		$this->compress = $this->getOption( 'compress', 'yes' ) !== 'no';
-		$this->skipRedirects = $this->hasOption( 'skip-redirects' );
+		$this->skipRedirects = $this->hasOption( 'skip-redirects', 'yes' ) !== 'no';
 		$this->dbr = $this->getDB( DB_REPLICA );
 		$this->generateNamespaces();
 		$this->timestamp = wfTimestamp( TS_ISO_8601, wfTimestampNow() );
-		$encIdentifier = rawurlencode( $this->identifier );
-		$this->findex = fopen( "{$this->fspath}sitemap-index-{$encIdentifier}.xml", 'wb' );
+		$this->findex = fopen( "{$this->fspath}index.xml", 'wb' );
 		$this->main();
+		$this->storeSitemaps();
+
+		// Remove temporary directory.
+		wfRecursiveRemoveDir( $tmpDir );
 	}
 
 	private function setNamespacePriorities() {
@@ -476,7 +462,7 @@ class GenerateSitemap extends Maintenance {
 	private function sitemapFilename( $namespace, $count ) {
 		$ext = $this->compress ? '.gz' : '';
 
-		return "sitemap-{$this->identifier}-NS_$namespace-$count.xml$ext";
+		return "NS_$namespace-$count.xml$ext";
 	}
 
 	/**
@@ -514,9 +500,7 @@ class GenerateSitemap extends Maintenance {
 	 */
 	private function indexEntry( $filename ) {
 		return "\t<sitemap>\n" .
-			"\t\t<loc>" . wfGetServerUrl( PROTO_CANONICAL ) .
-				( substr( $this->urlpath, 0, 1 ) === "/" ? "" : "/" ) .
-				"{$this->urlpath}$filename</loc>\n" .
+			"\t\t<loc>{$this->urlpath}$filename</loc>\n" .
 			"\t\t<lastmod>{$this->timestamp}</lastmod>\n" .
 			"\t</sitemap>\n";
 	}
@@ -583,6 +567,43 @@ class GenerateSitemap extends Maintenance {
 			) ),
 			strlen( $this->closeFile() )
 		];
+	}
+
+	/**
+	 * Store the generated sitemaps on the FileBackend.
+	 */
+	private function storeSitemaps() {
+		global $wglSitemapsFileBackend;
+		$services = MediaWikiServices::getInstance();
+		$backend = $services->getFileBackendGroup()->get( $wglSitemapsFileBackend );
+
+		$iter = new RecursiveIteratorIterator(
+			new RecursiveDirectoryIterator(
+				$this->fspath,
+				FilesystemIterator::SKIP_DOTS
+			),
+			RecursiveIteratorIterator::LEAVES_ONLY
+		);
+
+		$filesToStore = [];
+		$path = $backend->getRootStoragePath() . '/sitemaps/';
+		/**
+		 * @var $fileInfo SplFileInfo
+		 */
+		foreach ( $iter as $fileInfo ) {
+			if ( !$fileInfo->isFile() ) {
+				continue;
+			}
+			$backend->prepare( [ 'dir' => $path ] );
+			$filesToStore[] = [
+				'op' => 'store',
+				'src' => $fileInfo->getPathname(),
+				'dst' => $path . $fileInfo->getBasename(),
+			];
+		}
+		var_dump($filesToStore);
+
+		$backend->doQuickOperations( $filesToStore );
 	}
 }
 

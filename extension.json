@@ -101,7 +101,8 @@
 		"ProtectSiteInterface": true,
 		"RequireLicensesToUpload": true,
 		"SendDetailsWithContactPage": true,
-		"SensitiveRights": []
+		"SensitiveRights": [],
+		"SitemapsFileBackend": null
 	},
 	"AvailableRights": [
 		"editinterfacesite",
