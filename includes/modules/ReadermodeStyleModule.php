@@ -32,10 +32,4 @@ class ReadermodeStyleModule extends ResourceLoaderSiteStylesModule {
 		}
 		return $pages;
 	}
-
-	// This is considered a foreign module, except on metawiki, since it's fetching from metawiki.
-	public function getSource() {
-		global $wglCentralDB, $wgDBname;
-		return ( $wgDBname === $wglCentralDB ) ? 'local' : $wglCentralDB;
-	}
 }
