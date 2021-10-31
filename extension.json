@@ -51,9 +51,7 @@
 			"class": "GloopTweaks\\ResourceLoaderModules\\DarkmodeStyleModule"
 		},
 		"wg.readermode": {
-			"styles": [
-				"includes/css/vector-readermode.css"
-			]
+			"class": "GloopTweaks\\ResourceLoaderModules\\ReadermodeStyleModule"
 		}
 	},
 	"ResourceFileModulePaths": {
