@@ -2,6 +2,7 @@
 
 namespace GloopTweaks\ResourceLoaderModules;
 
+use MediaWiki\MediaWikiServices;
 use ResourceLoaderSiteStylesModule;
 use ResourceLoaderContext;
 
