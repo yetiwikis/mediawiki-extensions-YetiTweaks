@@ -24,4 +24,9 @@ class DarkmodeStyleModule extends ResourceLoaderSiteStylesModule {
 		}
 		return $pages;
 	}
+
+	// 'site' should be used, but can't as this module needs to load after 'site.styles'.
+	public function getGroup() {
+		return 'user';
+	}
 }
