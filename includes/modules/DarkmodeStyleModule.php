@@ -6,6 +6,9 @@ use ResourceLoaderSiteStylesModule;
 use ResourceLoaderContext;
 
 class DarkmodeStyleModule extends ResourceLoaderSiteStylesModule {
+	// Darkmode is onlt supported for desktop, at least for now.
+	protected $targets = [ 'desktop' ];
+
 	/**
 	 * Get list of pages used by this module
 	 *
