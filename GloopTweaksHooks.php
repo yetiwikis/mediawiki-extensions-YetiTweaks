@@ -118,8 +118,8 @@ class GloopTweaksHooks {
 		global $wglAddFooterLinks;
 
 		if ( $wglAddFooterLinks && $key === 'places' ) {
-			$footerLinks['tou'] = $skin->footerLink( 'weirdgloop-tou-url', 'weirdgloop-tou' );
-			$footerLinks['contact'] = $skin->footerLink( 'weirdgloop-contact-url', 'weirdgloop-contact' );
+			$footerLinks['tou'] = $skin->footerLink( 'weirdgloop-tou', 'weirdgloop-tou-url' );
+			$footerLinks['contact'] = $skin->footerLink( 'weirdgloop-contact', 'weirdgloop-contact-url' );
 		}
 	}
 
