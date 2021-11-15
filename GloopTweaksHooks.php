@@ -114,7 +114,7 @@ class GloopTweaksHooks {
 	 * @param string $key
 	 * @param array &$footerLinks
 	 */
-	public static function onSkinAddFooterLinks( Skin $skin, string $key, array &$footerlinks ) {
+	public static function onSkinAddFooterLinks( Skin $skin, string $key, array &$footerLinks ) {
 		global $wglAddFooterLinks;
 
 		if ( $wglAddFooterLinks && $key === 'places' ) {
