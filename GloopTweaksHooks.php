@@ -117,9 +117,9 @@ class GloopTweaksHooks {
 	public static function onSkinAddFooterLinks( Skin $skin, string $key, array &$footerlinks ) {
 		global $wglAddFooterLinks;
 
-		if ($wglAddFooterLinks && $key === 'places') {
-			GloopTweaksUtils::addFooterLink('tou', 'weirdgloop-tou-url', 'weirdgloop-tou', $skin, $footerLinks);
-			GloopTweaksUtils::addFooterLink('contact', 'weirdgloop-contact-url', 'weirdgloop-contact', $skin, $footerLinks);
+		if ( $wglAddFooterLinks && $key === 'places' ) {
+			$footerLinks['tou'] = $skin->footerLink( 'weirdgloop-tou-url', 'weirdgloop-tou' );
+			$footerLinks['contact'] = $skin->footerLink( 'weirdgloop-contact-url', 'weirdgloop-contact' );
 		}
 	}
 
