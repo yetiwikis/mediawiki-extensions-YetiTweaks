@@ -193,12 +193,15 @@ class GloopTweaksHooks {
 	public static function onUserGetRightsRemove( $user, &$rights ) {
 		global $wglSensitiveRights;
 
-		$session = $user->getRequest()->getSession();
-		// Hardcoded to avoid dependency on OATHAuth::AUTHENTICATED_OVER_2FA.
-		$has2FASession = (bool)$session->get( 'OATHAuthAuthenticatedOver2FA', false );
-		// Sensitive rights are removed only if this isn't a 2FAed session.
-		if ( $has2FASession ) {
-			return;
+		// This hook is called even on endpoints without a session, as we can't check for 2FA in this case, remove sensitive rights.
+		if ( !defined( 'MW_NO_SESSION' ) ) {
+			$session = $user->getRequest()->getSession();
+			// Hardcoded to avoid dependency on OATHAuth::AUTHENTICATED_OVER_2FA.
+			$has2FASession = (bool)$session->get( 'OATHAuthAuthenticatedOver2FA', false );
+			// Sensitive rights are removed only if this isn't a 2FAed session.
+			if ( $has2FASession ) {
+				return;
+			}
 		}
 
 		// Otherwise, filter out the sensitive user rights.
