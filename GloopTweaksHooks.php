@@ -4,7 +4,7 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Storage\EditResult;
 use MediaWiki\User\UserIdentity;
-use WikiPage;
+//use WikiPage;
 
 /**
  * Hooks for GloopTweaks extension
