@@ -232,12 +232,6 @@ class GloopTweaksHooks {
 		return true;
 	}
 
-	// Strip our cache parameters from incoming requests to keep them out of generated redirects.
-	public static function onBeforeInitialize( \Title &$title, $unused, \OutputPage $output, \User $user, \WebRequest $request, \MediaWiki $mediaWiki ) {
-		$request->unsetVal( 'wglCacheVer' );
-		$request->unsetVal( 'wglMobile' );
-	}
-
 	/**
 	 * Implement a dark mode and add structured data for the Google Sitelinks search box.
 	 */
