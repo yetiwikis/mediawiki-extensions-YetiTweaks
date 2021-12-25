@@ -67,7 +67,6 @@
 		"LocalFilePurgeThumbnails": "GloopTweaksHooks::onLocalFilePurgeThumbnails",
 		"MessageCache::get": "GloopTweaksHooks::onMessageCacheGet",
 		"OpenSearchUrls": "GloopTweaksHooks::onOpenSearchUrls",
-		"OutputPageBodyAttributes": "GloopTweaksHooks::onOutputPageBodyAttributes",
 		"PageSaveComplete": "GloopTweaksHooks::onPageSaveComplete",
 		"ScribuntoExternalLibraries": "GloopTweaksHooks::onScribuntoExternalLibraries",
 		"SkinAddFooterLinks": "GloopTweaksHooks::onSkinAddFooterLinks",

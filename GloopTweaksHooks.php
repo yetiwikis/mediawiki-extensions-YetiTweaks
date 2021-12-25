@@ -264,47 +264,51 @@ class GloopTweaksHooks {
 			$out->addInlineScript("window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','$wglAnalyticsID')");
 		}
 
-		// Our Cloudflare worker handles darkmode and readermode for us.
+		/*
+		 * Server-side logic to implement the dark mode, reader mode, and sticky header styling customisations.
+		 * However, for most requests, this is instead done by our Cloudflare worker to avoid cache fragmentation.
+		 * The actual styling is located on the wikis and toggling implemented through Gadgets.
+		 */
 		$cfWorker = $out->getRequest()->getHeader( 'CF-Worker' );
 		$workerProcessed = $cfWorker !== false && $cfWorker === $wgCloudflareDomain;
 
+		// Avoid duplicate processing if this will be performed instead by our Cloudflare worker.
 		if ( !$workerProcessed ) {
-			if ( $wglEnableLoadingDarkmode ) {
-				/* Dark mode */
-				if ( isset( $_COOKIE['darkmode'] ) ) {
-					if ( $_COOKIE['darkmode'] == 'true' ) {
-						$out->addModuleStyles( [ 'wg.darkmode' ] );
-					}
-				}
+			/* Dark mode */
+			if ( $wglEnableLoadingDarkmode && isset( $_COOKIE['darkmode'] ) && $_COOKIE['darkmode'] === 'true' ) {
+				$out->addBodyClasses( [ 'wgl-darkmode' ] );
+				$out->addModuleStyles( [ 'wg.darkmode' ] );
+			} else {
+				$out->addBodyClasses( [ 'wgl-lightmode' ] );
 			}
 
-			if ( $wglEnableLoadingReadermode ) {
-				/* Reader mode */
-				if ( isset( $_COOKIE['readermode'] ) ) {
-					if ( $_COOKIE['readermode'] == 'true' ) {
-						$out->addModuleStyles( [ 'wg.readermode' ] );
-					}
-				}
+			/* Reader mode */
+			if ( $wglEnableLoadingReadermode && isset( $_COOKIE['readermode'] ) && $_COOKIE['readermode'] === 'true' ) {
+				$out->addBodyClasses( [ 'wgl-readermode' ] );
+				$out->addModuleStyles( [ 'wg.readermode' ] );
+			}
+
+			/* Sticky header */
+			if ( isset( $_COOKIE['stickyheader'] ) && $_COOKIE['stickyheader'] === 'true' ) {
+				$out->addBodyClasses( [ 'wgl-stickyheader' ] );
 			}
 		}
 
-		if ( $wglEnableSearchboxMetadata ) {
-			/* Structured data for the Google Sitelinks search box. */
-			if ( $out->getTitle()->isMainPage() ) {
-				$targetUrl = $wgCanonicalServer . str_replace( '$1', 'Special:Search', $wgArticlePath );
-				$targetUrl = wfAppendQuery( $targetUrl, 'search={search_term_string}' );
-				$structuredData = [
-					'@context'        => 'http://schema.org',
-					'@type'           => 'WebSite',
-					'url'             => $wgCanonicalServer,
-					'potentialAction' => [
-						'@type'       => 'SearchAction',
-						'target'      => $targetUrl,
-						'query-input' => 'required name=search_term_string',
-					],
-				];
-				$out->addHeadItem( 'StructuredData', '<script type="application/ld+json">' . json_encode( $structuredData ) . '</script>' );
-			}
+		/* Structured data for the Google Sitelinks search box. */
+		if ( $wglEnableSearchboxMetadata && $out->getTitle()->isMainPage() ) {
+			$targetUrl = $wgCanonicalServer . str_replace( '$1', 'Special:Search', $wgArticlePath );
+			$targetUrl = wfAppendQuery( $targetUrl, 'search={search_term_string}' );
+			$structuredData = [
+				'@context'        => 'http://schema.org',
+				'@type'           => 'WebSite',
+				'url'             => $wgCanonicalServer,
+				'potentialAction' => [
+					'@type'       => 'SearchAction',
+					'target'      => $targetUrl,
+					'query-input' => 'required name=search_term_string',
+				],
+			];
+			$out->addHeadItem( 'StructuredData', '<script type="application/ld+json">' . json_encode( $structuredData ) . '</script>' );
 		}
 	}
 
@@ -313,38 +317,6 @@ class GloopTweaksHooks {
 		foreach ( $urls as &$url ) {
 			if ( in_array( $url['type'], [ 'application/x-suggestions+json', 'application/x-suggestions+xml' ] ) ) {
 				$url['template'] = wfAppendQuery( $url['template'], [ 'maxage' => 600, 'smaxage' => 600, 'uselang' => 'content' ] );
-			}
-		}
-	}
-
-	public static function onOutputPageBodyAttributes( OutputPage $out, Skin $sk, &$bodyAttrs ) {
-		global $wgCloudflareDomain, $wglEnableLoadingDarkmode, $wglEnableLoadingReadermode;
-
-		// Our Cloudflare worker handles darkmode and readermode for us.
-		$cfWorker = $out->getRequest()->getHeader( 'CF-Worker' );
-		$workerProcessed = $cfWorker !== false && $cfWorker === $wgCloudflareDomain;
-
-		if ( !$workerProcessed ) {
-			if ( $wglEnableLoadingDarkmode ) {
-				// add a class to the body to identify if we're in darkmode or not
-				// so gadgets can hook off it
-				if ( isset( $_COOKIE['darkmode'] ) && $_COOKIE['darkmode'] == 'true' ) {
-					$bodyAttrs['class'] .= ' wgl-darkmode';
-				} else {
-					$bodyAttrs['class'] .= ' wgl-lightmode';
-				}
-			}
-
-			if ( $wglEnableLoadingReadermode ) {
-				if ( isset( $_COOKIE['readermode'] ) && $_COOKIE['readermode'] == 'true' ) {
-					// Add a class to the body so that gadgets can identify that we're using reader mode
-					$bodyAttrs['class'] .= ' wgl-readermode';
-				}
-			}
-
-			if ( isset( $_COOKIE['stickyheader'] ) && $_COOKIE['stickyheader'] == 'true' ) {
-				// Add a class to the body so that gadgets can identify that we're using sticky headers
-				$bodyAttrs['class'] .= ' wgl-stickyheader';
 			}
 		}
 	}
