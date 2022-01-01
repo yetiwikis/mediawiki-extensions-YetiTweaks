@@ -14,19 +14,6 @@ use MediaWiki\User\UserIdentity;
  */
 class GloopTweaksHooks {
 	/**
-	 * Called after this is loaded
-	 */
-	public static function onRegistration() {
-		global $wgAuthManagerAutoConfig;
-
-		// Load our pre-authentication provider to handle our custom anti-spam checks.
-		$wgAuthManagerAutoConfig['preauth'][GloopPreAuthenticationProvider::class] = [
-			'class' => GloopPreAuthenticationProvider::class,
-			'sort' => 5
-		];
-	}
-
-	/**
 	 * When core requests certain messages, change the key to a Weird Gloop version.
 	 *
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/MessageCache::get

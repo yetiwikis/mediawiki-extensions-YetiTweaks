@@ -41,7 +41,6 @@
 		"GloopTweaksUtils": "GloopTweaksUtils.php",
 		"Scribunto_LuaGloopTweaksLibrary": "includes/Scribunto_LuaGloopTweaksLibrary.php"
 	},
-	"callback": "GloopTweaksHooks::onRegistration",
 	"AutoloadNamespaces": {
 		"GloopTweaks\\ResourceLoaderModules\\": "includes/modules/"
 	},
@@ -56,6 +55,14 @@
 	"ResourceFileModulePaths": {
 		"localBasePath": "",
 		"remoteExtPath": "WeirdGloopMessages"
+	},
+	"AuthManagerAutoConfig": {
+		"preauth": {
+			"GloopPreAuthenticationProvider": {
+				"class": "GloopPreAuthenticationProvider",
+				"sort": 5
+			}
+		}
 	},
 	"Hooks": {
 		"BeforePageDisplay": "GloopTweaksHooks::onBeforePageDisplay",
