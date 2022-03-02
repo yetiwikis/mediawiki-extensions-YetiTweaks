@@ -44,10 +44,6 @@
 			"class": "MediaWiki\\Extension\\GloopTweaks\\ResourceLoader\\ReadermodeStyleModule"
 		}
 	},
-	"ResourceFileModulePaths": {
-		"localBasePath": "",
-		"remoteExtPath": "WeirdGloopMessages"
-	},
 	"AuthManagerAutoConfig": {
 		"preauth": {
 			"MediaWiki\\Extension\\GloopTweaks\\GloopPreAuthenticationProvider": {
@@ -72,7 +68,6 @@
 		"SkinCopyrightFooter": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onSkinCopyrightFooter",
 		"TestCanonicalRedirect": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onTestCanonicalRedirect",
 		"TitleSquidURLs": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onTitleSquidURLs",
-		"TorBlockBlockedMsg": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onTorBlockBlockedMsg",
 		"UploadForm:initial": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onUploadFormInitial",
 		"UserGetRightsRemove": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onUserGetRightsRemove",
 		"getUserPermissionsErrors": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::ongetUserPermissionsErrors"

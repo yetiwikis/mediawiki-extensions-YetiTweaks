@@ -123,19 +123,6 @@ class GloopTweaksHooks {
 	}
 
 	/**
-	 * Set the message on TorBlock being triggered
-	 *
-	 * @param string &$msg The message to over-ride
-	 */
-	public static function onTorBlockBlockedMsg( &$msg ) {
-		global $wglEnableMessageOverrides;
-
-		if ($wglEnableMessageOverrides) {
-			$msg = 'weirdgloop-torblock-blocked';
-		}
-	}
-
-	/**
 	 * Set the message on GlobalBlocking IP block being triggered
 	 *
 	 * @param string &$msg The message to over-ride
