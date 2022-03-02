@@ -85,30 +85,66 @@
 		"UserGetRightsRemove": "GloopTweaksHooks::onUserGetRightsRemove",
 		"getUserPermissionsErrors": "GloopTweaksHooks::ongetUserPermissionsErrors"
 	},
+	"config_prefix": "wgl",
 	"config": {
-		"_prefix": "wgl",
-		"AddFooterLinks": true,
-		"AnalyticsID": "",
-		"CentralDB": "metawiki",
-		"CloudflareToken": "",
-		"CloudflareZone": "",
-		"CSP": "",
-		"CSPAnons": "",
-		"EnableLoadingDarkmode": true,
-		"EnableLoadingReadermode": true,
-		"EnableMessageOverrides": true,
-		"EnableMobileVariant": true,
-		"EnableSearchboxMetadata": true,
-		"NoRobots": false,
-		"ProtectSiteInterface": true,
-		"RequireLicensesToUpload": true,
-		"SendDetailsWithContactPage": true,
-		"SensitiveRights": [],
-		"SitemapsFileBackend": null
+		"AddFooterLinks": {
+			"value": true
+		},
+		"AnalyticsID": {
+			"value": ""
+		},
+		"CentralDB": {
+			"value": "metawiki"
+		},
+		"CloudflareToken": {
+			"value": ""
+		},
+		"CloudflareZone": {
+			"value": ""
+		},
+		"CSP": {
+			"value": ""
+		},
+		"CSPAnons": {
+			"value": ""
+		},
+		"EnableLoadingDarkmode": {
+			"value": true
+		},
+		"EnableLoadingReadermode": {
+			"value": true
+		},
+		"EnableMessageOverrides": {
+			"value": true
+		},
+		"EnableMobileVariant": {
+			"value": true
+		},
+		"EnableSearchboxMetadata": {
+			"value": true
+		},
+		"NoRobots": {
+			"value": false
+		},
+		"ProtectSiteInterface": {
+			"value": true
+		},
+		"RequireLicensesToUpload": {
+			"value": true
+		},
+		"SendDetailsWithContactPage": {
+			"value": true
+		},
+		"SensitiveRights": {
+			"value": []
+		},
+		"SitemapsFileBackend": {
+			"value": null
+		}
 	},
 	"AvailableRights": [
 		"editinterfacesite",
 		"bypassgloopspam"
 	],
-	"manifest_version": 1
+	"manifest_version": 2
 }
