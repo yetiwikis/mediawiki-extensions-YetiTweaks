@@ -9,11 +9,11 @@ use TextContent;
 class GloopTweaksUtils {
 	// Retrieve Special:Contact filter text from central DB.
 	private static function getContactFilterText() {
-		global $wglCentralDB;
+		global $wgGloopTweaksCentralDB;
 		$services = MediaWikiServices::getInstance();
 
 		$title = $services->getTitleParser()->parseTitle( 'MediaWiki:Weirdgloop-contact-filter' );
-		$store = $services->getRevisionStoreFactory()->getRevisionStore( $wglCentralDB );
+		$store = $services->getRevisionStoreFactory()->getRevisionStore( $wgGloopTweaksCentralDB );
 		$rev = $store->getRevisionByTitle( $title );
 
 		$content = $rev ? $rev->getContent( SlotRecord::MAIN ) : null;

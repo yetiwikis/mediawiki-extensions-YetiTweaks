@@ -18,11 +18,11 @@ class ReadermodeStyleModule extends ResourceLoaderSiteStylesModule {
 	 * @since 1.32 added the $context parameter
 	 */
 	protected function getContent( $titleText, ResourceLoaderContext $context ) {
-		global $wglCentralDB;
+		global $wgGloopTweaksCentralDB;
 		$services = MediaWikiServices::getInstance();
 
 		$title = $services->getTitleParser()->parseTitle( $titleText );
-		$store = $services->getRevisionStoreFactory()->getRevisionStore( $wglCentralDB );
+		$store = $services->getRevisionStoreFactory()->getRevisionStore( $wgGloopTweaksCentralDB );
 		$rev = $store->getRevisionByTitle( $title );
 
 		$content = $rev ? $rev->getContent( SlotRecord::MAIN ) : null;
@@ -44,10 +44,10 @@ class ReadermodeStyleModule extends ResourceLoaderSiteStylesModule {
 
 	// Override getDB() to use metawiki rather than having a per-wiki MediaWiki:Vector-readermode.css.
 	protected function getDB() {
-		global $wglCentralDB;
+		global $wgGloopTweaksCentralDB;
 		$lbFactory = MediaWikiServices::getInstance()->getDBLoadBalancerFactory();
-		$lb = $lbFactory->getMainLB( $wglCentralDB );
-		return $lb->getLazyConnectionRef( DB_REPLICA, [], $wglCentralDB );
+		$lb = $lbFactory->getMainLB( $wgGloopTweaksCentralDB );
+		return $lb->getLazyConnectionRef( DB_REPLICA, [], $wgGloopTweaksCentralDB );
 	}
 
 	/**

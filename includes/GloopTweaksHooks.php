@@ -31,9 +31,9 @@ class GloopTweaksHooks {
 	 * @param string &$lcKey message key to check and possibly convert
 	 */
 	public static function onMessageCacheGet( &$lcKey ) {
-		global $wglEnableMessageOverrides, $wgLanguageCode;
+		global $wgGloopTweaksEnableMessageOverrides, $wgGloopTweaksanguageCode;
 
-		if ($wglEnableMessageOverrides) {
+		if ($wgGloopTweaksEnableMessageOverrides) {
 			static $keys = [
 				'privacypage',
 				'changecontentmodel-text',
@@ -67,7 +67,7 @@ class GloopTweaksHooks {
 					* 2. Otherwise, use the prefixed key with normal fallback order
 					* (including MediaWiki pages if they exist).
 					*/
-				$cache->getMsgFromNamespace( $ucKey, $wgLanguageCode ) === false
+				$cache->getMsgFromNamespace( $ucKey, $wgGloopTweaksanguageCode ) === false
 			) {
 				$lcKey = $transformedKey;
 			}
@@ -97,9 +97,9 @@ class GloopTweaksHooks {
 	 * @param string &$link
 	 */
 	public static function onSkinCopyrightFooter( $title, $type, &$msg, &$link ) {
-		global $wglEnableMessageOverrides;
+		global $wgGloopTweaksEnableMessageOverrides;
 
-		if ($wglEnableMessageOverrides) {
+		if ($wgGloopTweaksEnableMessageOverrides) {
 			if ( $type !== 'history' ) {
 				$msg = 'weirdgloop-copyright';
 			}
@@ -114,9 +114,9 @@ class GloopTweaksHooks {
 	 * @param array &$footerLinks
 	 */
 	public static function onSkinAddFooterLinks( Skin $skin, string $key, array &$footerLinks ) {
-		global $wglAddFooterLinks;
+		global $wgGloopTweaksAddFooterLinks;
 
-		if ( $wglAddFooterLinks && $key === 'places' ) {
+		if ( $wgGloopTweaksAddFooterLinks && $key === 'places' ) {
 			$footerLinks['tou'] = $skin->footerLink( 'weirdgloop-tou', 'weirdgloop-tou-url' );
 			$footerLinks['contact'] = $skin->footerLink( 'weirdgloop-contact', 'weirdgloop-contact-url' );
 		}
@@ -128,9 +128,9 @@ class GloopTweaksHooks {
 	 * @param string &$msg The message to over-ride
 	 */
 	public static function onGlobalBlockingBlockedIpMsg( &$msg ) {
-		global $wglEnableMessageOverrides;
+		global $wgGloopTweaksEnableMessageOverrides;
 
-		if ($wglEnableMessageOverrides) {
+		if ($wgGloopTweaksEnableMessageOverrides) {
 			$msg = 'weirdgloop-globalblocking-ipblocked';
 		}
 	}
@@ -141,9 +141,9 @@ class GloopTweaksHooks {
 	 * @param string &$msg The message to over-ride
 	 */
 	public static function onGlobalBlockingBlockedIpXffMsg( &$msg ) {
-		global $wglEnableMessageOverrides;
+		global $wgGloopTweaksEnableMessageOverrides;
 
-		if ($wglEnableMessageOverrides) {
+		if ($wgGloopTweaksEnableMessageOverrides) {
 			$msg = 'weirdgloop-globalblocking-ipblocked-xff';
 		}
 	}
@@ -158,9 +158,9 @@ class GloopTweaksHooks {
 	 * @throws ErrorPageError
 	 */
 	public static function onUploadFormInitial( $tpl ) {
-		global $wglRequireLicensesToUpload, $wgForceUIMsgAsContentMsg;
+		global $wgGloopTweaksRequireLicensesToUpload, $wgForceUIMsgAsContentMsg;
 
-		if ($wglRequireLicensesToUpload) {
+		if ($wgGloopTweaksRequireLicensesToUpload) {
 			if ( !in_array( 'licenses', $wgForceUIMsgAsContentMsg )
 				&& wfMessage( 'licenses' )->inContentLanguage()->isDisabled()
 			) {
@@ -176,7 +176,7 @@ class GloopTweaksHooks {
 	 * @param array &$rights Current user rights.
 	 */
 	public static function onUserGetRightsRemove( $user, &$rights ) {
-		global $wglSensitiveRights;
+		global $wgGloopTweaksSensitiveRights;
 
 		// This hook is called even on endpoints without a session, as we can't check for 2FA in this case, remove sensitive rights.
 		if ( !defined( 'MW_NO_SESSION' ) ) {
@@ -190,7 +190,7 @@ class GloopTweaksHooks {
 		}
 
 		// Otherwise, filter out the sensitive user rights.
-		$rights = array_diff( $rights, $wglSensitiveRights );
+		$rights = array_diff( $rights, $wgGloopTweaksSensitiveRights );
 	}
 
 	/**
@@ -202,9 +202,9 @@ class GloopTweaksHooks {
 	 * @return bool
 	 */
 	public static function ongetUserPermissionsErrors( $title, $user, $action, &$result ) {
-		global $wglProtectSiteInterface;
+		global $wgGloopTweaksProtectSiteInterface;
 
-		if ( $wglProtectSiteInterface
+		if ( $wgGloopTweaksProtectSiteInterface
 			&& $title->inNamespace( NS_MEDIAWIKI )
 			&& strpos( lcfirst( $title->getDBKey() ), 'weirdgloop-' ) === 0
 			&& !$user->isAllowed( 'editinterfacesite' )
@@ -221,32 +221,32 @@ class GloopTweaksHooks {
 	 * Implement a dark mode and add structured data for the Google Sitelinks search box.
 	 */
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
-		global $wglAnalyticsID, $wgCloudflareDomain, $wglCSP, $wglCSPAnons;
-		global $wglEnableLoadingDarkmode, $wglEnableLoadingReadermode, $wglEnableSearchboxMetadata, $wgArticlePath, $wgCanonicalServer;
+		global $wgGloopTweaksAnalyticsID, $wgCloudflareDomain, $wgGloopTweaksCSP, $wgGloopTweaksCSPAnons;
+		global $wgGloopTweaksEnableLoadingDarkmode, $wgGloopTweaksEnableLoadingReadermode, $wgGloopTweaksEnableSearchboxMetadata, $wgArticlePath, $wgCanonicalServer;
 
 		// For letting user JS import from additional sources, like the Wikimedia projects, they have a longer CSP than anons.
-		if ( $wglCSP !== '' ) {
+		if ( $wgGloopTweaksCSP !== '' ) {
 			$user = RequestContext::getMain()->getUser();
 			$response = $out->getRequest()->response();
 
-			if ( $wglCSPAnons === '' || ( $user && !$user->isAnon() ) ) {
-				$response->header( 'Content-Security-Policy: ' . $wglCSP );
+			if ( $wgGloopTweaksCSPAnons === '' || ( $user && !$user->isAnon() ) ) {
+				$response->header( 'Content-Security-Policy: ' . $wgGloopTweaksCSP );
 			} else {
-				$response->header( 'Content-Security-Policy: ' . $wglCSPAnons );
+				$response->header( 'Content-Security-Policy: ' . $wgGloopTweaksCSPAnons );
 			}
 		}
 
-		if ( $wglAnalyticsID ) {
+		if ( $wgGloopTweaksAnalyticsID ) {
 			$out->addScript(
 				Html::element( 'script',
 					[
 						'async' => true,
 						'nonce' => $out->getCSP()->getNonce(),
-						'src' => "https://www.googletagmanager.com/gtag/js?id=$wglAnalyticsID",
+						'src' => "https://www.googletagmanager.com/gtag/js?id=$wgGloopTweaksAnalyticsID",
 					]
 				)
 			);
-			$out->addInlineScript("window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','$wglAnalyticsID')");
+			$out->addInlineScript("window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','$wgGloopTweaksAnalyticsID')");
 		}
 
 		/*
@@ -260,7 +260,7 @@ class GloopTweaksHooks {
 		// Avoid duplicate processing if this will be performed instead by our Cloudflare worker.
 		if ( !$workerProcessed ) {
 			/* Dark mode */
-			if ( $wglEnableLoadingDarkmode && isset( $_COOKIE['darkmode'] ) && $_COOKIE['darkmode'] === 'true' ) {
+			if ( $wgGloopTweaksEnableLoadingDarkmode && isset( $_COOKIE['darkmode'] ) && $_COOKIE['darkmode'] === 'true' ) {
 				$out->addBodyClasses( [ 'wgl-darkmode' ] );
 				$out->addModuleStyles( [ 'wg.darkmode' ] );
 			} else {
@@ -268,7 +268,7 @@ class GloopTweaksHooks {
 			}
 
 			/* Reader mode */
-			if ( $wglEnableLoadingReadermode && isset( $_COOKIE['readermode'] ) && $_COOKIE['readermode'] === 'true' ) {
+			if ( $wgGloopTweaksEnableLoadingReadermode && isset( $_COOKIE['readermode'] ) && $_COOKIE['readermode'] === 'true' ) {
 				$out->addBodyClasses( [ 'wgl-readermode' ] );
 				$out->addModuleStyles( [ 'wg.readermode' ] );
 			}
@@ -280,7 +280,7 @@ class GloopTweaksHooks {
 		}
 
 		/* Structured data for the Google Sitelinks search box. */
-		if ( $wglEnableSearchboxMetadata && $out->getTitle()->isMainPage() ) {
+		if ( $wgGloopTweaksEnableSearchboxMetadata && $out->getTitle()->isMainPage() ) {
 			$targetUrl = $wgCanonicalServer . str_replace( '$1', 'Special:Search', $wgArticlePath );
 			$targetUrl = wfAppendQuery( $targetUrl, 'search={search_term_string}' );
 			$structuredData = [
@@ -311,7 +311,7 @@ class GloopTweaksHooks {
 	 * Hook provided by ContactPage extension.
 	 */
 	public static function onContactPage( &$to, &$replyTo, &$subject, &$text ) {
-		global $wglSendDetailsWithContactPage, $wgDBname, $wgRequest, $wgOut, $wgServer;
+		global $wgGloopTweaksSendDetailsWithContactPage, $wgDBname, $wgRequest, $wgOut, $wgServer;
 
 		$user = $wgOut->getUser();
 		$userIP = $wgRequest->getIP();
@@ -336,7 +336,7 @@ class GloopTweaksHooks {
 		// 	return false;
 		// }
 
-		if ($wglSendDetailsWithContactPage) {
+		if ($wgGloopTweaksSendDetailsWithContactPage) {
 			$text .= "\n\n---\n\n"; // original message
 			$text .= $wgServer . ' (' . $wgDBname . ") [" . gethostname() . "]\n"; // server & database name
 			$text .= $userIP . ' - ' . ( $_SERVER['HTTP_USER_AGENT'] ?? null ) . "\n"; // IP & user agent
@@ -399,10 +399,10 @@ class GloopTweaksHooks {
 	* Add purging for global robots.txt, well-known URLs, and hashless images.
 	*/
 	public static function onTitleSquidURLs( Title $title, array &$urls ) {
-		global $wgCanonicalServer, $wglCentralDB, $wgDBname;
+		global $wgCanonicalServer, $wgGloopTweaksCentralDB, $wgDBname;
 		$dbkey = $title->getPrefixedDBKey();
 		// MediaWiki:Robots.txt on metawiki is global.
-		if ( $wgDBname === $wglCentralDB && $dbkey === 'MediaWiki:Robots.txt' ) {
+		if ( $wgDBname === $wgGloopTweaksCentralDB && $dbkey === 'MediaWiki:Robots.txt' ) {
 			// Purge each wiki's /robots.txt route.
 			foreach( WikiMap::getCanonicalServerInfoForAllWikis() as $serverInfo ) {
 				$urls[] = $serverInfo['url'] . '/robots.txt';

@@ -72,7 +72,7 @@
 		"UserGetRightsRemove": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onUserGetRightsRemove",
 		"getUserPermissionsErrors": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::ongetUserPermissionsErrors"
 	},
-	"config_prefix": "wgl",
+	"config_prefix": "wgGloopTweaks",
 	"config": {
 		"AddFooterLinks": {
 			"value": true

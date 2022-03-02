@@ -582,9 +582,9 @@ class GenerateSitemap extends Maintenance {
 	 * Store the generated sitemaps on the FileBackend.
 	 */
 	private function storeSitemaps() {
-		global $wglSitemapsFileBackend;
+		global $wgGloopTweaksSitemapsFileBackend;
 		$services = MediaWikiServices::getInstance();
-		$backend = $services->getFileBackendGroup()->get( $wglSitemapsFileBackend );
+		$backend = $services->getFileBackendGroup()->get( $wgGloopTweaksSitemapsFileBackend );
 
 		$iter = new RecursiveIteratorIterator(
 			new RecursiveDirectoryIterator(
