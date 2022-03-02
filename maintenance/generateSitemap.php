@@ -29,9 +29,18 @@
  * @see http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
  */
 
+namespace MediaWiki\Extension\GloopTweaks\Maintenance;
+
+use FilesystemIterator;
+use Maintenance;
 use MediaWiki\MediaWikiServices;
+use MWException;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use Title;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\IResultWrapper;
+use WikiMap;
 
 if ( getenv( 'MW_INSTALL_PATH' ) ) {
 	$IP = getenv( 'MW_INSTALL_PATH' );

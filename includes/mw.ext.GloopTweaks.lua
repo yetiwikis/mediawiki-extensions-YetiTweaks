@@ -2,7 +2,7 @@ local GloopTweaks = {}
 local php
 
 function GloopTweaks.filepath( name, width )
-    return php.filepath( name, width )
+	return php.filepath( name, width )
 end
 
 function GloopTweaks.setupInterface( options )

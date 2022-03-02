@@ -33,23 +33,15 @@
 	"requires": {
 		"MediaWiki": ">= 1.37.0"
 	},
-	"AutoloadClasses": {
-		"GloopEventRelayer": "includes/GloopEventRelayer.php",
-		"GloopPreAuthenticationProvider": "includes/sfs/GloopPreAuthenticationProvider.php",
-		"GloopStopForumSpam": "includes/sfs/GloopStopForumSpam.php",
-		"GloopTweaksHooks": "includes/GloopTweaksHooks.php",
-		"GloopTweaksUtils": "includes/GloopTweaksUtils.php",
-		"Scribunto_LuaGloopTweaksLibrary": "includes/Scribunto_LuaGloopTweaksLibrary.php"
-	},
 	"AutoloadNamespaces": {
-		"GloopTweaks\\ResourceLoaderModules\\": "includes/modules/"
+		"MediaWiki\\Extension\\GloopTweaks\\": "includes/"
 	},
 	"ResourceModules": {
 		"wg.darkmode": {
-			"class": "GloopTweaks\\ResourceLoaderModules\\DarkmodeStyleModule"
+			"class": "MediaWiki\\Extension\\GloopTweaks\\ResourceLoader\\DarkmodeStyleModule"
 		},
 		"wg.readermode": {
-			"class": "GloopTweaks\\ResourceLoaderModules\\ReadermodeStyleModule"
+			"class": "MediaWiki\\Extension\\GloopTweaks\\ResourceLoader\\ReadermodeStyleModule"
 		}
 	},
 	"ResourceFileModulePaths": {
@@ -65,25 +57,25 @@
 		}
 	},
 	"Hooks": {
-		"BeforePageDisplay": "GloopTweaksHooks::onBeforePageDisplay",
-		"ContactForm": "GloopTweaksHooks::onContactPage",
-		"GetLocalURL::Article": "GloopTweaksHooks::onGetLocalURLArticle",
-		"GetLocalURL::Internal": "GloopTweaksHooks::onGetLocalURLInternal",
-		"GlobalBlockingBlockedIpMsg": "GloopTweaksHooks::onGlobalBlockingBlockedIpMsg",
-		"GlobalBlockingBlockedIpXffMsg": "GloopTweaksHooks::onGlobalBlockingBlockedIpXffMsg",
-		"LocalFilePurgeThumbnails": "GloopTweaksHooks::onLocalFilePurgeThumbnails",
-		"MessageCache::get": "GloopTweaksHooks::onMessageCacheGet",
-		"OpenSearchUrls": "GloopTweaksHooks::onOpenSearchUrls",
-		"PageSaveComplete": "GloopTweaksHooks::onPageSaveComplete",
-		"ScribuntoExternalLibraries": "GloopTweaksHooks::onScribuntoExternalLibraries",
-		"SkinAddFooterLinks": "GloopTweaksHooks::onSkinAddFooterLinks",
-		"SkinCopyrightFooter": "GloopTweaksHooks::onSkinCopyrightFooter",
-		"TestCanonicalRedirect": "GloopTweaksHooks::onTestCanonicalRedirect",
-		"TitleSquidURLs": "GloopTweaksHooks::onTitleSquidURLs",
-		"TorBlockBlockedMsg": "GloopTweaksHooks::onTorBlockBlockedMsg",
-		"UploadForm:initial": "GloopTweaksHooks::onUploadFormInitial",
-		"UserGetRightsRemove": "GloopTweaksHooks::onUserGetRightsRemove",
-		"getUserPermissionsErrors": "GloopTweaksHooks::ongetUserPermissionsErrors"
+		"BeforePageDisplay": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onBeforePageDisplay",
+		"ContactForm": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onContactPage",
+		"GetLocalURL::Article": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onGetLocalURLArticle",
+		"GetLocalURL::Internal": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onGetLocalURLInternal",
+		"GlobalBlockingBlockedIpMsg": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onGlobalBlockingBlockedIpMsg",
+		"GlobalBlockingBlockedIpXffMsg": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onGlobalBlockingBlockedIpXffMsg",
+		"LocalFilePurgeThumbnails": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onLocalFilePurgeThumbnails",
+		"MessageCache::get": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onMessageCacheGet",
+		"OpenSearchUrls": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onOpenSearchUrls",
+		"PageSaveComplete": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onPageSaveComplete",
+		"ScribuntoExternalLibraries": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onScribuntoExternalLibraries",
+		"SkinAddFooterLinks": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onSkinAddFooterLinks",
+		"SkinCopyrightFooter": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onSkinCopyrightFooter",
+		"TestCanonicalRedirect": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onTestCanonicalRedirect",
+		"TitleSquidURLs": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onTitleSquidURLs",
+		"TorBlockBlockedMsg": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onTorBlockBlockedMsg",
+		"UploadForm:initial": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onUploadFormInitial",
+		"UserGetRightsRemove": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onUserGetRightsRemove",
+		"getUserPermissionsErrors": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::ongetUserPermissionsErrors"
 	},
 	"config_prefix": "wgl",
 	"config": {

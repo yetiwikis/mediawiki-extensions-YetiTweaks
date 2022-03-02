@@ -1,10 +1,21 @@
 <?php
 
+namespace MediaWiki\Extension\GloopTweaks;
+
+use CdnCacheUpdate;
+use DeferredUpdates;
+use ErrorPageError;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Storage\EditResult;
 use MediaWiki\User\UserIdentity;
-//use WikiPage;
+use OutputPage;
+use RepoGroup;
+use RequestContext;
+use Skin;
+use Title;
+use WikiMap;
+use WikiPage;
 
 /**
  * Hooks for GloopTweaks extension

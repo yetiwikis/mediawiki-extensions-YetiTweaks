@@ -1,10 +1,10 @@
 <?php
 
-namespace GloopTweaks\ResourceLoaderModules;
+namespace MediaWiki\Extension\GloopTweaks\ResourceLoader;
 
 use MediaWiki\MediaWikiServices;
-use ResourceLoaderSiteStylesModule;
 use ResourceLoaderContext;
+use ResourceLoaderSiteStylesModule;
 
 class DarkmodeStyleModule extends ResourceLoaderSiteStylesModule {
 	// Darkmode is only supported for desktop, at least for now.

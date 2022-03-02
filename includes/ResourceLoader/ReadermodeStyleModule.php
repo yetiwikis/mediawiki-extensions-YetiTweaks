@@ -1,11 +1,11 @@
 <?php
 
-namespace GloopTweaks\ResourceLoaderModules;
+namespace MediaWiki\Extension\GloopTweaks\ResourceLoader;
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Storage\SlotRecord;
-use ResourceLoaderSiteStylesModule;
 use ResourceLoaderContext;
+use ResourceLoaderSiteStylesModule;
 
 class ReadermodeStyleModule extends ResourceLoaderSiteStylesModule {
 	// Readermode only makes sense for desktop.

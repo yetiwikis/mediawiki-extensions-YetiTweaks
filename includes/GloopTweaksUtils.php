@@ -1,82 +1,85 @@
 <?php
 
+namespace MediaWiki\Extension\GloopTweaks;
+
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Storage\SlotRecord;
+use TextContent;
 
 class GloopTweaksUtils {
-  // Retrieve Special:Contact filter text from central DB.
-  private static function getContactFilterText() {
-    global $wglCentralDB;
-    $services = MediaWikiServices::getInstance();
+	// Retrieve Special:Contact filter text from central DB.
+	private static function getContactFilterText() {
+		global $wglCentralDB;
+		$services = MediaWikiServices::getInstance();
 
-    $title = $services->getTitleParser()->parseTitle( 'MediaWiki:Weirdgloop-contact-filter' );
-    $store = $services->getRevisionStoreFactory()->getRevisionStore( $wglCentralDB );
-    $rev = $store->getRevisionByTitle( $title );
+		$title = $services->getTitleParser()->parseTitle( 'MediaWiki:Weirdgloop-contact-filter' );
+		$store = $services->getRevisionStoreFactory()->getRevisionStore( $wglCentralDB );
+		$rev = $store->getRevisionByTitle( $title );
 
-    $content = $rev ? $rev->getContent( SlotRecord::MAIN ) : null;
+		$content = $rev ? $rev->getContent( SlotRecord::MAIN ) : null;
 
-    if ( !( $content instanceof TextContent ) ) {
-      return '';
-    }
+		if ( !( $content instanceof TextContent ) ) {
+			return '';
+		}
 
-    return $content->getText();
-  }
+		return $content->getText();
+	}
 
-  // Prepare the Special:Contact filter regexes.
-  private static function getContactFilter() {
-    $filterText = self::getContactFilterText();
-    $regexes = [];
+	// Prepare the Special:Contact filter regexes.
+	private static function getContactFilter() {
+		$filterText = self::getContactFilterText();
+		$regexes = [];
 
-    $lines = preg_split( "/\r?\n/", $filterText );
-    foreach ( $lines as $line ) {
-      // Strip comments and whitespace.
-      $line = preg_replace( '/#.*$/', '', $line );
-      $line = trim( $line );
+		$lines = preg_split( "/\r?\n/", $filterText );
+		foreach ( $lines as $line ) {
+			// Strip comments and whitespace.
+			$line = preg_replace( '/#.*$/', '', $line );
+			$line = trim( $line );
 
-      // If anything is left, assume it's a valid regex.
-      if ( $line !== '' ) {
-        $regexes[] = $line;
-      }
-    }
+			// If anything is left, assume it's a valid regex.
+			if ( $line !== '' ) {
+				$regexes[] = $line;
+			}
+		}
 
-    return $regexes;
-  }
+		return $regexes;
+	}
 
-  /**
-   * Implements spam filter for Special:Contact, checks against [[MediaWiki:Weirdgloop-contact-filter]] on metawiki. Regex per line and use '#' for comments.
-   *
-   * @param string $text - The message text to check for spam.
-   * @return bool
-   */
-  public static function checkContactFilter( $text ) {
-    $cache = MediaWikiServices::getInstance()->getMainWANObjectCache();
+	/**
+	 * Implements spam filter for Special:Contact, checks against [[MediaWiki:Weirdgloop-contact-filter]] on metawiki. Regex per line and use '#' for comments.
+	 *
+	 * @param string $text - The message text to check for spam.
+	 * @return bool
+	 */
+	public static function checkContactFilter( $text ) {
+		$cache = MediaWikiServices::getInstance()->getMainWANObjectCache();
 
-    $regexes = $cache->getWithSetCallback(
+		$regexes = $cache->getWithSetCallback(
 			$cache->makeGlobalKey(
-        'GloopTweaks',
-        'contact-filter-regexes'
-      ),
+				'GloopTweaks',
+				'contact-filter-regexes'
+			),
 			300, // 5 minute cache time as this isn't a high frequency check.
 			function () {
 				return self::getContactFilter();
 			}
-    );
+		);
 
-    if ( !count( $regexes ) ) {
-      // No regexes to check.
-      return true;
-    }
+		if ( !count( $regexes ) ) {
+			// No regexes to check.
+			return true;
+		}
 
-    // Compare message text against each regex.
-    foreach ( $regexes as $regex ) {
-      Wikimedia\suppressWarnings();
-      $match = preg_match( $regex, $text );
-      Wikimedia\restoreWarnings();
-      if ( $match ) {
-        return false;
-      }
-    }
+		// Compare message text against each regex.
+		foreach ( $regexes as $regex ) {
+			Wikimedia\suppressWarnings();
+			$match = preg_match( $regex, $text );
+			Wikimedia\restoreWarnings();
+			if ( $match ) {
+				return false;
+			}
+		}
 
-    return true;
-  }
+		return true;
+	}
 }

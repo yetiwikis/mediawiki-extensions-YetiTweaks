@@ -1,8 +1,11 @@
 <?php
 
+namespace MediaWiki\Extension\GloopTweaks;
+
 use MediaWiki\Auth\AbstractPreAuthenticationProvider;
 use MediaWiki\Auth\AuthenticationRequest;
 use MediaWiki\MediaWikiServices;
+use StatusValue;
 
 class GloopPreAuthenticationProvider extends AbstractPreAuthenticationProvider {
 	/**
@@ -36,16 +39,16 @@ class GloopPreAuthenticationProvider extends AbstractPreAuthenticationProvider {
 	 * @return StatusValue
 	 */
 	protected function testUser( $user, $creator, $autocreate ) {
-        global $wgRequest;
+		global $wgRequest;
 
 		$userEmail = $user->getEmail();
 		$userName = $user->getName();
-        $userIP = $wgRequest->getIP();
+		$userIP = $wgRequest->getIP();
 
-        /**
-         * StopForumSpam implementation
-         * - Check the user's IP and email address remotely on the SFS database
-         */
+		/**
+		 * StopForumSpam implementation
+		 * - Check the user's IP and email address remotely on the SFS database
+		 */
 
 		if (!$creator->isAllowed('bypassgloopspam')) {
 			// creator does not have rights to bypass this spam check

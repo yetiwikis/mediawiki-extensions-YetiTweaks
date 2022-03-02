@@ -1,15 +1,19 @@
 <?php
 
+namespace MediaWiki\Extension\GloopTweaks;
+
 use MediaWiki\MediaWikiServices;
+use Parser;
+use Scribunto_LuaLibraryBase;
 
 class Scribunto_LuaGloopTweaksLibrary extends Scribunto_LuaLibraryBase {
 	public function register() {
 		$lib = [
-		'filepath' => [ $this, 'filepath' ],
-	];
+			'filepath' => [ $this, 'filepath' ],
+		];
 
-	return $this->getEngine()->registerInterface(
-		__DIR__ . '/mw.ext.GloopTweaks.lua', $lib, []
+		return $this->getEngine()->registerInterface(
+			__DIR__ . '/mw.ext.GloopTweaks.lua', $lib, []
 		);
 	}
 

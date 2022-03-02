@@ -1,5 +1,9 @@
 <?php
 
+namespace MediaWiki\Extension\GloopTweaks;
+
+use EventRelayer;
+
 /**
  * EventRelayer to perform Cloudflare purging.
  * Note: This performs purges directly, so if purging fails for any reason, the purges are lost.
