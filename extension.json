@@ -8,7 +8,7 @@
 	],
 	"url": "https://weirdgloop.org",
 	"descriptionmsg": "glooptweaks-desc",
-	"license-name": "GPL-2.0+",
+	"license-name": "GPL-2.0-or-later",
 	"type": "other",
 	"MessagesDirs": {
 		"Analytics": [
@@ -31,14 +31,14 @@
 		]
 	},
 	"requires": {
-		"MediaWiki": ">= 1.36.0"
+		"MediaWiki": ">= 1.37.0"
 	},
 	"AutoloadClasses": {
 		"GloopEventRelayer": "includes/GloopEventRelayer.php",
 		"GloopPreAuthenticationProvider": "includes/sfs/GloopPreAuthenticationProvider.php",
 		"GloopStopForumSpam": "includes/sfs/GloopStopForumSpam.php",
-		"GloopTweaksHooks": "GloopTweaksHooks.php",
-		"GloopTweaksUtils": "GloopTweaksUtils.php",
+		"GloopTweaksHooks": "includes/GloopTweaksHooks.php",
+		"GloopTweaksUtils": "includes/GloopTweaksUtils.php",
 		"Scribunto_LuaGloopTweaksLibrary": "includes/Scribunto_LuaGloopTweaksLibrary.php"
 	},
 	"AutoloadNamespaces": {
