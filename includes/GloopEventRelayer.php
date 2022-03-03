@@ -48,6 +48,7 @@ class GloopEventRelayer extends EventRelayer {
 
 		// Prepare cURL
 		$ch = curl_init();
+		curl_setopt( $ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS );
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, [
 			'Authorization: Bearer ' . $wgGloopTweaksCloudflareToken,
 			'Content-Type: application/json',

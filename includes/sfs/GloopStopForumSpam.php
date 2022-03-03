@@ -56,6 +56,7 @@ class GloopStopForumSpam {
 
 		wfDebugLog('GloopTweaks', "Making request to SFS API with URL: {$url}");
 
+		curl_setopt($curl, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
