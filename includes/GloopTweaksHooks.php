@@ -5,6 +5,7 @@ namespace MediaWiki\Extension\GloopTweaks;
 use CdnCacheUpdate;
 use DeferredUpdates;
 use ErrorPageError;
+use Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Storage\EditResult;
