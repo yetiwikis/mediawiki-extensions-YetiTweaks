@@ -46,8 +46,8 @@
 	},
 	"AuthManagerAutoConfig": {
 		"preauth": {
-			"MediaWiki\\Extension\\GloopTweaks\\GloopPreAuthenticationProvider": {
-				"class": "MediaWiki\\Extension\\GloopTweaks\\GloopPreAuthenticationProvider",
+			"MediaWiki\\Extension\\GloopTweaks\\StopForumSpam\\GloopPreAuthenticationProvider": {
+				"class": "MediaWiki\\Extension\\GloopTweaks\\StopForumSpam\\GloopPreAuthenticationProvider",
 				"sort": 5
 			}
 		}

@@ -1,6 +1,6 @@
 <?php
 
-namespace MediaWiki\Extension\GloopTweaks;
+namespace MediaWiki\Extension\GloopTweaks\StopForumSpam;
 
 use MediaWiki\Auth\AbstractPreAuthenticationProvider;
 use MediaWiki\Auth\AuthenticationRequest;

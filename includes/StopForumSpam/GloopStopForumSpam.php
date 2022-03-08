@@ -1,8 +1,8 @@
 <?php
 
-namespace MediaWiki\Extension\GloopTweaks;
+namespace MediaWiki\Extension\GloopTweaks\StopForumSpam;
 
-class GloopStopForumSpam {
+class StopForumSpam {
 	/**
 	 * Checks if a given IP address is blacklisted via the remote API
 	 * @param string $ip
@@ -21,7 +21,7 @@ class GloopStopForumSpam {
 			$query['username'] = $username;
 		}
 
-		$result = GloopStopForumSpam::doRemoteCall($query);
+		$result = self::doRemoteCall($query);
 		$resultJson = json_decode($result, true);
 
 		if (!$resultJson || $resultJson['success'] < 1) {
