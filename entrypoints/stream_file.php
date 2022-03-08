@@ -1,6 +1,8 @@
 <?php
 // This file is intended to be symlinked into $IP.
 
+use MediaWiki\MediaWikiServices;
+
 define( 'MW_NO_SESSION', 1 );
 define( 'MW_ENTRY_POINT', 'stream_file' );
 
@@ -22,7 +24,7 @@ function wfStreamFileMain( array $params ) {
 		return;
 	}
 
-	$repo = RepoGroup::singleton()->getLocalRepo();
+	$repo = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo();
 	$file = $repo->newFile( $fileName );
 
 	if ( $file && $file->exists() ) {
