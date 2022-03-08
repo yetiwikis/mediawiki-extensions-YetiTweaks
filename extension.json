@@ -83,10 +83,10 @@
 		"CentralDB": {
 			"value": "metawiki"
 		},
-		"CloudflareToken": {
+		"CFToken": {
 			"value": ""
 		},
-		"CloudflareZone": {
+		"CFZone": {
 			"value": ""
 		},
 		"CSP": {

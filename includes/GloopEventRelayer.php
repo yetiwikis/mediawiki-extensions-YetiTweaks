@@ -36,12 +36,12 @@ class GloopEventRelayer extends EventRelayer {
 	}
 
 	/**
-	* Send CloudFlare purge requests.
+	* Send Cloudflare purge requests.
 	*
 	* @param string[] $urls Array of URLs to purge.
 	*/
 	private static function CloudflarePurge( array $urls ) {
-		global $wgGloopTweaksCloudflareToken, $wgGloopTweaksCloudflareZone;
+		global $wgGloopTweaksCFToken, $wgGloopTweaksCFZone;
 
 		// Break the purge requests into chunks sized to Cloudflare's per-request URL limit.
 		$chunks = array_chunk( $urls, self::MAX_URLS_PER_REQUEST );
@@ -50,13 +50,13 @@ class GloopEventRelayer extends EventRelayer {
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS );
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, [
-			'Authorization: Bearer ' . $wgGloopTweaksCloudflareToken,
+			'Authorization: Bearer ' . $wgGloopTweaksCFToken,
 			'Content-Type: application/json',
 		] );
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 		curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 10 );
 		curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
-		curl_setopt( $ch, CURLOPT_URL, 'https://api.cloudflare.com/client/v4/zones/' . $wgGloopTweaksCloudflareZone . '/purge_cache' );
+		curl_setopt( $ch, CURLOPT_URL, 'https://api.cloudflare.com/client/v4/zones/' . $wgGloopTweaksCFZone . '/purge_cache' );
 
 		// Perform the purge requests a chunk at a time.
 		foreach ( $chunks as $chunk ) {
