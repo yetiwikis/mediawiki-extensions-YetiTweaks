@@ -428,7 +428,7 @@ class GloopTweaksHooks {
 	 */
 	public static function onScribuntoExternalLibraries( $engine, array &$extraLibraries ) {
 		if ( $engine == 'lua' ) {
-			$extraLibraries['mw.ext.GloopTweaks'] = 'Scribunto_LuaGloopTweaksLibrary';
+			$extraLibraries['mw.ext.GloopTweaks'] = Scribunto_LuaGloopTweaksLibrary::class;
 		}
 	}
 }
