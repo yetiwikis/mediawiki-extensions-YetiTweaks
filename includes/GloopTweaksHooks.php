@@ -32,7 +32,7 @@ class GloopTweaksHooks {
 	 * @param string &$lcKey message key to check and possibly convert
 	 */
 	public static function onMessageCacheGet( &$lcKey ) {
-		global $wgGloopTweaksEnableMessageOverrides, $wgGloopTweaksanguageCode;
+		global $wgGloopTweaksEnableMessageOverrides, $wgLanguageCode;
 
 		if ($wgGloopTweaksEnableMessageOverrides) {
 			static $keys = [
@@ -68,7 +68,7 @@ class GloopTweaksHooks {
 					* 2. Otherwise, use the prefixed key with normal fallback order
 					* (including MediaWiki pages if they exist).
 					*/
-				$cache->getMsgFromNamespace( $ucKey, $wgGloopTweaksanguageCode ) === false
+				$cache->getMsgFromNamespace( $ucKey, $wgLanguageCode ) === false
 			) {
 				$lcKey = $transformedKey;
 			}
