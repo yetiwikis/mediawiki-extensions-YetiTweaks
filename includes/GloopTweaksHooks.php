@@ -400,7 +400,7 @@ class GloopTweaksHooks {
 		} elseif ( $dbkey === 'File:Favicon.ico' ) {
 			$urls[] = $wgCanonicalServer . '/favicon.ico';
 		} elseif ( $title->getNamespace() == NS_FILE ) {
-			$file = RepoGroup::singleton()->getLocalRepo()->newFile( $title );
+			$file = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo()->newFile( $title );
 			if ( $file ) {
 				$urls[] = strtok( $file->getUrl(), '?' );
 			}
