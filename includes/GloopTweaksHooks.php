@@ -12,7 +12,6 @@ use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Storage\EditResult;
 use MediaWiki\User\UserIdentity;
 use OutputPage;
-use RepoGroup;
 use RequestContext;
 use Skin;
 use Title;
