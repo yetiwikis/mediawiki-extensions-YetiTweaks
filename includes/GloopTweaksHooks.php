@@ -360,11 +360,15 @@ class GloopTweaksHooks {
 
 	/**
 	 * Use Short URL always, even for queries.
+	 * Additionally apply it to the main page
+	 * because $wgMainPageIsDomainRoot doesn't apply to the internal URL, which is used for purging.
 	 */
 	public static function onGetLocalURLInternal( $title, &$url, $query ) {
 		global $wgArticlePath, $wgScript;
 		$dbkey = wfUrlencode( $title->getPrefixedDBkey() );
-		if ( $url == "{$wgScript}?title={$dbkey}&{$query}" ) {
+		if ( $title->isMainPage() ) {
+			$url = wfAppendQuery( '/', $query );
+		} elseif ( $url == "{$wgScript}?title={$dbkey}&{$query}" ) {
 			$url = wfAppendQuery(str_replace( '$1', $dbkey, $wgArticlePath ), $query );
 		}
 	}
