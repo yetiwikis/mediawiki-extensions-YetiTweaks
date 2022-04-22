@@ -256,7 +256,8 @@ class GloopTweaksHooks {
 		 * The actual styling is located on the wikis and toggling implemented through Gadgets.
 		 */
 		$cfWorker = $out->getRequest()->getHeader( 'CF-Worker' );
-		$workerProcessed = $cfWorker !== false && $cfWorker === $wgCloudflareDomain;
+		$cfWorkerHandled = $out->getRequest()->getHeader( 'WGL-Worker' );
+		$workerProcessed = $cfWorker !== false && $cfWorker === $wgCloudflareDomain && $cfWorkerHandled === '1';
 
 		// Avoid duplicate processing if this will be performed instead by our Cloudflare worker.
 		if ( !$workerProcessed ) {
