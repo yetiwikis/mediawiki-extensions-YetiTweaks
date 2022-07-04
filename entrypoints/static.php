@@ -8,7 +8,7 @@ define( 'MW_ENTRY_POINT', 'static' );
 require dirname($_SERVER['SCRIPT_FILENAME']) . '/includes/WebStart.php';
 
 function wfStaticShowError ( $status ) {
-	header( 'Cache-Control: public, max-age=0, must-revalidate, s-maxage=300' );
+	header( 'Cache-Control: public, max-age=0, must-revalidate, s-maxage=60, stale-while-revalidate=60' );
 	HttpStatus::header( $status );
 	return;
 }
@@ -71,7 +71,7 @@ function wfStaticMain() {
 		// Otherwise, it mismatched, so make sure the resource stays reasonably fresh.
 		else {
 			$stats->increment( 'wglstatic.mismatch' );
-			header( 'Cache-Control: public, max-age=0, must-revalidate, s-maxage=300' );
+			header( 'Cache-Control: public, max-age=0, must-revalidate, s-maxage=60, stale-while-revalidate=60' );
 		}
 	}
 
