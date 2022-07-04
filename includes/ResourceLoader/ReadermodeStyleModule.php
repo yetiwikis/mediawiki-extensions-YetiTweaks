@@ -47,7 +47,7 @@ class ReadermodeStyleModule extends ResourceLoaderSiteStylesModule {
 		global $wgGloopTweaksCentralDB;
 		$lbFactory = MediaWikiServices::getInstance()->getDBLoadBalancerFactory();
 		$lb = $lbFactory->getMainLB( $wgGloopTweaksCentralDB );
-		return $lb->getLazyConnectionRef( DB_REPLICA, [], $wgGloopTweaksCentralDB );
+		return $lb->getConnectionRef( DB_REPLICA, [], $wgGloopTweaksCentralDB );
 	}
 
 	/**
