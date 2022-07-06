@@ -306,7 +306,7 @@ class GloopTweaksHooks {
 		} else {
 			/* Open Graph protocol */
 			$out->addMeta( 'og:site_name', $wgSitename );
-			$out->addMeta( 'og:title', $title->getText() );
+			$out->addMeta( 'og:title', $title->getPrefixedText() );
 			$out->addMeta( 'og:type', 'article' );
 		}
 		/* Open Graph protocol */
