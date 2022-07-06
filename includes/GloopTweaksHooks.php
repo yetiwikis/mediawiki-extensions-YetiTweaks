@@ -222,7 +222,7 @@ class GloopTweaksHooks {
 	 * Implement a dark mode and add structured data for the Google Sitelinks search box.
 	 */
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
-		global $wgGloopTweaksAnalyticsID, $wgCloudflareDomain, $wgGloopTweaksCSP, $wgGloopTweaksCSPAnons;
+		global $wgGloopTweaksAnalyticsID, $wgCloudflareDomain, $wgGloopTweaksCSP, $wgGloopTweaksCSPAnons, $wgSitename;
 		global $wgGloopTweaksEnableLoadingDarkmode, $wgGloopTweaksEnableLoadingReadermode, $wgGloopTweaksEnableSearchboxMetadata, $wgArticlePath, $wgCanonicalServer;
 
 		// For letting user JS import from additional sources, like the Wikimedia projects, they have a longer CSP than anons.
@@ -281,22 +281,36 @@ class GloopTweaksHooks {
 			}
 		}
 
-		/* Structured data for the Google Sitelinks search box. */
-		if ( $wgGloopTweaksEnableSearchboxMetadata && $out->getTitle()->isMainPage() ) {
-			$targetUrl = $wgCanonicalServer . str_replace( '$1', 'Special:Search', $wgArticlePath );
-			$targetUrl = wfAppendQuery( $targetUrl, 'search={search_term_string}' );
-			$structuredData = [
-				'@context'        => 'http://schema.org',
-				'@type'           => 'WebSite',
-				'url'             => $wgCanonicalServer,
-				'potentialAction' => [
-					'@type'       => 'SearchAction',
-					'target'      => $targetUrl,
-					'query-input' => 'required name=search_term_string',
-				],
-			];
-			$out->addHeadItem( 'StructuredData', '<script type="application/ld+json">' . json_encode( $structuredData ) . '</script>' );
+		$title = $out->getTitle();
+		if ( $title->isMainPage() ) {
+			/* Open Graph protocol */
+			$out->addMeta( 'og:title', $wgSitename );
+			$out->addMeta( 'og:type', 'website' );
+
+			/* Structured data for the Google Sitelinks search box. */
+			if ( $wgGloopTweaksEnableSearchboxMetadata ) {
+				$targetUrl = $wgCanonicalServer . str_replace( '$1', 'Special:Search', $wgArticlePath );
+				$targetUrl = wfAppendQuery( $targetUrl, 'search={search_term_string}' );
+				$structuredData = [
+					'@context'        => 'http://schema.org',
+					'@type'           => 'WebSite',
+					'url'             => $wgCanonicalServer,
+					'potentialAction' => [
+						'@type'       => 'SearchAction',
+						'target'      => $targetUrl,
+						'query-input' => 'required name=search_term_string',
+					],
+				];
+				$out->addHeadItem( 'StructuredData', '<script type="application/ld+json">' . json_encode( $structuredData ) . '</script>' );
+			}
+		} else {
+			/* Open Graph protocol */
+			$out->addMeta( 'og:site_name', $wgSitename );
+			$out->addMeta( 'og:title', $title->getText() );
+			$out->addMeta( 'og:type', 'article' );
 		}
+		/* Open Graph protocol */
+		$out->addMeta( 'og:url', $title->getFullURL() );
 	}
 
 	// Cache OpenSearch for 600 seconds. (10 minutes)
