@@ -32,7 +32,7 @@ class GloopTweaksHooks {
 	 * @param string &$lcKey message key to check and possibly convert
 	 */
 	public static function onMessageCacheGet( &$lcKey ) {
-		global $wgGloopTweaksEnableMessageOverrides, $wgLanguageCode;
+		global $wgGloopTweaksEnableMessageOverrides;
 
 		if ($wgGloopTweaksEnableMessageOverrides) {
 			static $keys = [
