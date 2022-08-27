@@ -182,10 +182,10 @@ class GloopTweaksHooks {
 		global $wgGloopTweaksProtectSiteInterface;
 
 		if ( $wgGloopTweaksProtectSiteInterface
+			&& $action !== 'read'
 			&& $title->inNamespace( NS_MEDIAWIKI )
 			&& strpos( lcfirst( $title->getDBKey() ), 'weirdgloop-' ) === 0
 			&& !$user->isAllowed( 'editinterfacesite' )
-			&& $action !== 'read'
 		) {
 				$result = 'weirdgloop-siteinterface';
 				return false;
