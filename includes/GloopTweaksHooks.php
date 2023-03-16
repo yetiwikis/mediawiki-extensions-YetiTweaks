@@ -28,26 +28,25 @@ class GloopTweaksHooks {
 	/**
 	 * When core requests certain messages, change the key to a Weird Gloop version.
 	 *
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/MessageCache::get
-	 * @param string &$lcKey message key to check and possibly convert
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/MessageCacheFetchOverrides
+	 * @param string[] &$keys
 	 */
-	public static function onMessageCacheGet( &$lcKey ) {
+	public static function onMessageCacheFetchOverrides( array &$keys ): void {
 		global $wgGloopTweaksEnableMessageOverrides;
+		if ( !$wgGloopTweaksEnableMessageOverrides ) return;
 
-		if ($wgGloopTweaksEnableMessageOverrides) {
-			static $keys = [
-				'privacypage',
-				'changecontentmodel-text',
-				'emailmessage',
-				'mobile-frontend-copyright',
-				'contactpage-pagetext',
-				'newusermessage-editor',
-				'revisionslider-help-dialog-slide1'
-			];
+		static $keysToOverride = [
+			'privacypage',
+			'changecontentmodel-text',
+			'emailmessage',
+			'mobile-frontend-copyright',
+			'contactpage-pagetext',
+			'newusermessage-editor',
+			'revisionslider-help-dialog-slide1'
+		];
 
-			if ( in_array( $lcKey, $keys, true ) ) {
-				$lcKey = "weirdgloop-$lcKey";
-			}
+		foreach( $keysToOverride as $key ) {
+			$keys[$key] = "weirdgloop-$key";
 		}
 	}
 

@@ -59,7 +59,7 @@
 		"GlobalBlockingBlockedIpMsg": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onGlobalBlockingBlockedIpMsg",
 		"GlobalBlockingBlockedIpXffMsg": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onGlobalBlockingBlockedIpXffMsg",
 		"LocalFilePurgeThumbnails": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onLocalFilePurgeThumbnails",
-		"MessageCache::get": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onMessageCacheGet",
+		"MessageCacheFetchOverrides": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onMessageCacheFetchOverrides",
 		"OpenSearchUrls": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onOpenSearchUrls",
 		"PageSaveComplete": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onPageSaveComplete",
 		"ScribuntoExternalLibraries": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onScribuntoExternalLibraries",
