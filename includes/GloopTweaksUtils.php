@@ -3,7 +3,7 @@
 namespace MediaWiki\Extension\GloopTweaks;
 
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Storage\SlotRecord;
+use MediaWiki\Revision\SlotRecord;
 use TextContent;
 use Wikimedia\AtEase\AtEase;
 

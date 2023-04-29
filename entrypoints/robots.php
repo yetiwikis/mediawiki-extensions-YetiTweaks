@@ -2,7 +2,7 @@
 // This file is intended to be symlinked into $IP.
 
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Storage\SlotRecord;
+use MediaWiki\Revision\SlotRecord;
 
 define( 'MW_NO_SESSION', 1 );
 define( 'MW_ENTRY_POINT', 'robots' );

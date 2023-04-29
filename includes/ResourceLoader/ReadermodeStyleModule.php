@@ -3,7 +3,7 @@
 namespace MediaWiki\Extension\GloopTweaks\ResourceLoader;
 
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Storage\SlotRecord;
+use MediaWiki\Revision\SlotRecord;
 use ResourceLoaderContext;
 use ResourceLoaderSiteStylesModule;
 
