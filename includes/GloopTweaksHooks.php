@@ -154,19 +154,12 @@ class GloopTweaksHooks {
 	public static function onUserGetRightsRemove( $user, &$rights ) {
 		global $wgGloopTweaksSensitiveRights;
 
-		// This hook is called even on endpoints without a session, as we can't check for 2FA in this case, remove sensitive rights.
-		if ( !defined( 'MW_NO_SESSION' ) ) {
-			$session = $user->getRequest()->getSession();
-			// Hardcoded to avoid dependency on OATHAuth::AUTHENTICATED_OVER_2FA.
-			$has2FASession = (bool)$session->get( 'OATHAuthAuthenticatedOver2FA', false );
-			// Sensitive rights are removed only if this isn't a 2FAed session.
-			if ( $has2FASession ) {
-				return;
-			}
+		$userRepo = MediaWikiServices::getInstance()->getService( 'OATHUserRepository' );
+		$oathUser = $userRepo->findByUser( $user );
+		if ( $oathUser->getModule() === null ) {
+			// No 2FA, remove sensitive user rights.
+			$rights = array_diff( $rights, $wgGloopTweaksSensitiveRights );
 		}
-
-		// Otherwise, filter out the sensitive user rights.
-		$rights = array_diff( $rights, $wgGloopTweaksSensitiveRights );
 	}
 
 	/**
