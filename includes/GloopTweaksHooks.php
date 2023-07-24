@@ -154,6 +154,11 @@ class GloopTweaksHooks {
 	public static function onUserGetRightsRemove( $user, &$rights ) {
 		global $wgGloopTweaksSensitiveRights;
 
+		// Avoid 2FA lookup if the user doesn't have any sensitive user rights.
+		if ( array_intersect( $wgGloopTweaksSensitiveRights, $rights ) === [] ) {
+			return;
+		}
+
 		$userRepo = MediaWikiServices::getInstance()->getService( 'OATHUserRepository' );
 		$oathUser = $userRepo->findByUser( $user );
 		if ( $oathUser->getModule() === null ) {
