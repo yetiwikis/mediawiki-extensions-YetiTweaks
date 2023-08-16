@@ -36,6 +36,10 @@
 	"AutoloadNamespaces": {
 		"MediaWiki\\Extension\\GloopTweaks\\": "includes/"
 	},
+	"ContentHandlers": {
+		"GeoJSON": "MediaWiki\\Extension\\GloopTweaks\\ContentHandler\\GeoJSON",
+		"InteractiveMap": "MediaWiki\\Extension\\GloopTweaks\\ContentHandler\\InteractiveMap"
+	},
 	"ResourceModules": {
 		"wg.darkmode": {
 			"class": "MediaWiki\\Extension\\GloopTweaks\\ResourceLoader\\DarkmodeStyleModule"
