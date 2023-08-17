@@ -38,7 +38,7 @@
 	},
 	"ContentHandlers": {
 		"GeoJSON": "MediaWiki\\Extension\\GloopTweaks\\ContentHandler\\GeoJSON",
-		"InteractiveMap": "MediaWiki\\Extension\\GloopTweaks\\ContentHandler\\InteractiveMap"
+		"interactivemap": "MediaWiki\\Extension\\GloopTweaks\\ContentHandler\\InteractiveMap"
 	},
 	"ResourceModules": {
 		"wg.darkmode": {
