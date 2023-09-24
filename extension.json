@@ -75,6 +75,9 @@
 		"UserGetRightsRemove": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onUserGetRightsRemove",
 		"getUserPermissionsErrors": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::ongetUserPermissionsErrors"
 	},
+	"JobClasses": {
+		"refreshLinksBatch": "MediaWiki\\Extension\\GloopTweaks\\RefreshLinksBatchJob"
+	},
 	"config_prefix": "wgGloopTweaks",
 	"config": {
 		"AddFooterLinks": {
