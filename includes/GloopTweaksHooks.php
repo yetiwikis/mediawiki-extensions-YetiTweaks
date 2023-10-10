@@ -235,7 +235,10 @@ class GloopTweaksHooks {
 		// Avoid duplicate processing if this will be performed instead by our Cloudflare worker.
 		if ( !$workerProcessed ) {
 			/* Dark mode */
-			if ( $wgGloopTweaksEnableLoadingDarkmode && isset( $_COOKIE['darkmode'] ) && $_COOKIE['darkmode'] === 'true' ) {
+			if ( $wgGloopTweaksEnableLoadingDarkmode && (
+				( isset( $_COOKIE['theme'] ) && $_COOKIE['theme'] === 'dark' ) ||
+				( isset( $_COOKIE['darkmode'] ) && $_COOKIE['darkmode'] === 'true' )
+			) ) {
 				$out->addBodyClasses( [ 'wgl-darkmode' ] );
 				$out->addModuleStyles( [ 'wg.darkmode' ] );
 			} else {
