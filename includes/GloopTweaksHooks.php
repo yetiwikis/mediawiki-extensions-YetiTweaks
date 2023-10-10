@@ -237,7 +237,7 @@ class GloopTweaksHooks {
 			/* Dark mode */
 			if ( $wgGloopTweaksEnableLoadingDarkmode && (
 				( isset( $_COOKIE['theme'] ) && $_COOKIE['theme'] === 'dark' ) ||
-				( isset( $_COOKIE['darkmode'] ) && $_COOKIE['darkmode'] === 'true' )
+				( !isset( $_COOKIE['theme'] ) && isset( $_COOKIE['darkmode'] ) && $_COOKIE['darkmode'] === 'true' )
 			) ) {
 				$out->addBodyClasses( [ 'wgl-darkmode' ] );
 				$out->addModuleStyles( [ 'wg.darkmode' ] );
