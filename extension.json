@@ -101,7 +101,7 @@
 		"CSPAnons": {
 			"value": ""
 		},
-		"EnableLoadingDarkmode": {
+		"EnableTheming": {
 			"value": true
 		},
 		"EnableLoadingReadermode": {

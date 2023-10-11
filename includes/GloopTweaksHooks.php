@@ -196,7 +196,7 @@ class GloopTweaksHooks {
 	 */
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
 		global $wgGloopTweaksAnalyticsID, $wgCloudflareDomain, $wgGloopTweaksCSP, $wgGloopTweaksCSPAnons, $wgSitename;
-		global $wgGloopTweaksEnableLoadingDarkmode, $wgGloopTweaksEnableLoadingReadermode, $wgGloopTweaksEnableSearchboxMetadata, $wgArticlePath, $wgCanonicalServer;
+		global $wgGloopTweaksEnableTheming, $wgGloopTweaksEnableLoadingReadermode, $wgGloopTweaksEnableSearchboxMetadata, $wgArticlePath, $wgCanonicalServer;
 
 		// For letting user JS import from additional sources, like the Wikimedia projects, they have a longer CSP than anons.
 		if ( $wgGloopTweaksCSP !== '' ) {
@@ -234,15 +234,23 @@ class GloopTweaksHooks {
 
 		// Avoid duplicate processing if this will be performed instead by our Cloudflare worker.
 		if ( !$workerProcessed ) {
-			/* Dark mode */
-			if ( $wgGloopTweaksEnableLoadingDarkmode && (
-				( isset( $_COOKIE['theme'] ) && $_COOKIE['theme'] === 'dark' ) ||
-				( !isset( $_COOKIE['theme'] ) && isset( $_COOKIE['darkmode'] ) && $_COOKIE['darkmode'] === 'true' )
-			) ) {
-				$out->addBodyClasses( [ 'wgl-darkmode' ] );
-				$out->addModuleStyles( [ 'wg.darkmode' ] );
-			} else {
-				$out->addBodyClasses( [ 'wgl-lightmode' ] );
+			/* Theming */
+			if ( $wgGloopTweaksEnableTheming ) {
+				$legacyDarkmode = isset( $_COOKIE['darkmode'] ) && $_COOKIE['darkmode'] === 'true';
+				$theme = $_COOKIE['theme'] ?? ( $legacyDarkmode ? 'dark' : 'light' );
+
+				// Light mode is the base styling, so it doesn't load a separate theme stylesheet.
+				if ( $theme === 'light' ) {
+					// Legacy non-darkmode selector.
+					$out->addBodyClasses( [ 'wgl-lightmode' ] );
+				} else {
+					if ( $theme === 'dark' ) {
+						$out->addModuleStyles( [ 'wg.darkmode' ] );
+						// Legacy darkmode selector.
+						$out->addBodyClasses( [ 'wgl-darkmode' ] );
+					}
+				}
+				$out->addBodyClasses( [ "wgl-theme-$theme" ] );
 			}
 
 			/* Reader mode */
