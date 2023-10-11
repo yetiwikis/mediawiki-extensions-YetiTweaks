@@ -6,7 +6,7 @@ use MediaWiki\MediaWikiServices;
 use ResourceLoaderContext;
 use MediaWiki\ResourceLoader\WikiModule;
 
-class ThemeStyleModule extends WikiModule {
+class ThemeStylesModule extends WikiModule {
 	/** @var string[] What client platforms the module targets (e.g. desktop, mobile) */
 	protected $targets = [ 'desktop', 'mobile' ];
 
