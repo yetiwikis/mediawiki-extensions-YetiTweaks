@@ -38,7 +38,7 @@ class ThemeStylesModule extends WikiModule {
 		$skin = ucfirst( $context->getSkin() );
 
 		// i.e. MediaWiki:Vector-theme-dark.css
-		$pages["MediaWiki:$skin-theme-{$this->theme}"] = [ 'type' => 'style' ];
+		$pages["MediaWiki:$skin-theme-{$this->theme}.css"] = [ 'type' => 'style' ];
 
 		// Legacy dark mode stylesheet
 		if ( $this->theme === 'dark' ) {
