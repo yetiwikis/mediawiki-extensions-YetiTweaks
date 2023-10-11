@@ -41,9 +41,6 @@
 		"interactivemap": "MediaWiki\\Extension\\GloopTweaks\\ContentHandler\\InteractiveMap"
 	},
 	"ResourceModules": {
-		"wg.darkmode": {
-			"class": "MediaWiki\\Extension\\GloopTweaks\\ResourceLoader\\DarkmodeStyleModule"
-		},
 		"wg.readermode": {
 			"class": "MediaWiki\\Extension\\GloopTweaks\\ResourceLoader\\ReadermodeStyleModule"
 		}
@@ -66,6 +63,7 @@
 		"MessageCacheFetchOverrides": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onMessageCacheFetchOverrides",
 		"OpenSearchUrls": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onOpenSearchUrls",
 		"PageSaveComplete": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onPageSaveComplete",
+		"ResourceLoaderRegisterModules": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onResourceLoaderRegisterModules",
 		"ScribuntoExternalLibraries": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onScribuntoExternalLibraries",
 		"SkinAddFooterLinks": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onSkinAddFooterLinks",
 		"SkinCopyrightFooter": "MediaWiki\\Extension\\GloopTweaks\\GloopTweaksHooks::onSkinCopyrightFooter",
@@ -133,6 +131,12 @@
 		},
 		"SitemapsFileBackend": {
 			"value": null
+		},
+		"Themes": {
+			"value": [
+				"dark",
+				"light"
+			]
 		}
 	},
 	"AvailableRights": [

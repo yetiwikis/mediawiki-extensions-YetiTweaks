@@ -6,8 +6,10 @@ use CdnCacheUpdate;
 use DeferredUpdates;
 use ErrorPageError;
 use Html;
+use MediaWiki\Extension\GloopTweaks\ResourceLoader\ThemeStylesModule;
 use MediaWiki\Extension\GloopTweaks\StopForumSpam\StopForumSpam;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\ResourceLoader\ResourceLoader;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Storage\EditResult;
 use MediaWiki\User\UserIdentity;
@@ -192,7 +194,7 @@ class GloopTweaksHooks {
 	}
 
 	/**
-	 * Implement a dark mode and add structured data for the Google Sitelinks search box.
+	 * Implement theming and add structured data for the Google Sitelinks search box.
 	 */
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
 		global $wgGloopTweaksAnalyticsID, $wgCloudflareDomain, $wgGloopTweaksCSP, $wgGloopTweaksCSPAnons, $wgSitename;
@@ -224,7 +226,7 @@ class GloopTweaksHooks {
 		}
 
 		/*
-		 * Server-side logic to implement the dark mode, reader mode, and sticky header styling customisations.
+		 * Server-side logic to implement theming, reader mode, and sticky header styling customisations.
 		 * However, for most requests, this is instead done by our Cloudflare worker to avoid cache fragmentation.
 		 * The actual styling is located on the wikis and toggling implemented through Gadgets.
 		 */
@@ -245,10 +247,10 @@ class GloopTweaksHooks {
 					$out->addBodyClasses( [ 'wgl-lightmode' ] );
 				} else {
 					if ( $theme === 'dark' ) {
-						$out->addModuleStyles( [ 'wg.darkmode' ] );
 						// Legacy darkmode selector.
 						$out->addBodyClasses( [ 'wgl-darkmode' ] );
 					}
+					$out->addModuleStyles( [ "wgl.theme.$theme" ] );
 				}
 				$out->addBodyClasses( [ "wgl-theme-$theme" ] );
 			}
@@ -405,6 +407,27 @@ class GloopTweaksHooks {
 			$file = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo()->newFile( $title );
 			if ( $file ) {
 				$urls[] = strtok( $file->getUrl(), '?' );
+			}
+		}
+	}
+
+	/**
+	* Register resource modules for themes.
+	*/
+	public static function onResourceLoaderRegisterModules( ResourceLoader $resourceLoader ) {
+		global $wgGloopTweaksThemes;
+		foreach ( $wgGloopTweaksThemes as $theme ) {
+			$resourceLoader->register( "wgl.theme.$theme", [
+				'class' => ThemeStylesModule::class,
+				'theme' => $theme,
+			] );
+
+			// Legacy dark mode
+			if ( $theme === 'dark' ) {
+				$resourceLoader->register( 'wg.darkmode', [
+					'dependencies' => [ 'wgl.theme.dark' ],
+					'group' => 'user',
+				] );
 			}
 		}
 	}
