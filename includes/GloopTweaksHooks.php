@@ -425,8 +425,8 @@ class GloopTweaksHooks {
 			// Legacy dark mode
 			if ( $theme === 'dark' ) {
 				$resourceLoader->register( 'wg.darkmode', [
-					'dependencies' => [ 'wgl.theme.dark' ],
-					'group' => 'user',
+					'class' => ThemeStylesModule::class,
+					'theme' => $theme,
 				] );
 			}
 		}
