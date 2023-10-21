@@ -248,6 +248,7 @@ class GenerateSitemap extends Maintenance {
 	 * Generate a one-dimensional array of existing namespaces
 	 */
 	private function generateNamespaces() {
+		global $wgNamespaceRobotPolicies;
 		// Only generate for specific namespaces if $wgSitemapNamespaces is an array.
 		global $wgSitemapNamespaces;
 		if ( is_array( $wgSitemapNamespaces ) ) {
@@ -267,7 +268,10 @@ class GenerateSitemap extends Maintenance {
 		);
 
 		foreach ( $res as $row ) {
-			$this->namespaces[] = $row->page_namespace;
+			$policy = $wgNamespaceRobotPolicies[$row->page_namespace] ?? '';
+			if ( !str_contains( $policy, 'noindex' ) ) {
+				$this->namespaces[] = $row->page_namespace;
+			}
 		}
 	}
 
