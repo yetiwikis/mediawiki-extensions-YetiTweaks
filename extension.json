@@ -137,6 +137,9 @@
 				"dark",
 				"light"
 			]
+		},
+		"UseSFS": {
+			"value": true
 		}
 	},
 	"AvailableRights": [

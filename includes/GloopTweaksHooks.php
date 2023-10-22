@@ -313,7 +313,7 @@ class GloopTweaksHooks {
 	 * Hook provided by ContactPage extension.
 	 */
 	public static function onContactPage( &$to, &$replyTo, &$subject, &$text ) {
-		global $wgGloopTweaksSendDetailsWithContactPage, $wgDBname, $wgRequest, $wgOut, $wgServer;
+		global $wgGloopTweaksSendDetailsWithContactPage, $wgGloopTweaksUseSFS, $wgDBname, $wgRequest, $wgOut, $wgServer;
 
 		$user = $wgOut->getUser();
 		$userIP = $wgRequest->getIP();
@@ -325,7 +325,7 @@ class GloopTweaksHooks {
 		}
 
 		// StopForumSpam check: only check users who are not registered already
-		if ( $user->isAnon() && StopForumSpam::isBlacklisted( $userIP ) ) {
+		if ( $wgGloopTweaksUseSFS && $user->isAnon() && StopForumSpam::isBlacklisted( $userIP ) ) {
 			wfDebugLog( 'GloopTweaks', "Blocked contact form from {$userIP} as they are in StopForumSpam's database" );
 			return false;
 		}
