@@ -10,7 +10,7 @@
   "weirdgloop-contact": "联系Weird Gloop",
   "weirdgloop-contact-url": "Special:Contact",
   "weirdgloop-siteinterface": "您不能对全域用户界面页面做出此操作。如果此页面需要被编辑或有其他问题，请[[Special:Contact|联系系统管理员]]。",
-  "weirdgloop-spam-block": "由于您处罚了我们的特殊反垃圾措施，您的操作已被阻止。若您认为拦截错误，请在[https://discord.gg/runescapewiki Discord上联系我们]。",
+  "weirdgloop-spam-block": "由于您触发了我们的特殊反垃圾措施，您的操作已被阻止。若您认为拦截错误，请在[https://discord.gg/runescapewiki Discord上联系我们]。",
   "right-sysadmin": "访问Weird Gloop托管的wiki的管理工具",
   "right-editinterfacesite": "编辑全域用户界面",
   "right-bypassgloopspam": "绕过Weird Gloop实施的全站垃圾防护措施",
