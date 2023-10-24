@@ -99,6 +99,9 @@
 		"CSPAnons": {
 			"value": ""
 		},
+		"EnableContactFilter": {
+			"value": true
+		},
 		"EnableTheming": {
 			"value": true
 		},

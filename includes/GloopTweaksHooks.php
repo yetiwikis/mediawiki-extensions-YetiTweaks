@@ -313,13 +313,13 @@ class GloopTweaksHooks {
 	 * Hook provided by ContactPage extension.
 	 */
 	public static function onContactPage( &$to, &$replyTo, &$subject, &$text ) {
-		global $wgGloopTweaksSendDetailsWithContactPage, $wgGloopTweaksUseSFS, $wgDBname, $wgRequest, $wgOut, $wgServer;
+		global $wgGloopTweaksEnableContactFilter, $wgGloopTweaksSendDetailsWithContactPage, $wgGloopTweaksUseSFS, $wgDBname, $wgRequest, $wgOut, $wgServer;
 
 		$user = $wgOut->getUser();
 		$userIP = $wgRequest->getIP();
 
 		// Spam filter for Special:Contact, checks against [[MediaWiki:weirdgloop-contact-filter]] on metawiki. Regex per line and use '#' for comments.
-		if ( !GloopTweaksUtils::checkContactFilter( $subject . "\n" . $text ) ) {
+		if ( $wgGloopTweaksEnableContactFilter && !GloopTweaksUtils::checkContactFilter( $subject . "\n" . $text ) ) {
 			wfDebugLog( 'GloopTweaks', "Blocked contact form from {$userIP} as their message matches regex in our contact filter" );
 			return false;
 		}
