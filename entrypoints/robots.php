@@ -12,7 +12,7 @@ require dirname($_SERVER['SCRIPT_FILENAME']) . '/includes/WebStart.php';
 wfRobotsMain();
 
 function wfRobotsMain() {
-	global $wgGloopTweaksCentralDB, $wgCanonicalServer, $wgDBname, $wgGloopTweaksNoRobots;
+	global $wgGloopTweaksCentralDB, $wgCanonicalServer, $wgDBname, $wgGloopTweaksNoRobots, $wgNamespaceRobotPolicies;
 
 	if ( $wgGloopTweaksNoRobots ) {
 		header( 'Cache-Control: max-age=300, must-revalidate, s-maxage=300, revalidate-while-stale=300' );
@@ -29,6 +29,44 @@ function wfRobotsMain() {
 	$content = $rev ? $rev->getContent( SlotRecord::MAIN ) : null;
 	$lastModified = $rev ? $rev->getTimestamp() : null;
 	$text = ( $content instanceof TextContent ) ? $content->getText() : '';
+
+	// Disallow noindexed namespaces in robots.txt as well.
+	$contLang = $services->getContentLanguage();
+	$langConverter = $services->getLanguageConverterFactory()->getLanguageConverter( $contLang );
+	$namespaceInfo = $services->getNamespaceInfo();
+	$namespaces = [];
+
+	// NS_SPECIAL is hardcoded as noindex, but not normally in $wgNamespaceRobotPolicies.
+	$wgNamespaceRobotPolicies[NS_SPECIAL] = 'noindex';
+
+	foreach ( $wgNamespaceRobotPolicies as $ns => $policy ) {
+		if ( str_contains( $policy, 'noindex' ) ) {
+			$name = $contLang->getNsText( $ns );
+			if ( $name !== '' ) {
+				$namespaces[] = $name;
+			}
+		}
+	}
+
+	$disallowText = 'User-Agent: *';
+	foreach ( $namespaces as $ns ) {
+		$lcns = strtolower($ns);
+		$disallowText .= <<<DISALLOW
+
+		Disallow: /w/$ns:
+		Disallow: /w/$ns%3A
+		Disallow: /w/$lcns:
+		Disallow: /*?title=$ns:
+		Disallow: /*?title=$ns%3A
+		Disallow: /*?*&title=$ns:
+		Disallow: /*?*&title=$ns%3A
+		DISALLOW;
+	}
+	if ( $text ) {
+		$text = str_replace( 'User-Agent: *', $disallowText, $text );
+	} else {
+		$text = $disallowText;
+	}
 
 	header( 'Cache-Control: max-age=300, must-revalidate, s-maxage=3600, revalidate-while-stale=300' );
 	header( 'Content-Type: text/plain; charset=utf-8' );
