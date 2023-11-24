@@ -388,10 +388,10 @@ class GloopTweaksHooks {
 	}
 
 	/**
-	* Add purging for global robots.txt, well-known URLs, and hashless images.
+	* Add purging for global robots.txt, well-known URLs, hashless images, and Popups extension API requests.
 	*/
 	public static function onTitleSquidURLs( Title $title, array &$urls ) {
-		global $wgCanonicalServer, $wgGloopTweaksCentralDB, $wgDBname;
+		global $wgCanonicalServer, $wgGloopTweaksCentralDB, $wgDBname, $wgPopupsTextExtractsIntroOnly;
 		$dbkey = $title->getPrefixedDBKey();
 		// MediaWiki:Robots.txt on metawiki is global.
 		if ( $wgDBname === $wgGloopTweaksCentralDB && $dbkey === 'MediaWiki:Robots.txt' ) {
@@ -408,6 +408,31 @@ class GloopTweaksHooks {
 			if ( $file ) {
 				$urls[] = strtok( $file->getUrl(), '?' );
 			}
+		}
+
+		// Popups extension API requests. Based on Popup extension's src/gateway/mediawiki.js createMediaWikiApiGateway function.
+		$thumbnailSizes = [ 480, 640 ];
+		$params = [
+			'action' => 'query',
+			'prop' => 'info|extracts|pageimages|revisions|info',
+			'format' => 'json',
+			'formatversion' => 2,
+			'redirects' => 'true',
+			'exintro' => $wgPopupsTextExtractsIntroOnly ? 'true' : 'false',
+			'exchars' => 525, /* config.EXTRACT_LENGTH */
+			'explaintext' => 'true',
+			'exsectionformat' => 'plain',
+			'piprop' => 'thumbnail',
+			'pilicense' => 'any',
+			'rvprop' => 'timestamp',
+			'inprop' => 'url',
+			'titles' => $dbkey,
+			'smaxage' => 300, /* CACHE_LIFETIME */
+			'maxage' => 300, /* CACHE_LIFETIME */
+			'uselang' => 'content',
+		];
+		foreach ( $thumbnailSizes as $thumbnailSize ) {
+			$urls[] = wfAppendQuery( wfScript( 'api' ), $params + [ 'pithumbsize' => $thumbnailSize ] );
 		}
 	}
 
