@@ -393,6 +393,7 @@ class GloopTweaksHooks {
 	public static function onTitleSquidURLs( Title $title, array &$urls ) {
 		global $wgCanonicalServer, $wgGloopTweaksCentralDB, $wgDBname, $wgPopupsTextExtractsIntroOnly;
 		$dbkey = $title->getPrefixedDBKey();
+		$services = MediaWikiServices::getInstance();
 		// MediaWiki:Robots.txt on metawiki is global.
 		if ( $wgDBname === $wgGloopTweaksCentralDB && $dbkey === 'MediaWiki:Robots.txt' ) {
 			// Purge each wiki's /robots.txt route.
@@ -404,13 +405,15 @@ class GloopTweaksHooks {
 		} elseif ( $dbkey === 'File:Favicon.ico' ) {
 			$urls[] = $wgCanonicalServer . '/favicon.ico';
 		} elseif ( $title->getNamespace() == NS_FILE ) {
-			$file = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo()->newFile( $title );
+			$file = $services->getRepoGroup()->getLocalRepo()->newFile( $title );
 			if ( $file ) {
 				$urls[] = strtok( $file->getUrl(), '?' );
 			}
 		}
 
 		// Popups extension API requests. Based on Popup extension's src/gateway/mediawiki.js createMediaWikiApiGateway function.
+		$contLang = $services->getContentLanguage();
+		$langConverter = $services->getLanguageConverterFactory()->getLanguageConverter( $contLang );
 		$thumbnailSizes = [ 480, 640 ];
 		$params = [
 			'action' => 'query',
@@ -431,8 +434,13 @@ class GloopTweaksHooks {
 			'maxage' => 300, /* CACHE_LIFETIME */
 			'uselang' => 'content',
 		];
+		$variants = $langConverter->hasVariants() ? $langConverter->getVariants() : [];
 		foreach ( $thumbnailSizes as $thumbnailSize ) {
 			$urls[] = wfAppendQuery( wfScript( 'api' ), $params + [ 'pithumbsize' => $thumbnailSize ] );
+
+			foreach ( $variants as $variant ) {
+				$urls[] = wfAppendQuery( wfScript( 'api' ), $params + [ 'pithumbsize' => $thumbnailSize, 'variant' => $variant ] );
+			}
 		}
 	}
 
