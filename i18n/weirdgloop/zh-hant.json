@@ -1,5 +1,5 @@
 {
-  "@metadata": { "authors": ["NekoCharm"] },
+  "@metadata": { "authors": ["NekoCharm", "Bilin Tsui"] },
   "glooptweaks-desc": "為Weird Gloop網路下的所有wiki提供額外功能",
   "weirdgloop-copyright": "本網站內容採用$1授權，<a href=\"https://meta.weirdgloop.org/w/Project:Copyrights\">附加條款亦可能應用</a>。\n\n",
   "weirdgloop-upload-nolicenses": "此wiki未啟用上傳檔案。\n\n如果您希望在此wiki啟用此特殊頁面上傳檔案，您需要向管理員請求編輯[[MediaWiki:Licenses]]以加入一個或更多授權選項。\n\n致管理員：您可在此連結頁面使用以下格式：<code>* 模板名 (Template name)|標籤 (Label)</code>。使用任意文字即可啟用上傳選項而不需要授權選項。",
@@ -15,6 +15,8 @@
   "right-editinterfacesite": "編輯全域使用者介面",
   "right-bypassgloopspam": "繞過Weird Gloop實施的全站垃圾防護措施",
   "group-sysadmin": "系統管理員",
+  "group-sysadmin-member": "{{GENDER:$1|系統管理員}}",
+  "grouppage-sysadmin": "{{ns:project}}:系統管理員",
   "group-jagex": "Jagex",
   "right-jagex": "Jagex Ltd的認證員工",
   "nstab-minecraft_legends": "Minecraft Legends",
