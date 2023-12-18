@@ -40,7 +40,7 @@ function wfStaticMain() {
 	// Keep track of how well the requests are being cached.
 	$stats = MediaWiki\MediaWikiServices::getInstance()->getStatsdDataFactory();
 
-	$stat = stat( $filePath );
+	$stat = @stat( $filePath );
 	if ( !$stat ) {
 		$stats->increment( 'wglstatic.notfound' );
 		wfStaticShowError( 404 );
