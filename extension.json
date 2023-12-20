@@ -40,11 +40,6 @@
 		"GeoJSON": "MediaWiki\\Extension\\GloopTweaks\\ContentHandler\\GeoJSON",
 		"interactivemap": "MediaWiki\\Extension\\GloopTweaks\\ContentHandler\\InteractiveMap"
 	},
-	"ResourceModules": {
-		"wg.readermode": {
-			"class": "MediaWiki\\Extension\\GloopTweaks\\ResourceLoader\\ReadermodeStyleModule"
-		}
-	},
 	"AuthManagerAutoConfig": {
 		"preauth": {
 			"MediaWiki\\Extension\\GloopTweaks\\StopForumSpam\\GloopPreAuthenticationProvider": {
@@ -103,9 +98,6 @@
 			"value": true
 		},
 		"EnableTheming": {
-			"value": true
-		},
-		"EnableLoadingReadermode": {
 			"value": true
 		},
 		"EnableMessageOverrides": {

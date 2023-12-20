@@ -12,4 +12,3 @@ This extension handles site-wide interface messages, tweaks, and improvements on
 * `$wgGloopTweaksRequireLicensesToUpload` - Enforces requiring MediaWiki:Licenses to not be blank for uploads to be enabled
 * `$wgGloopTweaksEnableSearchboxMetadata` - Add structured data to the main page to add a Google Sitelinks search box
 * `$wgGloopTweaksEnableTheming` - Enable loading themes when the theme cookie is set or the legacy darkmode cookie is true
-* `$wgGloopTweaksEnableLoadingReadermode` - Enable loading the wg.readermode ResourceLoader module when the readermode cookie is true
