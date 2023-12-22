@@ -198,7 +198,7 @@ class GloopTweaksHooks {
 	 */
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
 		global $wgGloopTweaksAnalyticsID, $wgCloudflareDomain, $wgGloopTweaksCSP, $wgGloopTweaksCSPAnons, $wgSitename;
-		global $wgGloopTweaksEnableTheming, $wgGloopTweaksEnableLoadingReadermode, $wgGloopTweaksEnableSearchboxMetadata, $wgArticlePath, $wgCanonicalServer;
+		global $wgGloopTweaksEnableTheming, $wgGloopTweaksEnableLoadingFixedWidth, $wgGloopTweaksEnableSearchboxMetadata, $wgArticlePath, $wgCanonicalServer;
 
 		// For letting user JS import from additional sources, like the Wikimedia projects, they have a longer CSP than anons.
 		if ( $wgGloopTweaksCSP !== '' ) {
@@ -226,7 +226,7 @@ class GloopTweaksHooks {
 		}
 
 		/*
-		 * Server-side logic to implement theming, reader mode, and sticky header styling customisations.
+		 * Server-side logic to implement theming and fixed width styling customisations.
 		 * However, for most requests, this is instead done by our Cloudflare worker to avoid cache fragmentation.
 		 * The actual styling is located on the wikis and toggling implemented through Gadgets.
 		 */
@@ -255,15 +255,10 @@ class GloopTweaksHooks {
 				$out->addBodyClasses( [ "wgl-theme-$theme" ] );
 			}
 
-			/* Reader mode */
-			if ( $wgGloopTweaksEnableLoadingReadermode && isset( $_COOKIE['readermode'] ) && $_COOKIE['readermode'] === 'true' ) {
-				$out->addBodyClasses( [ 'wgl-readermode' ] );
-				$out->addModuleStyles( [ 'wg.readermode' ] );
-			}
-
-			/* Sticky header */
-			if ( isset( $_COOKIE['stickyheader'] ) && $_COOKIE['stickyheader'] === 'true' ) {
-				$out->addBodyClasses( [ 'wgl-stickyheader' ] );
+			/* Fixed width mode */
+			if ( $wgGloopTweaksEnableLoadingFixedWidth && isset( $_COOKIE['readermode'] ) && $_COOKIE['readermode'] === 'true' ) {
+				$out->addBodyClasses( [ 'wgl-fixedWidth' ] );
+				$out->addModuleStyles( [ 'wg.fixedwidth' ] );
 			}
 		}
 

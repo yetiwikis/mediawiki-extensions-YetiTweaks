@@ -7,8 +7,8 @@ use MediaWiki\Revision\SlotRecord;
 use ResourceLoaderContext;
 use ResourceLoaderSiteStylesModule;
 
-class ReadermodeStyleModule extends ResourceLoaderSiteStylesModule {
-	// Readermode only makes sense for desktop.
+class FixedWidthStyleModule extends ResourceLoaderSiteStylesModule {
+	// Fixed width only makes sense for desktop.
 	protected $targets = [ 'desktop' ];
 
 	/**
@@ -42,7 +42,7 @@ class ReadermodeStyleModule extends ResourceLoaderSiteStylesModule {
 		return $content->serialize( $format );
 	}
 
-	// Override getDB() to use metawiki rather than having a per-wiki MediaWiki:Vector-readermode.css.
+	// Override getDB() to use metawiki rather than having a per-wiki MediaWiki:Vector-fixedwidth.css.
 	protected function getDB() {
 		global $wgGloopTweaksCentralDB;
 		$lbFactory = MediaWikiServices::getInstance()->getDBLoadBalancerFactory();
@@ -60,7 +60,7 @@ class ReadermodeStyleModule extends ResourceLoaderSiteStylesModule {
 		$pages = [];
 		if ( $this->getConfig()->get( 'UseSiteCss' ) ) {
 			$skin = $context->getSkin();
-			$pages['MediaWiki:' . ucfirst( $skin ) . '-readermode.css'] = [ 'type' => 'style' ];
+			$pages['MediaWiki:' . ucfirst( $skin ) . '-fixedWidth.css'] = [ 'type' => 'style' ];
 		}
 		return $pages;
 	}

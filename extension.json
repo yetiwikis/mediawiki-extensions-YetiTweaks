@@ -41,8 +41,8 @@
 		"interactivemap": "MediaWiki\\Extension\\GloopTweaks\\ContentHandler\\InteractiveMap"
 	},
 	"ResourceModules": {
-		"wg.readermode": {
-			"class": "MediaWiki\\Extension\\GloopTweaks\\ResourceLoader\\ReadermodeStyleModule"
+		"wg.fixedwidth": {
+			"class": "MediaWiki\\Extension\\GloopTweaks\\ResourceLoader\\FixedWidthStyleModule"
 		}
 	},
 	"AuthManagerAutoConfig": {
@@ -105,7 +105,7 @@
 		"EnableTheming": {
 			"value": true
 		},
-		"EnableLoadingReadermode": {
+		"EnableLoadingFixedWidth": {
 			"value": true
 		},
 		"EnableMessageOverrides": {
