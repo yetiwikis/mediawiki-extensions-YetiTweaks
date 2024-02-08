@@ -3,7 +3,7 @@
     "glooptweaks-desc": "Provides additional functionality for all wikis across the Weird Gloop network",
     "weirdgloop-copyright": "Content on this site is licensed under $1; <a href=\"https://meta.weirdgloop.org/w/Project:Copyrights\">additional terms may apply</a>.\n\n",
     "weirdgloop-upload-nolicenses": "Uploading files to this wiki is not enabled.\n\nTo be able to use this page to upload to this wiki, an administrator needs to add one or more license options to the page [[MediaWiki:Licenses]].\n\nUse the following format: <code>* Template name|Label</code>. Use any text to enable uploading without license options.",
-	"weirdgloop-globalblocking-ipblocked": "'''Your IP address has been blocked on all wikis.'''\n\nThe block was made by $1 ($2).\nThe reason given is ''$3''.\n\n* Start of block: $4\n* Expiry of block: $5\n\nYour current IP address is $6.\nPlease include all above details in any queries you make.\n\nIf you believe you were blocked by mistake, you can contact an admin using [[Special:Contact]].",
+	  "weirdgloop-globalblocking-ipblocked": "'''Your IP address has been blocked on all wikis.'''\n\nThe block was made by $1 ($2).\nThe reason given is ''$3''.\n\n* Start of block: $4\n* Expiry of block: $5\n\nYour current IP address is $6.\nPlease include all above details in any queries you make.\n\nIf you believe you were blocked by mistake, you can contact an admin using [[Special:Contact]].",
     "weirdgloop-globalblocking-ipblocked-xff": "'''One or more proxy servers used by your request is blocked on all wikis.'''\n\nThe block was made by $1 ($2).\nThe reason given is ''$3''.\n\n* Start of block: $4\n* Expiry of block: $5\n\nThe blocked proxy address was $6.\nPlease include all above details in any queries you make.\n\nIf you believe you were blocked by mistake, you can contact an admin using [[Special:Contact]]",
     "weirdgloop-tou": "Terms of Use",
     "weirdgloop-tou-url": "wg:terms",
@@ -23,5 +23,8 @@
     "nstab-minecraft_dungeons": "Minecraft Dungeons",
     "nstab-minecraft_story_mode": "Minecraft Story Mode",
     "nstab-minecraft_earth": "Minecraft Earth",
+    "nstab-tutorial": "Tutorial",
+    "nstab-technik": "Technik",
+    "nstab-comunidade": "Comunidade",
     "querypage-updates-daily": "Updates for this page are run daily."
 }
