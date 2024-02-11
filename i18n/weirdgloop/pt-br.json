@@ -1,4 +1,10 @@
 {
-	"@metadata": [],
-	"weirdgloop-copyright": "O conteúdo deste site está licenciado sob $1; <a href=\"https://meta.weirdgloop.org/w/Project:Copyrights\">termos adicionais podem ser aplicados</a>.\n\n"
+	"@metadata": {
+		"authors": [
+			"Jayden Bailey",
+			"Bilin Tsui"
+		]
+	},
+	"weirdgloop-copyright": "O conteúdo deste site está licenciado sob $1; <a href=\"https://meta.weirdgloop.org/w/Project:Copyrights\">termos adicionais podem ser aplicados</a>.\n\n",
+	"nstab-comunidade": "Comunidade"
 }
