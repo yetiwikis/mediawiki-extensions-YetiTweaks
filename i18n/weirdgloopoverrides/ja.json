@@ -1,5 +1,10 @@
 {
-    "@metadata": [{"author": "Müller857"}],
+    "@metadata": {
+        "authors": [
+            "Müller857"
+        ]
+
+    },
     "weirdgloop-privacypage": "wg:privacy",
     "weirdgloop-changecontentmodel-text": "このページではこのWiki上のページのコンテンツモデルを変更することができます。これはごく稀な状況を除いて行う必要のない操作であり、ページのコンテンツモデルの変更はその機能を損なわせる恐れがある点にご注意ください。操作についてよく分からないことがあればシステム管理者に[[Special:Contact|お問い合わせ]]ください。",
     "weirdgloop-emailmessage": "メッセージ:",
