@@ -1,5 +1,9 @@
 {
-    "@metadata": [{"author": "Müller857"}],
+    "@metadata": {
+        "authors": [
+            "Müller857"
+        ]
+    },
     "weirdgloop-contactpage-disclaimer": "ここに入力した全情報はこのWikiの管理者ではなくこのサイトを管理する企業、[https://weirdgloop.org Weird Gloop]に送信されます。一般の問題に関しては各Wikiの管理者に連絡することが推奨されます。",
     "weirdgloop-contactpage-dmca-affiliation": "申立の立場",
     "weirdgloop-contactpage-dmca-affiliation-me": "著作権者",
