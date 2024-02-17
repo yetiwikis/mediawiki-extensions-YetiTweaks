@@ -132,6 +132,9 @@
 		"SensitiveRights": {
 			"value": []
 		},
+		"SitemapsCompressed": {
+			"value": true
+		},
 		"SitemapsFileBackend": {
 			"value": null
 		},
