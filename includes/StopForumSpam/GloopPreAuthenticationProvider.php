@@ -1,6 +1,6 @@
 <?php
 
-namespace MediaWiki\Extension\GloopTweaks\StopForumSpam;
+namespace MediaWiki\Extension\YetiTweaks\StopForumSpam;
 
 use MediaWiki\Auth\AbstractPreAuthenticationProvider;
 use MediaWiki\Auth\AuthenticationRequest;
@@ -39,7 +39,7 @@ class GloopPreAuthenticationProvider extends AbstractPreAuthenticationProvider {
 	 * @return StatusValue
 	 */
 	protected function testUser( $user, $creator, $autocreate ) {
-		global $wgGloopTweaksUseSFS, $wgRequest;
+		global $wgYetiTweaksUseSFS, $wgRequest;
 
 		$userEmail = $user->getEmail();
 		$userName = $user->getName();
@@ -50,13 +50,13 @@ class GloopPreAuthenticationProvider extends AbstractPreAuthenticationProvider {
 		 * - Check the user's IP and email address remotely on the SFS database
 		 */
 
-		if ($wgGloopTweaksUseSFS && !$creator->isAllowed('bypassgloopspam')) {
+		if ($wgYetiTweaksUseSFS && !$creator->isAllowed('bypassgloopspam')) {
 			// creator does not have rights to bypass this spam check
 			$sfsBlacklisted = StopForumSpam::isBlacklisted( $userIP, $userEmail, null ); // for now, don't use usernamE
 
 			if ($sfsBlacklisted === true) {
-				wfDebugLog( 'GloopTweaks', "Blocked account creation from {$userIP} with email {$userEmail} and name {$userName}, as they are in StopForumSpam's database" );
-				return StatusValue::newFatal( 'weirdgloop-spam-block' );
+				wfDebugLog( 'YetiTweaks', "Blocked account creation from {$userIP} with email {$userEmail} and name {$userName}, as they are in StopForumSpam's database" );
+				return StatusValue::newFatal( 'yetiwikis-spam-block' );
 			}
 		}
 

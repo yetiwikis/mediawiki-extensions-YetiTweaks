@@ -1,8 +1,8 @@
 <?php
 
-namespace MediaWiki\Extension\GloopTweaks;
+namespace MediaWiki\Extension\YetiTweaks;
 
-use EventRelayer;
+use Wikimedia\EventRelayer\EventRelayer;
 
 /**
  * EventRelayer to perform Cloudflare purging.
@@ -44,7 +44,7 @@ class GloopEventRelayer extends EventRelayer {
 	* @param string[] $urls Array of URLs to purge.
 	*/
 	private static function CloudflarePurge( array $urls ) {
-		global $wgGloopTweaksCFToken, $wgGloopTweaksCFZone;
+		global $wgYetiTweaksCFToken, $wgYetiTweaksCFZone;
 
 		// Break the purge requests into chunks sized to Cloudflare's per-request URL limit.
 		$chunks = array_chunk( $urls, self::MAX_URLS_PER_REQUEST );
@@ -53,13 +53,13 @@ class GloopEventRelayer extends EventRelayer {
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS );
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, [
-			'Authorization: Bearer ' . $wgGloopTweaksCFToken,
+			'Authorization: Bearer ' . $wgYetiTweaksCFToken,
 			'Content-Type: application/json',
 		] );
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 		curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 10 );
 		curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
-		curl_setopt( $ch, CURLOPT_URL, 'https://api.cloudflare.com/client/v4/zones/' . $wgGloopTweaksCFZone . '/purge_cache' );
+		curl_setopt( $ch, CURLOPT_URL, 'https://api.cloudflare.com/client/v4/zones/' . $wgYetiTweaksCFZone . '/purge_cache' );
 
 		// Perform the purge requests a chunk at a time.
 		foreach ( $chunks as $chunk ) {

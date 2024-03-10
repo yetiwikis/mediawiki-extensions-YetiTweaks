@@ -20,10 +20,10 @@
  *
  */
 
-namespace MediaWiki\Extension\GloopTweaks\Maintenance;
+namespace MediaWiki\Extension\YetiTweaks\Maintenance;
 
 use Maintenance;
-use MediaWiki\Extension\GloopTweaks\RefreshLinksBatchJob;
+use MediaWiki\Extension\YetiTweaks\RefreshLinksBatchJob;
 use MediaWiki\MediaWikiServices;
 
 if ( getenv( 'MW_INSTALL_PATH' ) ) {

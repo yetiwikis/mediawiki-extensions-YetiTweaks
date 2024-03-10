@@ -1,6 +1,6 @@
 <?php
 
-namespace MediaWiki\Extension\GloopTweaks\Maintenance;
+namespace MediaWiki\Extension\YetiTweaks\Maintenance;
 
 use GitInfo;
 use Maintenance;

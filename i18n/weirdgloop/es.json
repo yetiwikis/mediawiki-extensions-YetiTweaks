@@ -1,9 +1,0 @@
-{
-	"@metadata": {
-		"authors": [
-			"Supeika"
-		]
-	},
-	"group-sysadmin": "Operadores de sistema",
-	"group-sysadmin-member": "{{GENDER:$1|Operador|Operadora}} de sistema"
-}

@@ -20,7 +20,7 @@
  *
  */
 
-namespace MediaWiki\Extension\GloopTweaks;
+namespace MediaWiki\Extension\YetiTweaks;
 
 use DeferredUpdates;
 use GenericParameterJob;

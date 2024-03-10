@@ -1,5 +1,5 @@
 {
-	"name": "GloopTweaks",
+	"name": "YetiTweaks",
 	"private": true,
 	"scripts": {
 		"test": "grunt test"
