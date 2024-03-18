@@ -11,9 +11,9 @@
 	"yetitweaks-desc": "Provides additional functionality for all wikis across Yeti Wikis",
 	"yetiwikis-copyright": "Content on this site is licensed under $1; <a href=\"https://maplestorywiki.net/w/Project:Copyrights\">additional terms may apply</a>.\n\n",
 	"yetiwikis-tou": "Terms of Use",
-	"yetiwikis-tou-url": "Project:Terms",
+	"yetiwikis-tou-url": "/w/Project:Terms",
 	"yetiwikis-contact": "Contact",
-	"yetiwikis-contact-url": "Project:Contact",
+	"yetiwikis-contact-url": "/w/Project:Contact",
 	"yetiwikis-spam-block": "You have been blocked from performing this action as you tripped our special anti-spam measures. If you believe this was in error, please [[Project:Contact|contact us]].",
 	"right-bypassgloopspam": "Bypass site-wide spam protection measures implemented by Yeti Wikis"
 }

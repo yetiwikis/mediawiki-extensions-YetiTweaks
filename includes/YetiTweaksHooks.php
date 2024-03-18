@@ -156,6 +156,7 @@ class YetiTweaksHooks {
 			/* Open Graph protocol */
 			$out->addMeta( 'og:title', $wgSitename );
 			$out->addMeta( 'og:type', 'website' );
+			$out->addMeta( 'keywords', 'MapleStory Wiki, MapleStory classes, MapleStory items, MapleStory NPCs, MapleStory quests, MapleStory game guide');
 		} else {
 			/* Open Graph protocol */
 			$out->addMeta( 'og:site_name', $wgSitename );
