@@ -139,15 +139,15 @@ class YetiTweaksHooks {
 				// Light mode is the base styling, so it doesn't load a separate theme stylesheet.
 				if ( $theme === 'light' ) {
 					// Legacy non-darkmode selector.
-					$out->addBodyClasses( [ 'wgl-lightmode' ] );
+					$out->addBodyClasses( [ 'msw-lightmode' ] );
 				} else {
 					if ( $theme === 'dark' ) {
 						// Legacy darkmode selector.
-						$out->addBodyClasses( [ 'wgl-darkmode' ] );
+						$out->addBodyClasses( [ 'msw-darkmode' ] );
 					}
-					$out->addModuleStyles( [ "wgl.theme.$theme" ] );
+					$out->addModuleStyles( [ "msw.theme.$theme" ] );
 				}
-				$out->addBodyClasses( [ "wgl-theme-$theme" ] );
+				$out->addBodyClasses( [ "msw-theme-$theme" ] );
 			}
 		}
 
