@@ -117,7 +117,8 @@ class YetiTweaksHooks {
 					]
 				)
 			);
-			$out->addInlineScript("window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','$wgYetiTweaksAnalyticsID')");
+			$userLoggedIn = $user->isAnon() ? 'false' : 'true';
+			$out->addInlineScript("window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','$wgYetiTweaksAnalyticsID',{'loggedin': '$userLoggedIn'});");
 		}
 
 		/*
