@@ -3,13 +3,10 @@
 namespace MediaWiki\Extension\YetiTweaks\ResourceLoader;
 
 use MediaWiki\MediaWikiServices;
-use ResourceLoaderContext;
+use MediaWiki\ResourceLoader\Context;
 use MediaWiki\ResourceLoader\WikiModule;
 
 class ThemeStylesModule extends WikiModule {
-	/** @var string[] What client platforms the module targets (e.g. desktop, mobile) */
-	protected $targets = [ 'desktop', 'mobile' ];
-
 	/**
 	 * @var string
 	 */
@@ -30,10 +27,10 @@ class ThemeStylesModule extends WikiModule {
 	/**
 	 * Get list of pages used by this module
 	 *
-	 * @param ResourceLoaderContext $context
+	 * @param MediaWiki\ResourceLoader\Context $context
 	 * @return array[]
 	 */
-	protected function getPages( ResourceLoaderContext $context ) {
+	protected function getPages( MediaWiki\ResourceLoader\Context $context ) {
 		$pages = [];
 		$skin = ucfirst( $context->getSkin() );
 
