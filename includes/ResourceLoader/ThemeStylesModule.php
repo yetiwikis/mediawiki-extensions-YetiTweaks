@@ -27,10 +27,10 @@ class ThemeStylesModule extends WikiModule {
 	/**
 	 * Get list of pages used by this module
 	 *
-	 * @param MediaWiki\ResourceLoader\Context $context
+	 * @param Context $context
 	 * @return array[]
 	 */
-	protected function getPages( MediaWiki\ResourceLoader\Context $context ) {
+	protected function getPages( Context $context ) {
 		$pages = [];
 		$skin = ucfirst( $context->getSkin() );
 
