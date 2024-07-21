@@ -80,11 +80,18 @@ class YetiTweaksHooks {
 					$skin->msg( 'yetiwikis-tou-url' )->inContentLanguage()->text()
 				)
 			], $skin->msg( 'yetiwikis-tou' ) );
+
 			$footerLinks['contact'] = Html::rawElement( 'a', [
 				'href' => Title::newFromText(
 					$skin->msg( 'yetiwikis-contact-url' )->inContentLanguage()->text()
 				)
 			], $skin->msg( 'yetiwikis-contact' ) );
+			
+			$footerLinks['yetiwikis'] = Html::rawElement( 'a', [
+				'href' => Title::newFromText(
+					$skin->msg( 'yetiwikis-yetiwikis-url' )->inContentLanguage()->text()
+				)
+			], $skin->msg( 'yetiwikis-yetiwikis' ) );
 		}
 	}
 

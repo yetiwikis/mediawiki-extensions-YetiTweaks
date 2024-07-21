@@ -1,11 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jayden Bailey",
-			"TehKittyCat",
-			"Bilin Tsui (Anterdc99)",
-			"MarkusRost",
-			"Jonasagra"
+			"Winter"
 		]
 	},
 	"yetitweaks-desc": "Provides additional functionality for all wikis across Yeti Wikis",
@@ -14,6 +10,8 @@
 	"yetiwikis-tou-url": "/w/Project:Terms",
 	"yetiwikis-contact": "Contact",
 	"yetiwikis-contact-url": "/w/Project:Contact",
+	"yetiwikis-yetiwikis": "Yeti Wikis",
+	"yetiwikis-yetiwikis-url": "https://yeti.wiki",
 	"yetiwikis-spam-block": "You have been blocked from performing this action as you tripped our special anti-spam measures. If you believe this was in error, please [[Project:Contact|contact us]].",
 	"right-bypassgloopspam": "Bypass site-wide spam protection measures implemented by Yeti Wikis"
 }
