@@ -184,6 +184,22 @@ class YetiTweaksHooks {
 		}
 	}
 
+	public function onOutputPageParserOutput( $out, $parserOutput ): void {
+		// Export the description from the main parser output into the OutputPage
+		if ( method_exists( $parserOutput, 'getPageProperty' ) ) {
+			// MW 1.38+
+			$description = $parserOutput->getPageProperty( 'description' );
+		} else {
+			$description = $parserOutput->getProperty( 'description' );
+			if ( $description === false ) {
+				$description = null;
+			}
+		}
+		if ( $description !== null ) {
+			$out->addMeta( 'og:description', $description );
+		}
+	}
+
 	/**
 	 * Prevent infinite looping of main page requests with cache parameters.
 	 */

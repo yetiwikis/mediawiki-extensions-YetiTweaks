@@ -4,9 +4,9 @@
 	"author": [
 		"Jayden Bailey",
 		"TehKittyCat",
-		"..."
+		"Winter"
 	],
-	"url": "https://weirdgloop.org",
+	"url": "https://yeti.wiki",
 	"descriptionmsg": "yetitweaks-desc",
 	"license-name": "GPL-2.0-or-later",
 	"type": "other",
@@ -34,6 +34,7 @@
 	},
 	"Hooks": {
 		"BeforePageDisplay": "MediaWiki\\Extension\\YetiTweaks\\YetiTweaksHooks::onBeforePageDisplay",
+		"OutputPageParserOutput": "MediaWiki\\Extension\\YetiTweaks\\YetiTweaksHooks::onOutputPageParserOutput",
 		"GetLocalURL::Internal": "MediaWiki\\Extension\\YetiTweaks\\YetiTweaksHooks::onGetLocalURLInternal",
 		"LocalFilePurgeThumbnails": "MediaWiki\\Extension\\YetiTweaks\\YetiTweaksHooks::onLocalFilePurgeThumbnails",
 		"MessageCacheFetchOverrides": "MediaWiki\\Extension\\YetiTweaks\\YetiTweaksHooks::onMessageCacheFetchOverrides",
