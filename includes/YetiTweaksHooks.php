@@ -101,6 +101,7 @@ class YetiTweaksHooks {
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
 		global $wgYetiTweaksAnalyticsID, $wgCloudflareDomain, $wgYetiTweaksCSP, $wgYetiTweaksCSPAnons, $wgSitename;
 		global $wgYetiTweaksEnableTheming, $wgArticlePath, $wgCanonicalServer;
+		global $wgYetiTweaksEnableFavicon, $wgYetiTweaksFavicon32x32, $wgYetiTweaksFavicon16x16;
 
 		// For letting user JS import from additional sources, like the Wikimedia projects, they have a longer CSP than anons.
 		if ( $wgYetiTweaksCSP !== '' ) {
@@ -159,6 +160,26 @@ class YetiTweaksHooks {
 			}
 		}
 
+		// Link favicons
+		if ( $wgYetiTweaksEnableFavicon ) {
+			if ( $wgYetiTweaksFavicon32x32 ) {
+				$out->addLink([
+					'rel' => 'icon',
+					'type' => 'image/png',
+					'sizes' => '32x32',
+					'href' => $wgYetiTweaksFavicon32x32,
+				]);
+			}
+			if ( $wgYetiTweaksFavicon16x16 ) {
+				$out->addLink([
+					'rel' => 'icon',
+					'type' => 'image/png',
+					'sizes' => '16x16',
+					'href' => $wgYetiTweaksFavicon16x16,
+				]);
+			}
+		}
+
 		/* Open Graph protocol */
 		// Get description and add to og:description meta tag.
 		$description = array_search('description', array_column($out->getMetaTags(), 0));
@@ -168,17 +189,14 @@ class YetiTweaksHooks {
 
 		$title = $out->getTitle();
 		if ( $title->isMainPage() ) {
-			/* Open Graph protocol */
 			$out->addMeta( 'og:title', $wgSitename );
 			$out->addMeta( 'og:type', 'website' );
 			$out->addMeta( 'keywords', 'MapleStory Wiki, MapleStory classes, MapleStory items, MapleStory NPCs, MapleStory quests, MapleStory game guide');
 		} else {
-			/* Open Graph protocol */
-			$out->addMeta( 'og:site_name', $wgSitename );
 			$out->addMeta( 'og:title', $title->getPrefixedText() );
 			$out->addMeta( 'og:type', 'article' );
 		}
-		/* Open Graph protocol */
+		$out->addMeta( 'og:site_name', $wgSitename );
 		$out->addMeta( 'og:url', $title->getFullURL() );
 	}
 

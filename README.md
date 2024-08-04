@@ -9,3 +9,6 @@ This extension handles site-wide interface messages, tweaks, and improvements on
 * `$wgYetiTweaksEnableMessageOverrides` - Enable overriding certain MediaWiki messages with our own
 * `$wgYetiTweaksEnableTheming` - Enable loading themes when the theme cookie is set or the legacy darkmode cookie is true
 * `$wgYetiTweaksEnableLoadingFixedWidth` - Enable loading the wg.fixedwidth ResourceLoader module when the readermode cookie is true
+* `$wgYetiTweaksEnableFavicon`
+* `$wgYetiTweaksFavicon32x32`
+* `$wgYetiTweaksFavicon16x16`

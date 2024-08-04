@@ -73,6 +73,15 @@
 		"EnableTheming": {
 			"value": true
 		},
+		"EnableFavicon": {
+			"value": false
+		},
+		"Favicon32x32": {
+			"value": false
+		},
+		"Favicon16x16": {
+			"value": false
+		},
 		"EnableMessageOverrides": {
 			"value": true
 		},
