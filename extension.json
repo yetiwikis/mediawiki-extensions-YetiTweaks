@@ -34,7 +34,6 @@
 	},
 	"Hooks": {
 		"BeforePageDisplay": "MediaWiki\\Extension\\YetiTweaks\\YetiTweaksHooks::onBeforePageDisplay",
-		"OutputPageParserOutput": "MediaWiki\\Extension\\YetiTweaks\\YetiTweaksHooks::onOutputPageParserOutput",
 		"GetLocalURL::Internal": "MediaWiki\\Extension\\YetiTweaks\\YetiTweaksHooks::onGetLocalURLInternal",
 		"LocalFilePurgeThumbnails": "MediaWiki\\Extension\\YetiTweaks\\YetiTweaksHooks::onLocalFilePurgeThumbnails",
 		"MessageCacheFetchOverrides": "MediaWiki\\Extension\\YetiTweaks\\YetiTweaksHooks::onMessageCacheFetchOverrides",
