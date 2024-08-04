@@ -159,6 +159,13 @@ class YetiTweaksHooks {
 			}
 		}
 
+		/* Open Graph protocol */
+		// Get description and add to og:description meta tag.
+		$description = array_search('description', array_column($out->getMetaTags(), 0));
+		if ( $description !== false ) {
+			$out->addMeta( 'og:description', $out->getMetaTags()[$description][1] );
+		}
+
 		$title = $out->getTitle();
 		if ( $title->isMainPage() ) {
 			/* Open Graph protocol */
@@ -183,7 +190,6 @@ class YetiTweaksHooks {
 			}
 		}
 	}
-
 	/**
 	 * Prevent infinite looping of main page requests with cache parameters.
 	 */
