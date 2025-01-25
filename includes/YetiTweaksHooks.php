@@ -92,6 +92,12 @@ class YetiTweaksHooks {
 					$skin->msg( 'yetiwikis-yetiwikis-url' )->inContentLanguage()->text()
 				)
 			], $skin->msg( 'yetiwikis-yetiwikis' ) );
+			
+			$footerLinks['yetiwikis'] = Html::rawElement( 'a', [
+				'href' => Title::newFromText(
+					$skin->msg( 'yetiwikis-report-ad-url' )->inContentLanguage()->text()
+				)
+			], $skin->msg( 'yetiwikis-report-ad' ) );
 		}
 	}
 
@@ -249,5 +255,42 @@ class YetiTweaksHooks {
 				] );
 			}
 		}
+	}
+
+	public static function onSkinAfterContent( &$html, Skin $skin ) {
+		global $wgYetiTweaksEnableAds, $wgYetiTweaksAdClient, $wgYetiTweaksAdSlot;
+		if ( !$wgYetiTweaksEnableAds || !$wgYetiTweaksAdClient || !$wgYetiTweaksAdSlot ) {
+			return;
+		}
+		$user = RequestContext::getMain()->getUser();
+		if ( !$user->isAnon() ) {
+			return;
+		}
+		// Only show ads on main namespace
+		$title = $skin->getTitle();
+		$namespace = $title->getNamespace();
+		if ( $namespace !== 0 ) {
+			return;
+		}
+
+		$html .= Html::rawElement( 'div', [
+			'class' => 'yeti-ad-container',
+		], Html::rawElement( 'script', [ 
+			'async' => true,
+			'src' => 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' . $wgYetiTweaksAdClient,
+			'crossorigin' => 'anonymous',
+		], '' ));
+
+		$html .= Html::rawElement( 'ins', [
+			'class' => 'adsbygoogle',
+			'style' => 'display:inline-block;max-width:728px;width:100%;height:90px',
+			'data-ad-client' => $wgYetiTweaksAdClient,
+			'data-ad-slot' => $wgYetiTweaksAdSlot,
+		], '' );
+		$html .= Html::rawElement(
+			'script',
+			[],
+			'(adsbygoogle = window.adsbygoogle || []).push({});'
+		);
 	}
 }
