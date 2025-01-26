@@ -262,6 +262,10 @@ class YetiTweaksHooks {
 		if ( !$wgYetiTweaksEnableAds || !$wgYetiTweaksAdClient || !$wgYetiTweaksAdSlot ) {
 			return;
 		}
+		// Check skin is mobile (minerva)
+		if ( $skin->getSkinName() !== 'minerva' ) {
+			return;
+		}
 		$user = RequestContext::getMain()->getUser();
 		if ( !$user->isAnon() ) {
 			return;
