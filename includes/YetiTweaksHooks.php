@@ -257,26 +257,38 @@ class YetiTweaksHooks {
 		}
 	}
 
-	public static function onSkinAfterContent( &$html, Skin $skin ) {
-		global $wgYetiTweaksEnableAds, $wgYetiTweaksAdClient, $wgYetiTweaksAdSlot;
-		if ( !$wgYetiTweaksEnableAds || !$wgYetiTweaksAdClient || !$wgYetiTweaksAdSlot ) {
-			return;
+	private static function enableAds( Skin $skin ) {
+		global $wgYetiTweaksEnableAds, $wgYetiTweaksAdClient, $wgYetiTweaksAdSlot, $wgRequest;
+
+		$overrideAds = $wgRequest->getHeader( 'X-Override-Ads' );
+		if ( $overrideAds === 'true' ) {
+			return true;
 		}
-		// Check skin is mobile (minerva)
-		if ( $skin->getSkinName() !== 'minerva' ) {
-			return;
+		if ( $overrideAds === 'false' ) {
+			return false;
+		}
+
+		if ( !$wgYetiTweaksEnableAds || !$wgYetiTweaksAdClient || !$wgYetiTweaksAdSlot ) {
+			return false;
 		}
 		$user = RequestContext::getMain()->getUser();
 		if ( !$user->isAnon() ) {
-			return;
+			return false;
 		}
 		// Only show ads on main namespace
 		$title = $skin->getTitle();
 		$namespace = $title->getNamespace();
 		if ( $namespace !== 0 ) {
-			return;
+			return false;
 		}
 
+		return true;
+	}
+
+	public static function onSkinAfterContent( &$html, Skin $skin ) {
+		if ( !self::enableAds( $skin ) ) {
+			return;
+		}
 		$html .= Html::rawElement( 'div', [
 			'class' => 'yeti-ad-container',
 		], Html::rawElement( 'script', [ 
