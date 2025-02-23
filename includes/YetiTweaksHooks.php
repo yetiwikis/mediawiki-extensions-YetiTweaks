@@ -286,6 +286,7 @@ class YetiTweaksHooks {
 	}
 
 	public static function onSkinAfterContent( &$html, Skin $skin ) {
+		global $wgYetiTweaksAdClient, $wgYetiTweaksAdSlot;
 		if ( !self::enableAds( $skin ) ) {
 			return;
 		}
