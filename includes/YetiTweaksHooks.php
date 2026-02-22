@@ -2,10 +2,10 @@
 
 namespace MediaWiki\Extension\YetiTweaks;
 
-use CdnCacheUpdate;
-use DeferredUpdates;
-use ErrorPageError;
-use Html;
+use MediaWiki\Deferred\CdnCacheUpdate;
+use MediaWiki\Deferred\DeferredUpdates;
+use MediaWiki\Exception\ErrorPageError;
+use MediaWiki\Html\Html;
 use MediaWiki\Extension\YetiTweaks\ResourceLoader\ThemeStylesModule;
 use MediaWiki\Extension\YetiTweaks\StopForumSpam\StopForumSpam;
 use MediaWiki\MediaWikiServices;
@@ -13,12 +13,12 @@ use MediaWiki\ResourceLoader\ResourceLoader;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Storage\EditResult;
 use MediaWiki\User\UserIdentity;
-use OutputPage;
-use RequestContext;
-use Skin;
-use Title;
-use WikiMap;
-use WikiPage;
+use MediaWiki\Output\OutputPage;
+use MediaWiki\Context\RequestContext;
+use MediaWiki\Skin\Skin;
+use MediaWiki\Title\Title;
+use MediaWiki\WikiMap\WikiMap;
+use MediaWiki\Page\WikiPage;
 
 /**
  * Hooks for YetiTweaks extension
@@ -255,59 +255,5 @@ class YetiTweaksHooks {
 				] );
 			}
 		}
-	}
-
-	private static function enableAds( Skin $skin ) {
-		global $wgYetiTweaksEnableAds, $wgYetiTweaksAdClient, $wgYetiTweaksAdSlot, $wgRequest;
-
-		$overrideAds = $wgRequest->getHeader( 'X-Override-Ads' );
-		if ( $overrideAds === 'true' ) {
-			return true;
-		}
-		if ( $overrideAds === 'false' ) {
-			return false;
-		}
-
-		if ( !$wgYetiTweaksEnableAds || !$wgYetiTweaksAdClient || !$wgYetiTweaksAdSlot ) {
-			return false;
-		}
-		$user = RequestContext::getMain()->getUser();
-		if ( !$user->isAnon() ) {
-			return false;
-		}
-		// Only show ads on main namespace
-		$title = $skin->getTitle();
-		$namespace = $title->getNamespace();
-		if ( $namespace !== 0 ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	public static function onSkinAfterContent( &$html, Skin $skin ) {
-		global $wgYetiTweaksAdClient, $wgYetiTweaksAdSlot;
-		if ( !self::enableAds( $skin ) ) {
-			return;
-		}
-		$html .= Html::rawElement( 'div', [
-			'class' => 'yeti-ad-container',
-		], Html::rawElement( 'script', [ 
-			'async' => true,
-			'src' => 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' . $wgYetiTweaksAdClient,
-			'crossorigin' => 'anonymous',
-		], '' ));
-
-		$html .= Html::rawElement( 'ins', [
-			'class' => 'adsbygoogle',
-			'style' => 'display:inline-block;max-width:728px;width:100%;height:90px',
-			'data-ad-client' => $wgYetiTweaksAdClient,
-			'data-ad-slot' => $wgYetiTweaksAdSlot,
-		], '' );
-		$html .= Html::rawElement(
-			'script',
-			[],
-			'(adsbygoogle = window.adsbygoogle || []).push({});'
-		);
 	}
 }

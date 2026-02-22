@@ -42,8 +42,7 @@
 		"SkinAddFooterLinks": "MediaWiki\\Extension\\YetiTweaks\\YetiTweaksHooks::onSkinAddFooterLinks",
 		"SkinCopyrightFooter": "MediaWiki\\Extension\\YetiTweaks\\YetiTweaksHooks::onSkinCopyrightFooter",
 		"TestCanonicalRedirect": "MediaWiki\\Extension\\YetiTweaks\\YetiTweaksHooks::onTestCanonicalRedirect",
-		"TitleSquidURLs": "MediaWiki\\Extension\\YetiTweaks\\YetiTweaksHooks::onTitleSquidURLs",
-		"SkinAfterContent": "MediaWiki\\Extension\\YetiTweaks\\YetiTweaksHooks::onSkinAfterContent"
+		"TitleSquidURLs": "MediaWiki\\Extension\\YetiTweaks\\YetiTweaksHooks::onTitleSquidURLs"
 	},
 	"JobClasses": {
 		"refreshLinksBatch": "MediaWiki\\Extension\\YetiTweaks\\RefreshLinksBatchJob"
@@ -103,15 +102,6 @@
 		},
 		"UseSFS": {
 			"value": true
-		},
-		"EnableAds": {
-			"value": false
-		},
-		"AdClient": {
-			"value": ""
-		},
-		"AdSlot": {
-			"value": ""
 		}
 	},
 	"AvailableRights": [
